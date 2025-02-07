@@ -1197,7 +1197,7 @@ loaded via a namespace (and not attached):
  [83] lattice_0.22-6            FNN_1.1.4.1              
  [85] renv_1.1.0                rtracklayer_1.64.0       
  [87] bit_4.5.0.1               tidyselect_1.2.1         
- [89] locfit_1.5-9.10           Biostrings_2.72.1        
+ [89] locfit_1.5-9.11           Biostrings_2.72.1        
  [91] knitr_1.49                gridExtra_2.3            
  [93] ProtGenerics_1.36.0       edgeR_4.2.2              
  [95] xfun_0.50                 statmod_1.5.0            

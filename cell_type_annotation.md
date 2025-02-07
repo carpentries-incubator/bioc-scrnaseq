@@ -1136,7 +1136,7 @@ loaded via a namespace (and not attached):
  [77] lattice_0.22-6            survival_3.8-3           
  [79] renv_1.1.0                FNN_1.1.4.1              
  [81] bit_4.5.0.1               tidyselect_1.2.1         
- [83] locfit_1.5-9.10           Biostrings_2.72.1        
+ [83] locfit_1.5-9.11           Biostrings_2.72.1        
  [85] knitr_1.49                gridExtra_2.3            
  [87] edgeR_4.2.2               xfun_0.50                
  [89] mixtools_2.0.0            statmod_1.5.0            

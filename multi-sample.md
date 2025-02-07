@@ -1063,7 +1063,7 @@ loaded via a namespace (and not attached):
  [67] glue_1.8.0                metapod_1.12.0           
  [69] tools_4.4.2               AnnotationHub_3.12.0     
  [71] BiocNeighbors_1.22.0      ScaledMatrix_1.12.0      
- [73] locfit_1.5-9.10           cowplot_1.1.3            
+ [73] locfit_1.5-9.11           cowplot_1.1.3            
  [75] grid_4.4.2                AnnotationDbi_1.66.0     
  [77] colorspace_2.1-1          GenomeInfoDbData_1.2.12  
  [79] beeswarm_0.4.0            BiocSingular_1.20.0      

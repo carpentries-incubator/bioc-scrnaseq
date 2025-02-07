@@ -439,21 +439,20 @@ table(exact = colLabels(sce), approx = clusters)
 ``` output
      approx
 exact   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
-   1   88   0   0   0   2   0   0   0   2   0   0   0   0   0   0
+   1   90   0   0   0   0   0   0   0   1   0   0   0   0   0   0
    2    0 143   0   0   0   0   0   0   0   0   0   0   0   0   1
-   3    0   0  75   0   0   0   0   0   0   0   0   0   0   0   0
-   4    0   0   0 341   0   0   0   0   0   0   0   0   0   0   0
-   5    0   0   0   0 394   0   0   2   0   1   0   1   0   0   0
-   6    0   0   0   0   0  71 131   0   0   0   0   0   0   0   0
-   7    0   0   0   0   0 253   0   0   0   1   0   0   0   0   0
-   8    0   0   0   0   0   0   0  93   0   0   0   0   0   0   0
-   9    1   0   0   0   2   0   0   0 106   0   0   0   0   0   0
-   10   0   0   0   0   0   0   0   0   0 113   0   0   0   0   0
-   11   0   0   0   0   0   0   0   0   0   5 142   0   6   0   0
-   12   0   0   0   0   1   0   0   0   0   0   0 214   0   0   0
-   13   0   0   0   0   0   0   0   0   0   0   0   0 146   0   0
+   3    0   0  76   0   0   0   0   0   0   0   0   0   0   0   0
+   4    0   0   0 341   0   0   0   0   0   0   0   0   0   0  56
+   5    0   0   1   0 394   1   0   0   0   1   0   0   0   0   0
+   6    0   0   0   0   0 209   0   0   0   0   0   0   0   0   0
+   7    0   0   0   0   0   0 245   0   0   1   0   0   0   0   0
+   8    0   0   0   0   0   0   0  95   0   0   0   0   0   0   0
+   9    1   0   0   0   1   0   0   0 106   0   0   0   0   0   0
+   10   0   0   0   0   1   0   0   0   0 113   4  10   0   0   0
+   11   0   0   0   0   0   1   0   0   0   1 141   0   0   0   0
+   12   0   0   0   0   1   0   0   0   0   0   0 204   0   0   0
+   13   0   0   0   0   0   0   0   0   0   0   6   0 146   0   0
    14   0   0   0   0   0   0   0   0   0   0   0   0   0  20   0
-   15   0   0   0   0   0   0   0   0   0   0   0   0   0   0  56
 ```
 
 The similarity of the two clusterings can be quantified by calculating the pairwise Rand index: 
@@ -969,7 +968,7 @@ attached base packages:
 
 other attached packages:
  [1] zellkonverter_1.14.1         Seurat_5.2.1                
- [3] SeuratObject_5.0.2           sp_2.1-4                    
+ [3] SeuratObject_5.0.2           sp_2.2-0                    
  [5] BiocSingular_1.20.0          BiocNeighbors_1.22.0        
  [7] bluster_1.14.0               scran_1.32.0                
  [9] MouseGastrulationData_1.18.0 SpatialExperiment_1.14.0    
@@ -1008,7 +1007,7 @@ loaded via a namespace (and not attached):
  [37] spatstat.utils_3.1-2      listenv_0.9.1            
  [39] goftest_1.2-3             RSpectra_0.16-2          
  [41] spatstat.random_3.3-2     dqrng_0.4.1              
- [43] fitdistrplus_1.2-2        parallelly_1.41.0        
+ [43] fitdistrplus_1.2-2        parallelly_1.42.0        
  [45] DelayedMatrixStats_1.26.0 codetools_0.2-20         
  [47] tidyselect_1.2.1          UCSC.utils_1.0.0         
  [49] farver_2.1.2              ScaledMatrix_1.12.0      
@@ -1048,7 +1047,7 @@ loaded via a namespace (and not attached):
 [117] beachmat_2.20.0           xtable_1.8-4             
 [119] cluster_2.1.8             beeswarm_0.4.0           
 [121] evaluate_1.0.3            magick_2.8.5             
-[123] cli_3.6.3                 locfit_1.5-9.10          
+[123] cli_3.6.3                 locfit_1.5-9.11          
 [125] compiler_4.4.2            rlang_1.1.5              
 [127] crayon_1.5.3              future.apply_1.11.3      
 [129] labeling_0.4.3            plyr_1.8.9               

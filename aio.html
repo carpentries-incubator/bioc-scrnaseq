@@ -368,7 +368,7 @@
         
 <section id="aio-intro-sce"><p>Content from <a href="intro-sce.html">Introduction to Bioconductor and the SingleCellExperiment class</a></p>
 <hr>
-<p>Last updated on 2025-01-30 |
+<p>Last updated on 2025-02-07 |
 
         <a href="https://github.com/ccb-hms/osca-carpentries/edit/main/episodes/intro-sce.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1096,7 +1096,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-eda_qc"><p>Content from <a href="eda_qc.html">Exploratory data analysis and quality control</a></p>
 <hr>
-<p>Last updated on 2025-01-30 |
+<p>Last updated on 2025-02-07 |
 
         <a href="https://github.com/ccb-hms/osca-carpentries/edit/main/episodes/eda_qc.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2765,7 +2765,7 @@ loaded via a namespace (and not attached):
  [83] lattice_0.22-6            FNN_1.1.4.1
  [85] renv_1.1.0                rtracklayer_1.64.0
  [87] bit_4.5.0.1               tidyselect_1.2.1
- [89] locfit_1.5-9.10           Biostrings_2.72.1
+ [89] locfit_1.5-9.11           Biostrings_2.72.1
  [91] knitr_1.49                gridExtra_2.3
  [93] ProtGenerics_1.36.0       edgeR_4.2.2
  [95] xfun_0.50                 statmod_1.5.0
@@ -2796,7 +2796,7 @@ any links that you are not going to use.
 </ol>
 </div></section><section id="aio-cell_type_annotation"><p>Content from <a href="cell_type_annotation.html">Cell type annotation</a></p>
 <hr>
-<p>Last updated on 2025-01-30 |
+<p>Last updated on 2025-02-07 |
 
         <a href="https://github.com/ccb-hms/osca-carpentries/edit/main/episodes/cell_type_annotation.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4167,7 +4167,7 @@ loaded via a namespace (and not attached):
  [77] lattice_0.22-6            survival_3.8-3
  [79] renv_1.1.0                FNN_1.1.4.1
  [81] bit_4.5.0.1               tidyselect_1.2.1
- [83] locfit_1.5-9.10           Biostrings_2.72.1
+ [83] locfit_1.5-9.11           Biostrings_2.72.1
  [85] knitr_1.49                gridExtra_2.3
  [87] edgeR_4.2.2               xfun_0.50
  [89] mixtools_2.0.0            statmod_1.5.0
@@ -4192,7 +4192,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-multi-sample"><p>Content from <a href="multi-sample.html">Multi-sample analyses</a></p>
 <hr>
-<p>Last updated on 2025-01-30 |
+<p>Last updated on 2025-02-07 |
 
         <a href="https://github.com/ccb-hms/osca-carpentries/edit/main/episodes/multi-sample.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4421,7 +4421,7 @@ factor presumably leading to this difference?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Samples 5 and 6 were from the same “pool” of cells. Looking at the
 documentation for the dataset under <code>?WTChimeraData</code> we see
@@ -4496,7 +4496,7 @@ present in the corrected data.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>False. Batch-level data can be retained through confounding with
 experimental factors or poor ability to distinguish experimental effects
@@ -4949,7 +4949,7 @@ sizes? What does <code>logFC</code> stand for?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>“logFC” stands for log fold-change. <code>edgeR</code> uses a log2
 convention. Rather than reporting e.g. a 5-fold increase, it’s better to
@@ -5174,7 +5174,7 @@ abundances table. Does it comport with the model results?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <p>You can simply hand <code>pheatmap()</code> a matrix as its only
 argument. <code>pheatmap()</code> has a million options you can adjust,
@@ -5190,7 +5190,7 @@ challenge.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb51">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -5240,7 +5240,7 @@ distribution of p-values for the <code>Erythroid3</code> cell type.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
 <div class="accordion-body">
 <p>After running the second pseudobulk DGE, you can join the two
 <code>DataFrame</code>s of <code>Erythroid3</code> statistics using the
@@ -5255,7 +5255,7 @@ column from the gene IDs.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb53">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -5338,7 +5338,7 @@ effect correction. Why?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
   <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
 <div class="accordion-body">
 <p>It’s important to have multiple samples within each experimental
 group because it helps the batch effect correction algorithm distinguish
@@ -5492,7 +5492,7 @@ loaded via a namespace (and not attached):
  [67] glue_1.8.0                metapod_1.12.0
  [69] tools_4.4.2               AnnotationHub_3.12.0
  [71] BiocNeighbors_1.22.0      ScaledMatrix_1.12.0
- [73] locfit_1.5-9.10           cowplot_1.1.3
+ [73] locfit_1.5-9.11           cowplot_1.1.3
  [75] grid_4.4.2                AnnotationDbi_1.66.0
  [77] colorspace_2.1-1          GenomeInfoDbData_1.2.12
  [79] beeswarm_0.4.0            BiocSingular_1.20.0
@@ -5514,7 +5514,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-large_data"><p>Content from <a href="large_data.html">Working with large data</a></p>
 <hr>
-<p>Last updated on 2025-01-30 |
+<p>Last updated on 2025-02-07 |
 
         <a href="https://github.com/ccb-hms/osca-carpentries/edit/main/episodes/large_data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -6006,21 +6006,20 @@ approximation can be largely ignored.</p>
 </h3>
 <pre class="output" tabindex="0"><code>     approx
 exact   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
-   1   88   0   0   0   2   0   0   0   2   0   0   0   0   0   0
+   1   90   0   0   0   0   0   0   0   1   0   0   0   0   0   0
    2    0 143   0   0   0   0   0   0   0   0   0   0   0   0   1
-   3    0   0  75   0   0   0   0   0   0   0   0   0   0   0   0
-   4    0   0   0 341   0   0   0   0   0   0   0   0   0   0   0
-   5    0   0   0   0 394   0   0   2   0   1   0   1   0   0   0
-   6    0   0   0   0   0  71 131   0   0   0   0   0   0   0   0
-   7    0   0   0   0   0 253   0   0   0   1   0   0   0   0   0
-   8    0   0   0   0   0   0   0  93   0   0   0   0   0   0   0
-   9    1   0   0   0   2   0   0   0 106   0   0   0   0   0   0
-   10   0   0   0   0   0   0   0   0   0 113   0   0   0   0   0
-   11   0   0   0   0   0   0   0   0   0   5 142   0   6   0   0
-   12   0   0   0   0   1   0   0   0   0   0   0 214   0   0   0
-   13   0   0   0   0   0   0   0   0   0   0   0   0 146   0   0
-   14   0   0   0   0   0   0   0   0   0   0   0   0   0  20   0
-   15   0   0   0   0   0   0   0   0   0   0   0   0   0   0  56</code></pre>
+   3    0   0  76   0   0   0   0   0   0   0   0   0   0   0   0
+   4    0   0   0 341   0   0   0   0   0   0   0   0   0   0  56
+   5    0   0   1   0 394   1   0   0   0   1   0   0   0   0   0
+   6    0   0   0   0   0 209   0   0   0   0   0   0   0   0   0
+   7    0   0   0   0   0   0 245   0   0   1   0   0   0   0   0
+   8    0   0   0   0   0   0   0  95   0   0   0   0   0   0   0
+   9    1   0   0   0   1   0   0   0 106   0   0   0   0   0   0
+   10   0   0   0   0   1   0   0   0   0 113   4  10   0   0   0
+   11   0   0   0   0   0   1   0   0   0   1 141   0   0   0   0
+   12   0   0   0   0   1   0   0   0   0   0   0 204   0   0   0
+   13   0   0   0   0   0   0   0   0   0   0   6   0 146   0   0
+   14   0   0   0   0   0   0   0   0   0   0   0   0   0  20   0</code></pre>
 </div>
 <p>The similarity of the two clusterings can be quantified by
 calculating the pairwise Rand index:</p>
@@ -6651,7 +6650,7 @@ attached base packages:
 
 other attached packages:
  [1] zellkonverter_1.14.1         Seurat_5.2.1
- [3] SeuratObject_5.0.2           sp_2.1-4
+ [3] SeuratObject_5.0.2           sp_2.2-0
  [5] BiocSingular_1.20.0          BiocNeighbors_1.22.0
  [7] bluster_1.14.0               scran_1.32.0
  [9] MouseGastrulationData_1.18.0 SpatialExperiment_1.14.0
@@ -6690,7 +6689,7 @@ loaded via a namespace (and not attached):
  [37] spatstat.utils_3.1-2      listenv_0.9.1
  [39] goftest_1.2-3             RSpectra_0.16-2
  [41] spatstat.random_3.3-2     dqrng_0.4.1
- [43] fitdistrplus_1.2-2        parallelly_1.41.0
+ [43] fitdistrplus_1.2-2        parallelly_1.42.0
  [45] DelayedMatrixStats_1.26.0 codetools_0.2-20
  [47] tidyselect_1.2.1          UCSC.utils_1.0.0
  [49] farver_2.1.2              ScaledMatrix_1.12.0
@@ -6730,7 +6729,7 @@ loaded via a namespace (and not attached):
 [117] beachmat_2.20.0           xtable_1.8-4
 [119] cluster_2.1.8             beeswarm_0.4.0
 [121] evaluate_1.0.3            magick_2.8.5
-[123] cli_3.6.3                 locfit_1.5-9.10
+[123] cli_3.6.3                 locfit_1.5-9.11
 [125] compiler_4.4.2            rlang_1.1.5
 [127] crayon_1.5.3              future.apply_1.11.3
 [129] labeling_0.4.3            plyr_1.8.9
@@ -6753,7 +6752,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-hca"><p>Content from <a href="hca.html">Accessing data from the Human Cell Atlas (HCA)</a></p>
 <hr>
-<p>Last updated on 2025-01-30 |
+<p>Last updated on 2025-02-07 |
 
         <a href="https://github.com/ccb-hms/osca-carpentries/edit/main/episodes/hca.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -7224,7 +7223,7 @@ cells per tissue in descending order.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -7275,7 +7274,7 @@ most numerous type of cells?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -7316,7 +7315,7 @@ summarise.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -7408,7 +7407,7 @@ columns, where possible.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>

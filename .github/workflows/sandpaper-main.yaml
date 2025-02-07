@@ -32,7 +32,6 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RENV_PATHS_ROOT: ~/.local/share/renv/
-      R_REMOTES_UPGRADE: never
     steps:
 
       - name: "Checkout Lesson"

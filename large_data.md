@@ -438,21 +438,21 @@ table(exact = colLabels(sce), approx = clusters)
 
 ``` output
      approx
-exact   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
-   1   90   0   0   0   0   0   0   0   1   0   0   0   0   0   0
-   2    0 143   0   0   0   0   0   0   0   0   0   0   0   0   1
-   3    0   0  76   0   0   0   0   0   0   0   0   0   0   0   0
-   4    0   0   0 341   0   0   0   0   0   0   0   0   0   0  56
-   5    0   0   1   0 394   1   0   0   0   1   0   0   0   0   0
-   6    0   0   0   0   0 209   0   0   0   0   0   0   0   0   0
-   7    0   0   0   0   0   0 245   0   0   1   0   0   0   0   0
-   8    0   0   0   0   0   0   0  95   0   0   0   0   0   0   0
-   9    1   0   0   0   1   0   0   0 106   0   0   0   0   0   0
-   10   0   0   0   0   1   0   0   0   0 113   4  10   0   0   0
-   11   0   0   0   0   0   1   0   0   0   1 141   0   0   0   0
-   12   0   0   0   0   1   0   0   0   0   0   0 204   0   0   0
-   13   0   0   0   0   0   0   0   0   0   0   6   0 146   0   0
-   14   0   0   0   0   0   0   0   0   0   0   0   0   0  20   0
+exact   1   2   3   4   5   6   7   8   9  10  11  12  13  14
+   1   88   0   0   0   3   0   0   0   2   0   0   0   0   0
+   2    0 143   0   1   0   0   0   0   0   0   0   0   0   0
+   3    0   0  75   0   0   0   0   0   0   0   0   0   0   0
+   4    0   0   0 397   0   0   0   0   0   0   0   0   0   0
+   5    0   0   0   0 392   0   0   0   0   1   0   8   0   0
+   6    0   0   0   0   0 192  17   0   0   0   0   0   0   0
+   7    0   0   0   0   0   0 245   0   0   1   0   0   0   0
+   8    0   0   0   0   1   0   0  95   0   0   0   0   0   0
+   9    1   0   0   0   1   0   0   0 106   0   0   0   0   0
+   10   0   0   0   0   0   0   0   0   0 113   4   0   0   0
+   11   0   0   0   0   0   1   0   0   0   0 143   0   0   0
+   12   0   0   0   0   1   0   0   0   0   0   0 208   0   0
+   13   0   0   0   0   0   0   3   0   0   0   6   0 143   0
+   14   0   0   0   0   0   0   0   0   0   0   0   0   0  20
 ```
 
 The similarity of the two clusterings can be quantified by calculating the pairwise Rand index: 
@@ -992,16 +992,16 @@ loaded via a namespace (and not attached):
   [7] basilisk.utils_1.16.0     fastDummies_1.7.5        
   [9] lifecycle_1.0.4           edgeR_4.2.2              
  [11] globals_0.16.3            lattice_0.22-6           
- [13] MASS_7.3-64               magrittr_2.0.3           
+ [13] MASS_7.3-65               magrittr_2.0.3           
  [15] plotly_4.10.4             limma_3.60.6             
  [17] rmarkdown_2.29            yaml_2.3.10              
  [19] metapod_1.12.0            httpuv_1.6.15            
  [21] sctransform_0.4.1         spam_2.11-1              
- [23] spatstat.sparse_3.1-0     reticulate_1.40.0        
+ [23] spatstat.sparse_3.1-0     reticulate_1.41.0        
  [25] pbapply_1.7-2             cowplot_1.1.3            
  [27] DBI_1.2.3                 RColorBrewer_1.1-3       
  [29] zlibbioc_1.50.0           Rtsne_0.17               
- [31] purrr_1.0.2               BumpyMatrix_1.12.0       
+ [31] purrr_1.0.4               BumpyMatrix_1.12.0       
  [33] rappdirs_0.3.3            GenomeInfoDbData_1.2.12  
  [35] ggrepel_0.9.6             irlba_2.3.5.1            
  [37] spatstat.utils_3.1-2      listenv_0.9.1            
@@ -1012,23 +1012,23 @@ loaded via a namespace (and not attached):
  [47] tidyselect_1.2.1          UCSC.utils_1.0.0         
  [49] farver_2.1.2              ScaledMatrix_1.12.0      
  [51] viridis_0.6.5             spatstat.explore_3.3-4   
- [53] BiocFileCache_2.12.0      jsonlite_1.8.9           
+ [53] BiocFileCache_2.12.0      jsonlite_1.9.1           
  [55] progressr_0.15.1          ggridges_0.5.6           
  [57] survival_3.8-3            tools_4.4.2              
  [59] ica_1.0-3                 Rcpp_1.0.14              
  [61] glue_1.8.0                gridExtra_2.3            
- [63] xfun_0.50                 dplyr_1.1.4              
+ [63] xfun_0.51                 dplyr_1.1.4              
  [65] withr_3.0.2               formatR_1.14             
  [67] BiocManager_1.30.25       fastmap_1.2.0            
  [69] basilisk_1.16.0           rhdf5filters_1.16.0      
  [71] digest_0.6.37             rsvd_1.0.5               
- [73] R6_2.5.1                  mime_0.12                
+ [73] R6_2.6.1                  mime_0.12                
  [75] colorspace_2.1-1          scattermore_1.2          
  [77] tensor_1.5                spatstat.data_3.1-4      
  [79] RSQLite_2.3.9             tidyr_1.3.1              
- [81] generics_0.1.3            data.table_1.16.4        
- [83] renv_1.1.0                htmlwidgets_1.6.4        
- [85] httr_1.4.7                uwot_0.2.2               
+ [81] generics_0.1.3            data.table_1.17.0        
+ [83] renv_1.1.2                htmlwidgets_1.6.4        
+ [85] httr_1.4.7                uwot_0.2.3               
  [87] pkgconfig_2.0.3           gtable_0.3.6             
  [89] blob_1.2.4                lmtest_0.9-40            
  [91] XVector_0.44.0            htmltools_0.5.8.1        
@@ -1036,8 +1036,8 @@ loaded via a namespace (and not attached):
  [95] png_0.1-8                 spatstat.univar_3.1-1    
  [97] knitr_1.49                reshape2_1.4.4           
  [99] rjson_0.2.23              nlme_3.1-167             
-[101] curl_6.2.0                cachem_1.1.0             
-[103] zoo_1.8-12                stringr_1.5.1            
+[101] curl_6.2.1                cachem_1.1.0             
+[103] zoo_1.8-13                stringr_1.5.1            
 [105] BiocVersion_3.19.1        KernSmooth_2.23-26       
 [107] parallel_4.4.2            miniUI_0.1.1.1           
 [109] vipor_0.4.7               AnnotationDbi_1.66.0     
@@ -1047,7 +1047,7 @@ loaded via a namespace (and not attached):
 [117] beachmat_2.20.0           xtable_1.8-4             
 [119] cluster_2.1.8             beeswarm_0.4.0           
 [121] evaluate_1.0.3            magick_2.8.5             
-[123] cli_3.6.3                 locfit_1.5-9.11          
+[123] cli_3.6.4                 locfit_1.5-9.11          
 [125] compiler_4.4.2            rlang_1.1.5              
 [127] crayon_1.5.3              future.apply_1.11.3      
 [129] labeling_0.4.3            plyr_1.8.9               

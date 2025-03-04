@@ -1153,7 +1153,7 @@ other attached packages:
 [23] matrixStats_1.5.0            BiocStyle_2.32.1            
 
 loaded via a namespace (and not attached):
-  [1] jsonlite_1.8.9            magrittr_2.0.3           
+  [1] jsonlite_1.9.1            magrittr_2.0.3           
   [3] ggbeeswarm_0.7.2          magick_2.8.5             
   [5] farver_2.1.2              rmarkdown_2.29           
   [7] BiocIO_1.14.0             zlibbioc_1.50.0          
@@ -1161,14 +1161,14 @@ loaded via a namespace (and not attached):
  [11] Rsamtools_2.20.0          DelayedMatrixStats_1.26.0
  [13] RCurl_1.98-1.16           htmltools_0.5.8.1        
  [15] S4Arrays_1.4.1            AnnotationHub_3.12.0     
- [17] curl_6.2.0                BiocNeighbors_1.22.0     
+ [17] curl_6.2.1                BiocNeighbors_1.22.0     
  [19] xgboost_1.7.8.1           Rhdf5lib_1.26.0          
  [21] SparseArray_1.4.8         rhdf5_2.48.0             
  [23] cachem_1.1.0              GenomicAlignments_1.40.0 
  [25] igraph_2.1.4              mime_0.12                
  [27] lifecycle_1.0.4           pkgconfig_2.0.3          
  [29] rsvd_1.0.5                Matrix_1.7-2             
- [31] R6_2.5.1                  fastmap_1.2.0            
+ [31] R6_2.6.1                  fastmap_1.2.0            
  [33] GenomeInfoDbData_1.2.12   digest_0.6.37            
  [35] colorspace_2.1-1          dqrng_0.4.1              
  [37] irlba_2.3.5.1             ExperimentHub_2.12.0     
@@ -1178,8 +1178,8 @@ loaded via a namespace (and not attached):
  [45] compiler_4.4.2            bit64_4.6.0-1            
  [47] withr_3.0.2               BiocParallel_1.38.0      
  [49] viridis_0.6.5             DBI_1.2.3                
- [51] HDF5Array_1.32.1          R.utils_2.12.3           
- [53] MASS_7.3-64               rappdirs_0.3.3           
+ [51] HDF5Array_1.32.1          R.utils_2.13.0           
+ [53] MASS_7.3-65               rappdirs_0.3.3           
  [55] DelayedArray_0.30.1       bluster_1.14.0           
  [57] rjson_0.2.23              tools_4.4.2              
  [59] vipor_0.4.7               beeswarm_0.4.0           
@@ -1188,30 +1188,30 @@ loaded via a namespace (and not attached):
  [65] grid_4.4.2                Rtsne_0.17               
  [67] cluster_2.1.8             generics_0.1.3           
  [69] gtable_0.3.6              R.methodsS3_1.8.2        
- [71] data.table_1.16.4         metapod_1.12.0           
+ [71] data.table_1.17.0         metapod_1.12.0           
  [73] BiocSingular_1.20.0       ScaledMatrix_1.12.0      
  [75] XVector_0.44.0            ggrepel_0.9.6            
  [77] BiocVersion_3.19.1        pillar_1.10.1            
  [79] limma_3.60.6              BumpyMatrix_1.12.0       
  [81] dplyr_1.1.4               BiocFileCache_2.12.0     
  [83] lattice_0.22-6            FNN_1.1.4.1              
- [85] renv_1.1.0                rtracklayer_1.64.0       
+ [85] renv_1.1.2                rtracklayer_1.64.0       
  [87] bit_4.5.0.1               tidyselect_1.2.1         
  [89] locfit_1.5-9.11           Biostrings_2.72.1        
  [91] knitr_1.49                gridExtra_2.3            
  [93] ProtGenerics_1.36.0       edgeR_4.2.2              
- [95] xfun_0.50                 statmod_1.5.0            
+ [95] xfun_0.51                 statmod_1.5.0            
  [97] UCSC.utils_1.0.0          lazyeval_0.2.2           
  [99] yaml_2.3.10               evaluate_1.0.3           
 [101] codetools_0.2-20          tibble_3.2.1             
-[103] BiocManager_1.30.25       cli_3.6.3                
-[105] uwot_0.2.2                munsell_0.5.1            
+[103] BiocManager_1.30.25       cli_3.6.4                
+[105] uwot_0.2.3                munsell_0.5.1            
 [107] Rcpp_1.0.14               dbplyr_2.5.0             
 [109] png_0.1-8                 XML_3.99-0.18            
 [111] parallel_4.4.2            blob_1.2.4               
 [113] sparseMatrixStats_1.16.0  bitops_1.0-9             
 [115] viridisLite_0.4.2         scales_1.3.0             
-[117] purrr_1.0.2               crayon_1.5.3             
+[117] purrr_1.0.4               crayon_1.5.3             
 [119] rlang_1.1.5               formatR_1.14             
 [121] cowplot_1.1.3             KEGGREST_1.44.1          
 ```

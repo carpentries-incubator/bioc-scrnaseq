@@ -1095,20 +1095,20 @@ other attached packages:
 [25] AUCell_1.26.0                BiocStyle_2.32.1            
 
 loaded via a namespace (and not attached):
-  [1] RColorBrewer_1.1-3        jsonlite_1.8.9           
+  [1] RColorBrewer_1.1-3        jsonlite_1.9.1           
   [3] magrittr_2.0.3            ggbeeswarm_0.7.2         
   [5] magick_2.8.5              farver_2.1.2             
   [7] rmarkdown_2.29            zlibbioc_1.50.0          
   [9] vctrs_0.6.5               memoise_2.0.1            
  [11] DelayedMatrixStats_1.26.0 htmltools_0.5.8.1        
  [13] S4Arrays_1.4.1            AnnotationHub_3.12.0     
- [15] curl_6.2.0                BiocNeighbors_1.22.0     
+ [15] curl_6.2.1                BiocNeighbors_1.22.0     
  [17] SparseArray_1.4.8         htmlwidgets_1.6.4        
  [19] plotly_4.10.4             cachem_1.1.0             
  [21] igraph_2.1.4              mime_0.12                
  [23] lifecycle_1.0.4           pkgconfig_2.0.3          
  [25] rsvd_1.0.5                Matrix_1.7-2             
- [27] R6_2.5.1                  fastmap_1.2.0            
+ [27] R6_2.6.1                  fastmap_1.2.0            
  [29] GenomeInfoDbData_1.2.12   digest_0.6.37            
  [31] colorspace_2.1-1          dqrng_0.4.1              
  [33] irlba_2.3.5.1             ExperimentHub_2.12.0     
@@ -1118,7 +1118,7 @@ loaded via a namespace (and not attached):
  [41] compiler_4.4.2            bit64_4.6.0-1            
  [43] withr_3.0.2               BiocParallel_1.38.0      
  [45] viridis_0.6.5             DBI_1.2.3                
- [47] R.utils_2.12.3            MASS_7.3-64              
+ [47] R.utils_2.13.0            MASS_7.3-65              
  [49] rappdirs_0.3.3            DelayedArray_0.30.1      
  [51] rjson_0.2.23              tools_4.4.2              
  [53] vipor_0.4.7               beeswarm_0.4.0           
@@ -1126,7 +1126,7 @@ loaded via a namespace (and not attached):
  [57] nlme_3.1-167              grid_4.4.2               
  [59] cluster_2.1.8             generics_0.1.3           
  [61] gtable_0.3.6              R.methodsS3_1.8.2        
- [63] tidyr_1.3.1               data.table_1.16.4        
+ [63] tidyr_1.3.1               data.table_1.17.0        
  [65] BiocSingular_1.20.0       ScaledMatrix_1.12.0      
  [67] metapod_1.12.0            XVector_0.44.0           
  [69] ggrepel_0.9.6             BiocVersion_3.19.1       
@@ -1134,23 +1134,23 @@ loaded via a namespace (and not attached):
  [73] BumpyMatrix_1.12.0        splines_4.4.2            
  [75] dplyr_1.1.4               BiocFileCache_2.12.0     
  [77] lattice_0.22-6            survival_3.8-3           
- [79] renv_1.1.0                FNN_1.1.4.1              
+ [79] renv_1.1.2                FNN_1.1.4.1              
  [81] bit_4.5.0.1               tidyselect_1.2.1         
  [83] locfit_1.5-9.11           Biostrings_2.72.1        
  [85] knitr_1.49                gridExtra_2.3            
- [87] edgeR_4.2.2               xfun_0.50                
+ [87] edgeR_4.2.2               xfun_0.51                
  [89] mixtools_2.0.0            statmod_1.5.0            
  [91] UCSC.utils_1.0.0          lazyeval_0.2.2           
  [93] yaml_2.3.10               evaluate_1.0.3           
  [95] codetools_0.2-20          kernlab_0.9-33           
  [97] tibble_3.2.1              BiocManager_1.30.25      
- [99] cli_3.6.3                 uwot_0.2.2               
-[101] xtable_1.8-4              segmented_2.1-3          
+ [99] cli_3.6.4                 uwot_0.2.3               
+[101] xtable_1.8-4              segmented_2.1-4          
 [103] munsell_0.5.1             Rcpp_1.0.14              
 [105] dbplyr_2.5.0              png_0.1-8                
 [107] parallel_4.4.2            blob_1.2.4               
 [109] sparseMatrixStats_1.16.0  viridisLite_0.4.2        
-[111] scales_1.3.0              purrr_1.0.2              
+[111] scales_1.3.0              purrr_1.0.4              
 [113] crayon_1.5.3              rlang_1.1.5              
 [115] formatR_1.14              cowplot_1.1.3            
 [117] KEGGREST_1.44.1          

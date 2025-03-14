@@ -402,6 +402,16 @@ It's almost never more than .001 in this case.
 
 ::::
 
+## `BPCells`
+
+[`BPCells`](https://bnprks.github.io/BPCells/index.html) is an R package that combines many of the above techniques with a custom bit-packing method for ultra-high performance analysis of single cell data. The key methods it uses to gain performance are:
+
+* A sparse, bit-packed, on-disk data format. Sparsity means it only stores the non-zeros in the data matrix. "Bit-packed" means it stores the common, small non-zeros in a smaller number of bits than a naive representation.
+* Avoiding realizing the full count matrix in memory. `BPCells` reads the data from the on-disk format straight to a matrix of principal components.
+* Parallelizable, streaming, chunk-wise algorithms. The `BPCells` methods take care to avoid storing intermediate results and take care to perform calculations using a minimal number of passes over the data.
+
+As `BPCells` is still fairly new, the interfaces between `BPCells` and Bioconductor types are still in development. 
+
 ## Interoperability with popular single-cell analysis ecosytems
 
 ### Seurat

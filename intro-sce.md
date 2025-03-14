@@ -436,7 +436,7 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.4.2 (2024-10-31)
+R version 4.4.3 (2025-02-28)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
@@ -470,7 +470,7 @@ other attached packages:
 loaded via a namespace (and not attached):
  [1] DBI_1.2.3                 formatR_1.14             
  [3] gridExtra_2.3             rlang_1.1.5              
- [5] magrittr_2.0.3            compiler_4.4.2           
+ [5] magrittr_2.0.3            compiler_4.4.3           
  [7] RSQLite_2.3.9             DelayedMatrixStats_1.26.0
  [9] png_0.1-8                 vctrs_0.6.5              
 [11] pkgconfig_2.0.3           crayon_1.5.3             
@@ -483,7 +483,7 @@ loaded via a namespace (and not attached):
 [25] cachem_1.1.0              beachmat_2.20.0          
 [27] jsonlite_1.8.9            blob_1.2.4               
 [29] DelayedArray_0.30.1       BiocParallel_1.38.0      
-[31] irlba_2.3.5.1             parallel_4.4.2           
+[31] irlba_2.3.5.1             parallel_4.4.3           
 [33] R6_2.5.1                  Rcpp_1.0.14              
 [35] knitr_1.49                Matrix_1.7-2             
 [37] tidyselect_1.2.1          abind_1.4-8              
@@ -495,13 +495,13 @@ loaded via a namespace (and not attached):
 [49] BiocFileCache_2.12.0      ExperimentHub_2.12.0     
 [51] Biostrings_2.72.1         pillar_1.10.1            
 [53] BiocManager_1.30.25       filelock_1.0.3           
-[55] renv_1.1.0                generics_0.1.3           
+[55] renv_1.1.2                generics_0.1.3           
 [57] BiocVersion_3.19.1        sparseMatrixStats_1.16.0 
 [59] munsell_0.5.1             scales_1.3.0             
-[61] glue_1.8.0                tools_4.4.2              
+[61] glue_1.8.0                tools_4.4.3              
 [63] AnnotationHub_3.12.0      BiocNeighbors_1.22.0     
 [65] ScaledMatrix_1.12.0       cowplot_1.1.3            
-[67] grid_4.4.2                AnnotationDbi_1.66.0     
+[67] grid_4.4.3                AnnotationDbi_1.66.0     
 [69] colorspace_2.1-1          GenomeInfoDbData_1.2.12  
 [71] beeswarm_0.4.0            BiocSingular_1.20.0      
 [73] vipor_0.4.7               cli_3.6.3                

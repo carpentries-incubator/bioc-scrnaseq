@@ -992,7 +992,7 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.4.2 (2024-10-31)
+R version 4.4.3 (2025-02-28)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
@@ -1029,7 +1029,7 @@ other attached packages:
 loaded via a namespace (and not attached):
   [1] DBI_1.2.3                 formatR_1.14             
   [3] gridExtra_2.3             rlang_1.1.5              
-  [5] magrittr_2.0.3            compiler_4.4.2           
+  [5] magrittr_2.0.3            compiler_4.4.3           
   [7] RSQLite_2.3.9             DelayedMatrixStats_1.26.0
   [9] png_0.1-8                 vctrs_0.6.5              
  [11] pkgconfig_2.0.3           crayon_1.5.3             
@@ -1043,10 +1043,10 @@ loaded via a namespace (and not attached):
  [27] beachmat_2.20.0           jsonlite_1.8.9           
  [29] blob_1.2.4                DelayedArray_0.30.1      
  [31] BiocParallel_1.38.0       cluster_2.1.8            
- [33] irlba_2.3.5.1             parallel_4.4.2           
+ [33] irlba_2.3.5.1             parallel_4.4.3           
  [35] R6_2.5.1                  RColorBrewer_1.1-3       
  [37] Rcpp_1.0.14               knitr_1.49               
- [39] splines_4.4.2             Matrix_1.7-2             
+ [39] splines_4.4.3             Matrix_1.7-2             
  [41] igraph_2.1.4              tidyselect_1.2.1         
  [43] viridis_0.6.5             abind_1.4-8              
  [45] yaml_2.3.10               codetools_0.2-20         
@@ -1057,14 +1057,14 @@ loaded via a namespace (and not attached):
  [55] BiocFileCache_2.12.0      ExperimentHub_2.12.0     
  [57] Biostrings_2.72.1         pillar_1.10.1            
  [59] BiocManager_1.30.25       filelock_1.0.3           
- [61] renv_1.1.0                generics_0.1.3           
+ [61] renv_1.1.2                generics_0.1.3           
  [63] BiocVersion_3.19.1        sparseMatrixStats_1.16.0 
  [65] munsell_0.5.1             scales_1.3.0             
  [67] glue_1.8.0                metapod_1.12.0           
- [69] tools_4.4.2               AnnotationHub_3.12.0     
+ [69] tools_4.4.3               AnnotationHub_3.12.0     
  [71] BiocNeighbors_1.22.0      ScaledMatrix_1.12.0      
  [73] locfit_1.5-9.11           cowplot_1.1.3            
- [75] grid_4.4.2                AnnotationDbi_1.66.0     
+ [75] grid_4.4.3                AnnotationDbi_1.66.0     
  [77] colorspace_2.1-1          GenomeInfoDbData_1.2.12  
  [79] beeswarm_0.4.0            BiocSingular_1.20.0      
  [81] vipor_0.4.7               cli_3.6.3                

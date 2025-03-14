@@ -438,21 +438,21 @@ table(exact = colLabels(sce), approx = clusters)
 
 ``` output
      approx
-exact   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
-   1   90   0   0   0   0   0   0   0   1   0   0   0   0   0   0
-   2    0 143   0   0   0   0   0   0   0   0   0   0   0   0   1
-   3    0   0  76   0   0   0   0   0   0   0   0   0   0   0   0
-   4    0   0   0 341   0   0   0   0   0   0   0   0   0   0  56
-   5    0   0   1   0 394   1   0   0   0   1   0   0   0   0   0
-   6    0   0   0   0   0 209   0   0   0   0   0   0   0   0   0
-   7    0   0   0   0   0   0 245   0   0   1   0   0   0   0   0
-   8    0   0   0   0   0   0   0  95   0   0   0   0   0   0   0
-   9    1   0   0   0   1   0   0   0 106   0   0   0   0   0   0
-   10   0   0   0   0   1   0   0   0   0 113   4  10   0   0   0
-   11   0   0   0   0   0   1   0   0   0   1 141   0   0   0   0
-   12   0   0   0   0   1   0   0   0   0   0   0 204   0   0   0
-   13   0   0   0   0   0   0   0   0   0   0   6   0 146   0   0
-   14   0   0   0   0   0   0   0   0   0   0   0   0   0  20   0
+exact   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16
+   1   89   0   0   0   0   0   0   0   1   0   0   0   1   0   0   0
+   2    0  86  56   0   0   0   0   0   0   0   0   0   1   0   0   1
+   3    0   0  75   0   0   0   0   0   0   0   0   0   2   0   0   0
+   4    0   0   0 349   0   0   0   0   0   0   0   0   0   0   0  48
+   5    1   0   0   0 213   0   0   0   0   1   0   1 177   0   0   0
+   6    0   0   0   0   0 209   0   0   0   0   0   0   0   0   0   0
+   7    0   0   0   0   0   1 244   0   0   1   0   0   0   0   0   0
+   8    0   0   0   0   2   0   0  92   0   0   0   2   0   0   0   0
+   9    1   0   0   0   1   0   0   0 106   0   0   0   0   0   0   0
+   10   0   0   0   0   8   0   0   0   0 109   0   0   0   0   0   0
+   11   0   0   0   0   0   2   0   0   0   3 139   0   0   0   0   0
+   12   0   0   0   0  29   0   0   0   0   0   0 188   0   0   0   0
+   13   0   0   0   0   0   0   0   0   0   0   6   0   0 146   0   0
+   14   0   0   0   0   0   0   0   0   0   0   0   0   0   0  20   0
 ```
 
 The similarity of the two clusterings can be quantified by calculating the pairwise Rand index: 
@@ -945,7 +945,7 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.4.2 (2024-10-31)
+R version 4.4.3 (2025-02-28)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
@@ -986,7 +986,7 @@ other attached packages:
 [33] BiocStyle_2.32.1            
 
 loaded via a namespace (and not attached):
-  [1] RcppAnnoy_0.0.22          splines_4.4.2            
+  [1] RcppAnnoy_0.0.22          splines_4.4.3            
   [3] later_1.4.1               filelock_1.0.3           
   [5] tibble_3.2.1              polyclip_1.10-7          
   [7] basilisk.utils_1.16.0     fastDummies_1.7.5        
@@ -1014,7 +1014,7 @@ loaded via a namespace (and not attached):
  [51] viridis_0.6.5             spatstat.explore_3.3-4   
  [53] BiocFileCache_2.12.0      jsonlite_1.8.9           
  [55] progressr_0.15.1          ggridges_0.5.6           
- [57] survival_3.8-3            tools_4.4.2              
+ [57] survival_3.8-3            tools_4.4.3              
  [59] ica_1.0-3                 Rcpp_1.0.14              
  [61] glue_1.8.0                gridExtra_2.3            
  [63] xfun_0.50                 dplyr_1.1.4              
@@ -1027,7 +1027,7 @@ loaded via a namespace (and not attached):
  [77] tensor_1.5                spatstat.data_3.1-4      
  [79] RSQLite_2.3.9             tidyr_1.3.1              
  [81] generics_0.1.3            data.table_1.16.4        
- [83] renv_1.1.0                htmlwidgets_1.6.4        
+ [83] renv_1.1.2                htmlwidgets_1.6.4        
  [85] httr_1.4.7                uwot_0.2.2               
  [87] pkgconfig_2.0.3           gtable_0.3.6             
  [89] blob_1.2.4                lmtest_0.9-40            
@@ -1039,16 +1039,16 @@ loaded via a namespace (and not attached):
 [101] curl_6.2.0                cachem_1.1.0             
 [103] zoo_1.8-12                stringr_1.5.1            
 [105] BiocVersion_3.19.1        KernSmooth_2.23-26       
-[107] parallel_4.4.2            miniUI_0.1.1.1           
+[107] parallel_4.4.3            miniUI_0.1.1.1           
 [109] vipor_0.4.7               AnnotationDbi_1.66.0     
-[111] pillar_1.10.1             grid_4.4.2               
+[111] pillar_1.10.1             grid_4.4.3               
 [113] vctrs_0.6.5               RANN_2.6.2               
 [115] promises_1.3.2            dbplyr_2.5.0             
 [117] beachmat_2.20.0           xtable_1.8-4             
 [119] cluster_2.1.8             beeswarm_0.4.0           
 [121] evaluate_1.0.3            magick_2.8.5             
 [123] cli_3.6.3                 locfit_1.5-9.11          
-[125] compiler_4.4.2            rlang_1.1.5              
+[125] compiler_4.4.3            rlang_1.1.5              
 [127] crayon_1.5.3              future.apply_1.11.3      
 [129] labeling_0.4.3            plyr_1.8.9               
 [131] ggbeeswarm_0.7.2          stringi_1.8.4            

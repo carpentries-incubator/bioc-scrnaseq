@@ -1117,7 +1117,7 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.4.2 (2024-10-31)
+R version 4.4.3 (2025-02-28)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
@@ -1175,17 +1175,17 @@ loaded via a namespace (and not attached):
  [39] RSQLite_2.3.9             beachmat_2.20.0          
  [41] labeling_0.4.3            filelock_1.0.3           
  [43] httr_1.4.7                abind_1.4-8              
- [45] compiler_4.4.2            bit64_4.6.0-1            
+ [45] compiler_4.4.3            bit64_4.6.0-1            
  [47] withr_3.0.2               BiocParallel_1.38.0      
  [49] viridis_0.6.5             DBI_1.2.3                
  [51] HDF5Array_1.32.1          R.utils_2.12.3           
  [53] MASS_7.3-64               rappdirs_0.3.3           
  [55] DelayedArray_0.30.1       bluster_1.14.0           
- [57] rjson_0.2.23              tools_4.4.2              
+ [57] rjson_0.2.23              tools_4.4.3              
  [59] vipor_0.4.7               beeswarm_0.4.0           
  [61] R.oo_1.27.0               glue_1.8.0               
  [63] restfulr_0.0.15           rhdf5filters_1.16.0      
- [65] grid_4.4.2                Rtsne_0.17               
+ [65] grid_4.4.3                Rtsne_0.17               
  [67] cluster_2.1.8             generics_0.1.3           
  [69] gtable_0.3.6              R.methodsS3_1.8.2        
  [71] data.table_1.16.4         metapod_1.12.0           
@@ -1195,7 +1195,7 @@ loaded via a namespace (and not attached):
  [79] limma_3.60.6              BumpyMatrix_1.12.0       
  [81] dplyr_1.1.4               BiocFileCache_2.12.0     
  [83] lattice_0.22-6            FNN_1.1.4.1              
- [85] renv_1.1.0                rtracklayer_1.64.0       
+ [85] renv_1.1.2                rtracklayer_1.64.0       
  [87] bit_4.5.0.1               tidyselect_1.2.1         
  [89] locfit_1.5-9.11           Biostrings_2.72.1        
  [91] knitr_1.49                gridExtra_2.3            
@@ -1208,7 +1208,7 @@ loaded via a namespace (and not attached):
 [105] uwot_0.2.2                munsell_0.5.1            
 [107] Rcpp_1.0.14               dbplyr_2.5.0             
 [109] png_0.1-8                 XML_3.99-0.18            
-[111] parallel_4.4.2            blob_1.2.4               
+[111] parallel_4.4.3            blob_1.2.4               
 [113] sparseMatrixStats_1.16.0  bitops_1.0-9             
 [115] viridisLite_0.4.2         scales_1.3.0             
 [117] purrr_1.0.2               crayon_1.5.3             

@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.4.2",
+    "Version": "4.4.3",
     "Repositories": [
       {
         "Name": "BioCsoft",
@@ -4398,12 +4398,13 @@
       "Roxygen": "list(markdown = TRUE)",
       "Config/pak/sysreqs": "libssl-dev",
       "Repository": "https://carpentries.r-universe.dev",
-      "RemoteUrl": "https://github.com/jeroen/curl",
-      "RemoteRef": "v6.2.0",
-      "RemoteSha": "2f49074628943943288fe8848a6d0b86b8eee140",
       "NeedsCompilation": "yes",
       "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>), Hadley Wickham [ctb], Posit Software, PBC [cph]",
-      "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>"
+      "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
+      "RemoteType": "repository",
+      "RemoteUrl": "https://github.com/jeroen/curl",
+      "RemoteRef": "v6.2.0",
+      "RemoteSha": "2f49074628943943288fe8848a6d0b86b8eee140"
     },
     "data.table": {
       "Package": "data.table",

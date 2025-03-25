@@ -1134,7 +1134,7 @@ loaded via a namespace (and not attached):
  [73] BumpyMatrix_1.12.0        splines_4.4.3            
  [75] dplyr_1.1.4               BiocFileCache_2.12.0     
  [77] lattice_0.22-6            survival_3.8-3           
- [79] renv_1.1.2                FNN_1.1.4.1              
+ [79] renv_1.1.4                FNN_1.1.4.1              
  [81] bit_4.5.0.1               tidyselect_1.2.1         
  [83] locfit_1.5-9.11           Biostrings_2.72.1        
  [85] knitr_1.49                gridExtra_2.3            

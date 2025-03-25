@@ -495,7 +495,7 @@ loaded via a namespace (and not attached):
 [49] BiocFileCache_2.12.0      ExperimentHub_2.12.0     
 [51] Biostrings_2.72.1         pillar_1.10.1            
 [53] BiocManager_1.30.25       filelock_1.0.3           
-[55] renv_1.1.2                generics_0.1.3           
+[55] renv_1.1.4                generics_0.1.3           
 [57] BiocVersion_3.19.1        sparseMatrixStats_1.16.0 
 [59] munsell_0.5.1             scales_1.3.0             
 [61] glue_1.8.0                tools_4.4.3              

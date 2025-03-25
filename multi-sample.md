@@ -1057,7 +1057,7 @@ loaded via a namespace (and not attached):
  [55] BiocFileCache_2.12.0      ExperimentHub_2.12.0     
  [57] Biostrings_2.72.1         pillar_1.10.1            
  [59] BiocManager_1.30.25       filelock_1.0.3           
- [61] renv_1.1.2                generics_0.1.3           
+ [61] renv_1.1.4                generics_0.1.3           
  [63] BiocVersion_3.19.1        sparseMatrixStats_1.16.0 
  [65] munsell_0.5.1             scales_1.3.0             
  [67] glue_1.8.0                metapod_1.12.0           

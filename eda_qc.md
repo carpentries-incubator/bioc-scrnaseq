@@ -1195,7 +1195,7 @@ loaded via a namespace (and not attached):
  [79] limma_3.60.6              BumpyMatrix_1.12.0       
  [81] dplyr_1.1.4               BiocFileCache_2.12.0     
  [83] lattice_0.22-6            FNN_1.1.4.1              
- [85] renv_1.1.2                rtracklayer_1.64.0       
+ [85] renv_1.1.4                rtracklayer_1.64.0       
  [87] bit_4.5.0.1               tidyselect_1.2.1         
  [89] locfit_1.5-9.11           Biostrings_2.72.1        
  [91] knitr_1.49                gridExtra_2.3            

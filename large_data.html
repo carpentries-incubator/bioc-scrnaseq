@@ -332,7 +332,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Working with large data</h1>
-        <p>Last updated on 2025-03-25 |
+        <p>Last updated on 2025-04-01 |
 
         <a href="https://github.com/ccb-hms/osca-carpentries/edit/main/episodes/large_data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -745,7 +745,7 @@ overhead.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>From <code>?MulticoreParam</code> :</p>
 <blockquote>
@@ -815,21 +815,22 @@ approximation can be largely ignored.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>     approx
-exact   1   2   3   4   5   6   7   8   9  10  11  12  13  14
-   1   90   0   0   0   0   0   0   0   1   0   0   0   0   0
-   2    0 143   0   1   0   0   0   0   0   0   0   0   0   0
-   3    0   0  75   0   0   0   0   0   0   0   0   0   0   0
-   4    0   0   0 397   0   0   0   0   0   0   0   0   0   0
-   5    1   0   2   0 393   0   0   2   0   0   0   0   0   0
-   6    0   0   0   0   0 208   1   0   0   0   1   0   0   0
-   7    0   0   0   0   0   1 244   0   0   1   0   0   0   0
-   8    0   0   0   0   0   0   0  93   0   0   0   0   0   0
-   9    1   0   0   0   1   0   0   0 106   0   0   0   0   0
-   10   0   0   0   0   0   0   0   0   0 113   0   0   0   0
-   11   0   0   0   0   0   0   0   0   0   5 142   0   6   0
-   12   0   0   0   0   3   0   0   0   0   0   0 214   0   0
-   13   0   0   0   0   0   0   0   0   0   0   0   0 146   0
-   14   0   0   0   0   0   0   0   0   0   0   0   0   0  20</code></pre>
+exact   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
+   1   88   0   0   0   1   0   0   0   2   0   0   0   0   0   0
+   2    0 143   0   0   0   0   0   0   0   0   0   0   0   0   1
+   3    0   0  75   0   2   0   0   0   0   0   0   0   0   0   0
+   4    0   0   0 341   0   0   0   0   0   0   0   0   0   0   0
+   5    0   0   0   0 392   0   0   0   0   1   0   0   0   0   0
+   6    0   0   0   0   0 210   0   0   0   0   0   0   0   0   0
+   7    0   0   0   0   0   0 245   0   0   1   0   0   0   0   0
+   8    0   0   0   0   2   0   0  95   0   0   0   0   0   0   0
+   9    1   0   0   0   1   0   0   0 106   0   0   0   0   0   0
+   10   0   0   0   0   0   0   0   0   0 113   0   0   0   0   0
+   11   0   0   0   0   0   0   0   0   0   0 153   0   0   0   0
+   12   0   0   0   0   1   0   0   0   0   0   0 215   0   0   0
+   13   0   0   0   0   0   0   0   0   0   0   0   0 146   0   0
+   14   0   0   0   0   0   0   0   0   0   0   0   0   0  20   0
+   15   0   0   0   0   0   0   0   0   0   0   0   0   0   0  56</code></pre>
 </div>
 <p>The similarity of the two clusterings can be quantified by
 calculating the pairwise Rand index:</p>
@@ -973,7 +974,7 @@ results.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>This code block calculates the exact PCA coordinates. Another thing
 to note: PC vectors are only identified up to a sign flip. We can see
@@ -1246,7 +1247,7 @@ matrix in memory as opposed to holding the data out of memory.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <p>See the <code>HDF5Array</code> function for reading from HDF5 and the
 <code>writeHDF5Array</code> function for writing to HDF5 from the <em><a href="https://bioconductor.org/packages/3.19/HDF5Array" class="external-link">HDF5Array</a></em>
@@ -1260,7 +1261,7 @@ package.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1339,7 +1340,7 @@ with 3 workers.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
 <div class="accordion-body">
 <p>Use the function <code>system.time</code> to obtain the runtime of
 each job.</p>
@@ -1352,7 +1353,7 @@ each job.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1605,8 +1606,8 @@ any links that you are not going to use.
   "url": "https://ccb-hms.github.io/osca-carpentries/large_data.html",
   "identifier": "https://ccb-hms.github.io/osca-carpentries/large_data.html",
   "dateCreated": "2024-01-10",
-  "dateModified": "2025-03-25",
-  "datePublished": "2025-03-25"
+  "dateModified": "2025-04-01",
+  "datePublished": "2025-04-01"
 }
 
   </script><script>

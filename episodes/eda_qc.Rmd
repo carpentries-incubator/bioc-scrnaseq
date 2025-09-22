@@ -582,7 +582,7 @@ This approach is implemented below using the `scDblFinder` library. We then visu
 set.seed(100)
 
 dbl.dens <- computeDoubletDensity(sce, subset.row = hvg.sce.var,
-                                  d = ncol(reducedDim(sce)))
+                                  dims = ncol(reducedDim(sce)))
 summary(dbl.dens)
 
 sce$DoubletScore <- dbl.dens

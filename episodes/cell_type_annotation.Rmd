@@ -276,11 +276,11 @@ most of the examples here are derived.
 
 ::: callout
 
-Remember, the quality of reference-based cell type annotation can only be as good as the cell type assignments in the reference. Garbage in, garbage out. In practice, it's worthwhile to spend time carefully assessing your to make sure the original assignments make sense and that it's compatible with the query dataset you're trying to annotate.
+Remember, the quality of reference-based cell type annotation can only be as good as the cell type assignments in the reference. Garbage in, garbage out. In practice, it's worthwhile to spend time carefully assessing the quality of your reference dataset to make sure the original assignments are valid and are compatible with the query dataset you intend to annotate.
 
 :::
 
-Here we take a single sample from `EmbryoAtlasData` as our reference dataset. In practice you would want to take more/all samples, possibly with batch-effect correction (see the next episode).
+Here we take a single sample from `EmbryoAtlasData` as our reference dataset. In practice you would want to take more/all samples, possibly with batch-effect correction (see the [multi-sample analysis episode](https://carpentries-incubator.github.io/bioc-scrnaseq/multi-sample.html)).
 
 ```{r ref-data, message = FALSE}
 ref <- EmbryoAtlasData(samples = 29)

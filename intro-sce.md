@@ -50,7 +50,7 @@ install.packages("BiocManager")
 ```
 
 After that, we can use *[BiocManager](https://CRAN.R-project.org/package=BiocManager)*'s `install()` function to install any package from Bioconductor.
-For example, the code chunk below uses this approach to install the *[SingleCellExperiment](https://bioconductor.org/packages/3.19/SingleCellExperiment)* package.
+For example, the code chunk below uses this approach to install the *[SingleCellExperiment](https://bioconductor.org/packages/3.22/SingleCellExperiment)* package.
 
 
 ``` r
@@ -139,7 +139,9 @@ We can assign one sample to a `SingleCellExperiment` object named `sce` like so:
 
 ``` r
 sce <- WTChimeraData(samples = 5)
+```
 
+``` r
 sce
 ```
 
@@ -381,7 +383,9 @@ Combine two `SingleCellExperiment` objects. The `MouseGastrulationData` package 
 sce  <- WTChimeraData(samples = 5)
 
 sce6 <- WTChimeraData(samples = 6)
+```
 
+``` r
 combined_sce <- cbind(sce, sce6)
 
 combined_sce
@@ -436,13 +440,13 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.4.3 (2025-02-28)
+R version 4.5.2 (2025-10-31)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0 
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0  LAPACK version 3.10.0
 
 locale:
  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
@@ -458,61 +462,45 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] scater_1.32.1                ggplot2_3.5.1               
- [3] scuttle_1.14.0               MouseGastrulationData_1.18.0
- [5] SpatialExperiment_1.14.0     SingleCellExperiment_1.26.0 
- [7] SummarizedExperiment_1.34.0  Biobase_2.64.0              
- [9] GenomicRanges_1.56.2         GenomeInfoDb_1.40.1         
-[11] IRanges_2.38.1               S4Vectors_0.42.1            
-[13] BiocGenerics_0.50.0          MatrixGenerics_1.16.0       
-[15] matrixStats_1.5.0            BiocStyle_2.32.1            
+ [1] scater_1.38.0                ggplot2_4.0.1               
+ [3] scuttle_1.20.0               MouseGastrulationData_1.24.0
+ [5] SpatialExperiment_1.20.0     SingleCellExperiment_1.32.0 
+ [7] SummarizedExperiment_1.40.0  Biobase_2.70.0              
+ [9] GenomicRanges_1.62.1         Seqinfo_1.0.0               
+[11] IRanges_2.44.0               S4Vectors_0.48.0            
+[13] BiocGenerics_0.56.0          generics_0.1.4              
+[15] MatrixGenerics_1.22.0        matrixStats_1.5.0           
+[17] BiocStyle_2.38.0            
 
 loaded via a namespace (and not attached):
- [1] DBI_1.2.3                 formatR_1.14             
- [3] gridExtra_2.3             rlang_1.1.5              
- [5] magrittr_2.0.3            compiler_4.4.3           
- [7] RSQLite_2.3.9             DelayedMatrixStats_1.26.0
- [9] png_0.1-8                 vctrs_0.6.5              
-[11] pkgconfig_2.0.3           crayon_1.5.3             
-[13] fastmap_1.2.0             dbplyr_2.5.0             
-[15] magick_2.8.5              XVector_0.44.0           
-[17] labeling_0.4.3            rmarkdown_2.29           
-[19] UCSC.utils_1.0.0          ggbeeswarm_0.7.2         
-[21] purrr_1.0.2               bit_4.5.0.1              
-[23] xfun_0.50                 zlibbioc_1.50.0          
-[25] cachem_1.1.0              beachmat_2.20.0          
-[27] jsonlite_1.8.9            blob_1.2.4               
-[29] DelayedArray_0.30.1       BiocParallel_1.38.0      
-[31] irlba_2.3.5.1             parallel_4.4.3           
-[33] R6_2.5.1                  Rcpp_1.0.14              
-[35] knitr_1.49                Matrix_1.7-2             
-[37] tidyselect_1.2.1          abind_1.4-8              
-[39] yaml_2.3.10               viridis_0.6.5            
-[41] codetools_0.2-20          curl_6.2.0               
-[43] lattice_0.22-6            tibble_3.2.1             
-[45] withr_3.0.2               KEGGREST_1.44.1          
-[47] BumpyMatrix_1.12.0        evaluate_1.0.3           
-[49] BiocFileCache_2.12.0      ExperimentHub_2.12.0     
-[51] Biostrings_2.72.1         pillar_1.10.1            
-[53] BiocManager_1.30.25       filelock_1.0.3           
-[55] renv_1.1.4                generics_0.1.3           
-[57] BiocVersion_3.19.1        sparseMatrixStats_1.16.0 
-[59] munsell_0.5.1             scales_1.3.0             
-[61] glue_1.8.0                tools_4.4.3              
-[63] AnnotationHub_3.12.0      BiocNeighbors_1.22.0     
-[65] ScaledMatrix_1.12.0       cowplot_1.1.3            
-[67] grid_4.4.3                AnnotationDbi_1.66.0     
-[69] colorspace_2.1-1          GenomeInfoDbData_1.2.12  
-[71] beeswarm_0.4.0            BiocSingular_1.20.0      
-[73] vipor_0.4.7               cli_3.6.3                
-[75] rsvd_1.0.5                rappdirs_0.3.3           
-[77] viridisLite_0.4.2         S4Arrays_1.4.1           
-[79] dplyr_1.1.4               gtable_0.3.6             
-[81] digest_0.6.37             SparseArray_1.4.8        
-[83] ggrepel_0.9.6             farver_2.1.2             
-[85] rjson_0.2.23              memoise_2.0.1            
-[87] htmltools_0.5.8.1         lifecycle_1.0.4          
-[89] httr_1.4.7                mime_0.12                
-[91] bit64_4.6.0-1            
+ [1] DBI_1.2.3            formatR_1.14         gridExtra_2.3       
+ [4] httr2_1.2.2          rlang_1.1.6          magrittr_2.0.4      
+ [7] otel_0.2.0           compiler_4.5.2       RSQLite_2.4.5       
+[10] png_0.1-8            vctrs_0.6.5          pkgconfig_2.0.3     
+[13] crayon_1.5.3         fastmap_1.2.0        dbplyr_2.5.1        
+[16] magick_2.9.0         XVector_0.50.0       labeling_0.4.3      
+[19] rmarkdown_2.30       ggbeeswarm_0.7.3     purrr_1.2.0         
+[22] bit_4.6.0            xfun_0.55            cachem_1.1.0        
+[25] beachmat_2.26.0      blob_1.2.4           DelayedArray_0.36.0 
+[28] BiocParallel_1.44.0  irlba_2.3.5.1        parallel_4.5.2      
+[31] R6_2.6.1             RColorBrewer_1.1-3   Rcpp_1.1.0          
+[34] knitr_1.50           Matrix_1.7-4         tidyselect_1.2.1    
+[37] abind_1.4-8          yaml_2.3.12          viridis_0.6.5       
+[40] codetools_0.2-20     curl_7.0.0           lattice_0.22-7      
+[43] tibble_3.3.0         withr_3.0.2          KEGGREST_1.50.0     
+[46] BumpyMatrix_1.18.0   S7_0.2.1             evaluate_1.0.5      
+[49] BiocFileCache_3.0.0  ExperimentHub_3.0.0  Biostrings_2.78.0   
+[52] pillar_1.11.1        BiocManager_1.30.27  filelock_1.0.3      
+[55] renv_1.1.5           BiocVersion_3.22.0   scales_1.4.0        
+[58] glue_1.8.0           tools_4.5.2          AnnotationHub_4.0.0 
+[61] BiocNeighbors_2.4.0  ScaledMatrix_1.18.0  cowplot_1.2.0       
+[64] grid_4.5.2           AnnotationDbi_1.72.0 beeswarm_0.4.0      
+[67] BiocSingular_1.26.1  vipor_0.4.7          cli_3.6.5           
+[70] rsvd_1.0.5           rappdirs_0.3.3       S4Arrays_1.10.1     
+[73] viridisLite_0.4.2    dplyr_1.1.4          gtable_0.3.6        
+[76] digest_0.6.39        SparseArray_1.10.7   ggrepel_0.9.6       
+[79] rjson_0.2.23         farver_2.1.2         memoise_2.0.1       
+[82] htmltools_0.5.9      lifecycle_1.0.4      httr_1.4.7          
+[85] bit64_4.6.0-1       
 ```
 

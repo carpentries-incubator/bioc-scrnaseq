@@ -50,7 +50,9 @@ library(scran)
 library(scDblFinder)
 
 sce <- WTChimeraData(samples = 5, type = "raw")
+```
 
+``` r
 sce <- sce[[1]]
 
 sce
@@ -155,7 +157,7 @@ summary(e.out$FDR <= 0.001)
 
 ``` output
    Mode   FALSE    TRUE    NA's 
-logical    6184    3131  513239 
+logical    5919    3396  513239 
 ```
 
 ``` r
@@ -166,13 +168,13 @@ sce
 
 ``` output
 class: SingleCellExperiment 
-dim: 29453 3131 
+dim: 29453 3396 
 metadata(0):
 assays(1): counts
 rownames(29453): ENSMUSG00000051951 ENSMUSG00000089699 ...
   ENSMUSG00000095742 tomato-td
 rowData names(2): ENSEMBL SYMBOL
-colnames(3131): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGTCAGTCTGATTG
+colnames(3396): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGTCACATTCTCAT
   TTTGTCATCTGAGTGT
 colData names(0):
 reducedDimNames(0):
@@ -180,7 +182,7 @@ mainExpName: NULL
 altExpNames(0):
 ```
 
-The result confirms our expectation: only 3,131 droplets contain a cell, while the large majority of droplets are empty.
+The result confirms our expectation: only 3396 droplets contain a cell, while the large majority of droplets are empty.
 
 ::::::::: spoiler
 
@@ -241,7 +243,7 @@ colData(sce)
 ```
 
 ``` output
-DataFrame with 3131 rows and 6 columns
+DataFrame with 3396 rows and 6 columns
                        sum  detected subsets_Mito_sum subsets_Mito_detected
                  <numeric> <integer>        <numeric>             <integer>
 AAACCTGAGACTGTAA     27577      5418              471                    10
@@ -252,8 +254,8 @@ AAACCTGGTGGTACAG       262       229                0                     0
 ...                    ...       ...              ...                   ...
 TTTGGTTTCGCCATAA     38398      6020              252                    12
 TTTGTCACACCCTATC      3013      1451              123                     9
+TTTGTCACACCGGAAA       820       157              655                    10
 TTTGTCACATTCTCAT      1472       675              599                    11
-TTTGTCAGTCTGATTG       361       293                0                     0
 TTTGTCATCTGAGTGT       267       233               16                     6
                  subsets_Mito_percent     total
                             <numeric> <numeric>
@@ -265,8 +267,8 @@ AAACCTGGTGGTACAG              0.00000       262
 ...                               ...       ...
 TTTGGTTTCGCCATAA             0.656284     38398
 TTTGTCACACCCTATC             4.082310      3013
+TTTGTCACACCGGAAA            79.878049       820
 TTTGTCACATTCTCAT            40.692935      1472
-TTTGTCAGTCTGATTG             0.000000       361
 TTTGTCATCTGAGTGT             5.992509       267
 ```
 
@@ -280,7 +282,7 @@ table(df$sum < 10000)
 ``` output
 
 FALSE  TRUE 
- 2477   654 
+ 2478   918 
 ```
 
 ``` r
@@ -290,7 +292,7 @@ table(df$subsets_Mito_percent > 10)
 ``` output
 
 FALSE  TRUE 
- 2761   370 
+ 2747   649 
 ```
 
 or we could look at the distribution of such metrics and use a data adaptive threshold.
@@ -302,7 +304,7 @@ summary(df$detected)
 
 ``` output
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-     98    4126    5168    4455    5670    7908 
+     45    2340    5074    4120    5628    7908 
 ```
 
 ``` r
@@ -311,7 +313,7 @@ summary(df$subsets_Mito_percent)
 
 ``` output
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  0.000   1.155   1.608   5.079   2.182  66.968 
+  0.000   1.206   1.680  10.062   2.890  93.368 
 ```
 
 We can use the `perCellQCFilters` function to apply a set of common adaptive filters to identify low-quality cells. By default, we consider a value to be an outlier if it is more than 3 median absolute deviations (MADs) from the median in the "problematic" direction. This is loosely motivated by the fact that such a filter will retain 99% of non-outlier values that follow a normal distribution.
@@ -324,7 +326,7 @@ reasons
 ```
 
 ``` output
-DataFrame with 3131 rows and 4 columns
+DataFrame with 3396 rows and 4 columns
          low_lib_size   low_n_features high_subsets_Mito_percent   discard
      <outlier.filter> <outlier.filter>          <outlier.filter> <logical>
 1               FALSE            FALSE                     FALSE     FALSE
@@ -333,11 +335,11 @@ DataFrame with 3131 rows and 4 columns
 4               FALSE            FALSE                     FALSE     FALSE
 5                TRUE             TRUE                     FALSE      TRUE
 ...               ...              ...                       ...       ...
-3127            FALSE            FALSE                     FALSE     FALSE
-3128             TRUE             TRUE                      TRUE      TRUE
-3129             TRUE             TRUE                      TRUE      TRUE
-3130             TRUE             TRUE                     FALSE      TRUE
-3131             TRUE             TRUE                      TRUE      TRUE
+3392            FALSE            FALSE                     FALSE     FALSE
+3393             TRUE             TRUE                     FALSE      TRUE
+3394             TRUE             TRUE                      TRUE      TRUE
+3395             TRUE             TRUE                      TRUE      TRUE
+3396             TRUE             TRUE                      TRUE      TRUE
 ```
 
 ``` r
@@ -357,7 +359,7 @@ reasons_strict <- perCellQCFilters(df, sub.fields = "subsets_Mito_percent", nmad
 ```
 
 You would then need to reassign the `discard` column as well, but we'll stick with the 3 MADs default for now.
-<!-- This is a direct application of what was just shown -->
+
 :::
 
 ::::
@@ -414,13 +416,13 @@ sce
 
 ``` output
 class: SingleCellExperiment 
-dim: 29453 2437 
+dim: 29453 2474 
 metadata(0):
 assays(1): counts
 rownames(29453): ENSMUSG00000051951 ENSMUSG00000089699 ...
   ENSMUSG00000095742 tomato-td
 rowData names(2): ENSEMBL SYMBOL
-colnames(2437): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
+colnames(2474): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
   TTTGGTTTCGCCATAA
 colData names(7): sum detected ... total discard
 reducedDimNames(0):
@@ -448,7 +450,7 @@ summary(lib.sf)
 
 ``` output
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.2730  0.7879  0.9600  1.0000  1.1730  2.5598 
+ 0.2323  0.7878  0.9631  1.0000  1.1806  2.5846 
 ```
 
 ``` r
@@ -484,8 +486,8 @@ table(clust)
 
 ``` output
 clust
-  1   2   3   4   5   6   7   8   9  10  11  12  13 
-273 159 250 122 187 201 154 252 152 169 199 215 104 
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14 
+165 342 166 127 118 262 204 155 133 215 186 190 107 104 
 ```
 
 
@@ -497,7 +499,7 @@ summary(deconv.sf)
 
 ``` output
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.3100  0.8028  0.9626  1.0000  1.1736  2.7858 
+ 0.2494  0.8021  0.9671  1.0000  1.1848  2.8222 
 ```
 
 ``` r
@@ -509,7 +511,8 @@ ggplot(sf_df, aes(size_factor, deconv_sf)) +
     geom_abline() + 
     geom_point(aes(color = clust)) +
     scale_x_log10() + 
-    scale_y_log10()
+    scale_y_log10() + 
+    labs(x = "library_sf")
 ```
 
 <img src="fig/eda_qc-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
@@ -527,13 +530,13 @@ sce
 
 ``` output
 class: SingleCellExperiment 
-dim: 29453 2437 
+dim: 29453 2474 
 metadata(0):
 assays(2): counts logcounts
 rownames(29453): ENSMUSG00000051951 ENSMUSG00000089699 ...
   ENSMUSG00000095742 tomato-td
 rowData names(2): ENSEMBL SYMBOL
-colnames(2437): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
+colnames(2474): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
   TTTGGTTTCGCCATAA
 colData names(8): sum detected ... discard sizeFactor
 reducedDimNames(0):
@@ -674,13 +677,13 @@ sce
 
 ``` output
 class: SingleCellExperiment 
-dim: 29453 2437 
+dim: 29453 2474 
 metadata(0):
 assays(2): counts logcounts
 rownames(29453): ENSMUSG00000051951 ENSMUSG00000089699 ...
   ENSMUSG00000095742 tomato-td
 rowData names(2): ENSEMBL SYMBOL
-colnames(2437): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
+colnames(2474): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
   TTTGGTTTCGCCATAA
 colData names(8): sum detected ... discard sizeFactor
 reducedDimNames(1): PCA
@@ -764,13 +767,13 @@ sce
 
 ``` output
 class: SingleCellExperiment 
-dim: 29453 2437 
+dim: 29453 2474 
 metadata(0):
 assays(2): counts logcounts
 rownames(29453): ENSMUSG00000051951 ENSMUSG00000089699 ...
   ENSMUSG00000095742 tomato-td
 rowData names(2): ENSEMBL SYMBOL
-colnames(2437): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
+colnames(2474): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
   TTTGGTTTCGCCATAA
 colData names(8): sum detected ... discard sizeFactor
 reducedDimNames(3): PCA TSNE UMAP
@@ -842,13 +845,13 @@ This approach is implemented below using the `scDblFinder` library. We then visu
 set.seed(100)
 
 dbl.dens <- computeDoubletDensity(sce, subset.row = hvg.sce.var,
-                                  d = ncol(reducedDim(sce)))
+                                  dims = ncol(reducedDim(sce)))
 summary(dbl.dens)
 ```
 
 ``` output
     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
- 0.04874  0.28757  0.46790  0.65614  0.82371 14.88032 
+ 0.03958  0.29193  0.49480  0.66361  0.83126 14.87864 
 ```
 
 ``` r
@@ -871,7 +874,7 @@ summary(dbl.calls)
 
 ``` output
 singlet doublet 
-   2124     313 
+   2123     351 
 ```
 
 ``` r
@@ -924,7 +927,7 @@ summary(deconv.sf2)
 
 ``` output
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.2985  0.8142  0.9583  1.0000  1.1582  2.7054 
+ 0.2411  0.8140  0.9640  1.0000  1.1678  2.7463 
 ```
 
 ``` r
@@ -1117,13 +1120,13 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.4.3 (2025-02-28)
+R version 4.5.2 (2025-10-31)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0 
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0  LAPACK version 3.10.0
 
 locale:
  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
@@ -1139,81 +1142,83 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] scDblFinder_1.18.0           scran_1.32.0                
- [3] scater_1.32.1                scuttle_1.14.0              
- [5] EnsDb.Mmusculus.v79_2.99.0   ensembldb_2.28.1            
- [7] AnnotationFilter_1.28.0      GenomicFeatures_1.56.0      
- [9] AnnotationDbi_1.66.0         ggplot2_3.5.1               
-[11] DropletUtils_1.24.0          MouseGastrulationData_1.18.0
-[13] SpatialExperiment_1.14.0     SingleCellExperiment_1.26.0 
-[15] SummarizedExperiment_1.34.0  Biobase_2.64.0              
-[17] GenomicRanges_1.56.2         GenomeInfoDb_1.40.1         
-[19] IRanges_2.38.1               S4Vectors_0.42.1            
-[21] BiocGenerics_0.50.0          MatrixGenerics_1.16.0       
-[23] matrixStats_1.5.0            BiocStyle_2.32.1            
+ [1] scDblFinder_1.24.0           scran_1.38.0                
+ [3] scater_1.38.0                scuttle_1.20.0              
+ [5] EnsDb.Mmusculus.v79_2.99.0   ensembldb_2.34.0            
+ [7] AnnotationFilter_1.34.0      GenomicFeatures_1.62.0      
+ [9] AnnotationDbi_1.72.0         ggplot2_4.0.1               
+[11] DropletUtils_1.30.0          MouseGastrulationData_1.24.0
+[13] SpatialExperiment_1.20.0     SingleCellExperiment_1.32.0 
+[15] SummarizedExperiment_1.40.0  Biobase_2.70.0              
+[17] GenomicRanges_1.62.1         Seqinfo_1.0.0               
+[19] IRanges_2.44.0               S4Vectors_0.48.0            
+[21] BiocGenerics_0.56.0          generics_0.1.4              
+[23] MatrixGenerics_1.22.0        matrixStats_1.5.0           
+[25] BiocStyle_2.38.0            
 
 loaded via a namespace (and not attached):
-  [1] jsonlite_1.8.9            magrittr_2.0.3           
-  [3] ggbeeswarm_0.7.2          magick_2.8.5             
-  [5] farver_2.1.2              rmarkdown_2.29           
-  [7] BiocIO_1.14.0             zlibbioc_1.50.0          
+  [1] RColorBrewer_1.1-3        jsonlite_2.0.0           
+  [3] magrittr_2.0.4            ggbeeswarm_0.7.3         
+  [5] magick_2.9.0              farver_2.1.2             
+  [7] rmarkdown_2.30            BiocIO_1.20.0            
   [9] vctrs_0.6.5               memoise_2.0.1            
- [11] Rsamtools_2.20.0          DelayedMatrixStats_1.26.0
- [13] RCurl_1.98-1.16           htmltools_0.5.8.1        
- [15] S4Arrays_1.4.1            AnnotationHub_3.12.0     
- [17] curl_6.2.0                BiocNeighbors_1.22.0     
- [19] xgboost_1.7.8.1           Rhdf5lib_1.26.0          
- [21] SparseArray_1.4.8         rhdf5_2.48.0             
- [23] cachem_1.1.0              GenomicAlignments_1.40.0 
- [25] igraph_2.1.4              mime_0.12                
+ [11] Rsamtools_2.26.0          DelayedMatrixStats_1.32.0
+ [13] RCurl_1.98-1.17           htmltools_0.5.9          
+ [15] S4Arrays_1.10.1           AnnotationHub_4.0.0      
+ [17] curl_7.0.0                BiocNeighbors_2.4.0      
+ [19] xgboost_3.1.2.1           Rhdf5lib_1.32.0          
+ [21] SparseArray_1.10.7        rhdf5_2.54.1             
+ [23] httr2_1.2.2               cachem_1.1.0             
+ [25] GenomicAlignments_1.46.0  igraph_2.2.1             
  [27] lifecycle_1.0.4           pkgconfig_2.0.3          
- [29] rsvd_1.0.5                Matrix_1.7-2             
- [31] R6_2.5.1                  fastmap_1.2.0            
- [33] GenomeInfoDbData_1.2.12   digest_0.6.37            
- [35] colorspace_2.1-1          dqrng_0.4.1              
- [37] irlba_2.3.5.1             ExperimentHub_2.12.0     
- [39] RSQLite_2.3.9             beachmat_2.20.0          
- [41] labeling_0.4.3            filelock_1.0.3           
- [43] httr_1.4.7                abind_1.4-8              
- [45] compiler_4.4.3            bit64_4.6.0-1            
- [47] withr_3.0.2               BiocParallel_1.38.0      
+ [29] rsvd_1.0.5                Matrix_1.7-4             
+ [31] R6_2.6.1                  fastmap_1.2.0            
+ [33] digest_0.6.39             RSpectra_0.16-2          
+ [35] dqrng_0.4.1               irlba_2.3.5.1            
+ [37] ExperimentHub_3.0.0       RSQLite_2.4.5            
+ [39] beachmat_2.26.0           labeling_0.4.3           
+ [41] filelock_1.0.3            httr_1.4.7               
+ [43] abind_1.4-8               compiler_4.5.2           
+ [45] bit64_4.6.0-1             withr_3.0.2              
+ [47] S7_0.2.1                  BiocParallel_1.44.0      
  [49] viridis_0.6.5             DBI_1.2.3                
- [51] HDF5Array_1.32.1          R.utils_2.12.3           
- [53] MASS_7.3-64               rappdirs_0.3.3           
- [55] DelayedArray_0.30.1       bluster_1.14.0           
- [57] rjson_0.2.23              tools_4.4.3              
- [59] vipor_0.4.7               beeswarm_0.4.0           
- [61] R.oo_1.27.0               glue_1.8.0               
- [63] restfulr_0.0.15           rhdf5filters_1.16.0      
- [65] grid_4.4.3                Rtsne_0.17               
- [67] cluster_2.1.8             generics_0.1.3           
- [69] gtable_0.3.6              R.methodsS3_1.8.2        
- [71] data.table_1.16.4         metapod_1.12.0           
- [73] BiocSingular_1.20.0       ScaledMatrix_1.12.0      
- [75] XVector_0.44.0            ggrepel_0.9.6            
- [77] BiocVersion_3.19.1        pillar_1.10.1            
- [79] limma_3.60.6              BumpyMatrix_1.12.0       
- [81] dplyr_1.1.4               BiocFileCache_2.12.0     
- [83] lattice_0.22-6            FNN_1.1.4.1              
- [85] renv_1.1.4                rtracklayer_1.64.0       
- [87] bit_4.5.0.1               tidyselect_1.2.1         
- [89] locfit_1.5-9.11           Biostrings_2.72.1        
- [91] knitr_1.49                gridExtra_2.3            
- [93] ProtGenerics_1.36.0       edgeR_4.2.2              
- [95] xfun_0.50                 statmod_1.5.0            
- [97] UCSC.utils_1.0.0          lazyeval_0.2.2           
- [99] yaml_2.3.10               evaluate_1.0.3           
-[101] codetools_0.2-20          tibble_3.2.1             
-[103] BiocManager_1.30.25       cli_3.6.3                
-[105] uwot_0.2.2                munsell_0.5.1            
-[107] Rcpp_1.0.14               dbplyr_2.5.0             
-[109] png_0.1-8                 XML_3.99-0.18            
-[111] parallel_4.4.3            blob_1.2.4               
-[113] sparseMatrixStats_1.16.0  bitops_1.0-9             
-[115] viridisLite_0.4.2         scales_1.3.0             
-[117] purrr_1.0.2               crayon_1.5.3             
-[119] rlang_1.1.5               formatR_1.14             
-[121] cowplot_1.1.3             KEGGREST_1.44.1          
+ [51] HDF5Array_1.38.0          R.utils_2.13.0           
+ [53] MASS_7.3-65               rappdirs_0.3.3           
+ [55] DelayedArray_0.36.0       bluster_1.20.0           
+ [57] rjson_0.2.23              tools_4.5.2              
+ [59] vipor_0.4.7               otel_0.2.0               
+ [61] beeswarm_0.4.0            R.oo_1.27.1              
+ [63] glue_1.8.0                h5mread_1.2.1            
+ [65] restfulr_0.0.16           rhdf5filters_1.22.0      
+ [67] grid_4.5.2                Rtsne_0.17               
+ [69] cluster_2.1.8.1           gtable_0.3.6             
+ [71] R.methodsS3_1.8.2         data.table_1.17.8        
+ [73] metapod_1.18.0            BiocSingular_1.26.1      
+ [75] ScaledMatrix_1.18.0       XVector_0.50.0           
+ [77] ggrepel_0.9.6             BiocVersion_3.22.0       
+ [79] pillar_1.11.1             limma_3.66.0             
+ [81] BumpyMatrix_1.18.0        dplyr_1.1.4              
+ [83] BiocFileCache_3.0.0       lattice_0.22-7           
+ [85] FNN_1.1.4.1               renv_1.1.5               
+ [87] rtracklayer_1.70.0        bit_4.6.0                
+ [89] tidyselect_1.2.1          locfit_1.5-9.12          
+ [91] Biostrings_2.78.0         knitr_1.50               
+ [93] gridExtra_2.3             ProtGenerics_1.42.0      
+ [95] edgeR_4.8.1               xfun_0.55                
+ [97] statmod_1.5.1             UCSC.utils_1.6.1         
+ [99] lazyeval_0.2.2            yaml_2.3.12              
+[101] evaluate_1.0.5            codetools_0.2-20         
+[103] cigarillo_1.0.0           tibble_3.3.0             
+[105] BiocManager_1.30.27       cli_3.6.5                
+[107] uwot_0.2.4                Rcpp_1.1.0               
+[109] GenomeInfoDb_1.46.2       dbplyr_2.5.1             
+[111] png_0.1-8                 XML_3.99-0.20            
+[113] parallel_4.5.2            blob_1.2.4               
+[115] sparseMatrixStats_1.22.0  bitops_1.0-9             
+[117] viridisLite_0.4.2         scales_1.4.0             
+[119] purrr_1.2.0               crayon_1.5.3             
+[121] rlang_1.1.6               formatR_1.14             
+[123] cowplot_1.2.0             KEGGREST_1.50.0          
 ```
 
 

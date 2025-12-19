@@ -128,10 +128,10 @@ table(colLabels(sce))
 
 ``` output
 
-  1   2   3   4   5   6   7   8   9  10  11  12 
-100 160  60 141  63  93  60 108  44  91  41  39 
+  1   2   3   4   5   6   7   8   9  10  11 
+193 161  59 134  63  61 108  49  91  42  39 
 ```
-You can see we ended up with 12 clusters of varying sizes.
+You can see we ended up with 11 clusters of varying sizes.
 
 We can now overlay the cluster labels as color on a UMAP plot:
 
@@ -195,8 +195,8 @@ markers
 ```
 
 ``` output
-List of length 12
-names(12): 1 2 3 4 5 6 7 8 9 10 11 12
+List of length 11
+names(11): 1 2 3 4 5 6 7 8 9 10 11
 ```
 
 The resulting object contains a sorted marker gene list for each
@@ -214,69 +214,69 @@ markers[[1]]
 DataFrame with 29453 rows and 19 columns
                self.average other.average self.detected other.detected
                   <numeric>     <numeric>     <numeric>      <numeric>
-Xkr4              0.0000000    0.00332819          0.00     0.00339804
-Gm1992            0.0000000    0.00000000          0.00     0.00000000
-Gm37381           0.0000000    0.00000000          0.00     0.00000000
-Rp1               0.0000000    0.00000000          0.00     0.00000000
-Sox17             0.0279547    0.25553459          0.02     0.12352446
+Xkr4             0.00777523    0.00204744     0.0103627      0.0015873
+Gm1992           0.00000000    0.00000000     0.0000000      0.0000000
+Gm37381          0.00000000    0.00000000     0.0000000      0.0000000
+Rp1              0.00000000    0.00000000     0.0000000      0.0000000
+Sox17            0.01448428    0.28440343     0.0103627      0.1378294
 ...                     ...           ...           ...            ...
-AC149090.1        0.3852624   0.347993521          0.33    0.281869817
-DHRSX             0.4108022   0.495896614          0.35    0.395677179
-Vmn2r122          0.0000000   0.000000000          0.00    0.000000000
-CAAA01147332.1    0.0164546   0.000729715          0.01    0.000999001
-tomato-td         0.6341678   0.636134988          0.51    0.491105734
+AC149090.1       0.39760189   0.339949277    0.32642487      0.2773499
+DHRSX            0.37536303   0.514962467    0.32642487      0.4087374
+Vmn2r122         0.00000000   0.000000000    0.00000000      0.0000000
+CAAA01147332.1   0.00852569   0.000802687    0.00518135      0.0010989
+tomato-td        0.61466767   0.641897197    0.48186528      0.4972542
                mean.logFC.cohen min.logFC.cohen median.logFC.cohen
                       <numeric>       <numeric>          <numeric>
-Xkr4                  -0.035152       -0.208498          0.0000000
-Gm1992                 0.000000        0.000000          0.0000000
-Gm37381                0.000000        0.000000          0.0000000
-Rp1                    0.000000        0.000000          0.0000000
-Sox17                 -0.239182       -1.992655          0.0272241
+Xkr4                   0.119882        -0.10006          0.1443198
+Gm1992                 0.000000         0.00000          0.0000000
+Gm37381                0.000000         0.00000          0.0000000
+Rp1                    0.000000         0.00000          0.0000000
+Sox17                 -0.346525        -2.07437         -0.0713339
 ...                         ...             ...                ...
-AC149090.1           0.07484762      -0.1263241          0.0303362
-DHRSX               -0.12286973      -0.4619613         -0.1249748
-Vmn2r122             0.00000000       0.0000000          0.0000000
-CAAA01147332.1       0.13453495       0.0656709          0.1414214
-tomato-td            0.00484753      -0.2535145         -0.0173963
+AC149090.1            0.1070458     -0.08935467          0.0555201
+DHRSX                -0.2135530     -0.49469635         -0.1947910
+Vmn2r122              0.0000000      0.00000000          0.0000000
+CAAA01147332.1        0.0921178      0.00500178          0.1017973
+tomato-td            -0.0304896     -0.27695578         -0.0829054
                max.logFC.cohen rank.logFC.cohen  mean.AUC   min.AUC median.AUC
                      <numeric>        <integer> <numeric> <numeric>  <numeric>
-Xkr4                  0.000000             6949  0.498301  0.489247   0.500000
-Gm1992                0.000000             6554  0.500000  0.500000   0.500000
-Gm37381               0.000000             6554  0.500000  0.500000   0.500000
-Rp1                   0.000000             6554  0.500000  0.500000   0.500000
-Sox17                 0.200319             1482  0.447693  0.105167   0.498409
+Xkr4                  0.144320             3253  0.504379 0.4971626   0.505181
+Gm1992                0.000000             7838  0.500000 0.5000000   0.500000
+Gm37381               0.000000             7838  0.500000 0.5000000   0.500000
+Rp1                   0.000000             7838  0.500000 0.5000000   0.500000
+Sox17                 0.143843             5357  0.435959 0.0958549   0.493880
 ...                        ...              ...       ...       ...        ...
-AC149090.1            0.427051             1685  0.519966  0.475000   0.507234
-DHRSX                 0.130189             3431  0.472563  0.389878   0.470000
-Vmn2r122              0.000000             6554  0.500000  0.500000   0.500000
-CAAA01147332.1        0.141421             2438  0.504505  0.499560   0.505000
-tomato-td             0.318068             2675  0.498386  0.427083   0.487582
+AC149090.1           0.4394296             1678  0.524363  0.482359   0.509786
+DHRSX                0.0270598             7335  0.451362  0.383050   0.450894
+Vmn2r122             0.0000000             7838  0.500000  0.500000   0.500000
+CAAA01147332.1       0.1017973             4316  0.502044  0.497125   0.502591
+tomato-td            0.2898496             4071  0.487954  0.422322   0.476355
                  max.AUC  rank.AUC mean.logFC.detected min.logFC.detected
                <numeric> <integer>           <numeric>          <numeric>
-Xkr4                0.50      6882        -2.34997e-01       -1.58496e+00
-Gm1992              0.50      6513        -2.91221e-17       -3.20343e-16
-Gm37381             0.50      6513        -2.91221e-17       -3.20343e-16
-Rp1                 0.50      6513        -2.91221e-17       -3.20343e-16
-Sox17               0.51      3957        -6.27326e-01       -4.47721e+00
+Xkr4            0.505181      5688         7.43734e-01       -2.75044e-01
+Gm1992          0.500000      7636        -1.60171e-17       -3.20343e-16
+Gm37381         0.500000      7636        -1.60171e-17       -3.20343e-16
+Rp1             0.500000      7636        -1.60171e-17       -3.20343e-16
+Sox17           0.505181      6757        -1.32542e+00       -4.92640e+00
 ...                  ...       ...                 ...                ...
-AC149090.1      0.588462      1932         2.49127e-01       -4.59278e-02
-DHRSX           0.530054      2050        -1.51523e-01       -4.52151e-01
-Vmn2r122        0.500000      6513        -2.91221e-17       -3.20343e-16
-CAAA01147332.1  0.505000      4893         6.76367e-01       -6.64274e-02
-tomato-td       0.576875      1840         7.02671e-02       -2.27601e-01
+AC149090.1      0.588965      1993         2.58156e-01       -2.88274e-02
+DHRSX           0.511020      4598        -2.98961e-01       -5.66395e-01
+Vmn2r122        0.500000      7636        -1.60171e-17       -3.20343e-16
+CAAA01147332.1  0.502591      6151         3.89887e-01       -4.42710e-01
+tomato-td       0.568178      2881        -2.57339e-02       -3.30235e-01
                median.logFC.detected max.logFC.detected rank.logFC.detected
                            <numeric>          <numeric>           <integer>
-Xkr4                       0.0000000        3.20343e-16                5560
-Gm1992                     0.0000000        3.20343e-16                5560
-Gm37381                    0.0000000        3.20343e-16                5560
-Rp1                        0.0000000        3.20343e-16                5560
-Sox17                     -0.0892673        1.51602e+00                 341
+Xkr4                        0.697532        1.41597e+00                1119
+Gm1992                      0.000000        3.20343e-16                6173
+Gm37381                     0.000000        3.20343e-16                6173
+Rp1                         0.000000        3.20343e-16                6173
+Sox17                      -0.703710        9.58290e-01                2200
 ...                              ...                ...                 ...
-AC149090.1                 0.0565835        9.55592e-01                2039
-DHRSX                     -0.1810960        2.28269e-01                3943
-Vmn2r122                   0.0000000        3.20343e-16                5560
-CAAA01147332.1             0.6780719        1.00000e+00                 898
-tomato-td                  0.0612002        4.63438e-01                3705
+AC149090.1                 0.0583464        9.40386e-01                2627
+DHRSX                     -0.2934548        2.40918e-02                5723
+Vmn2r122                   0.0000000        3.20343e-16                6173
+CAAA01147332.1             0.3905253        8.75149e-01                1964
+tomato-td                 -0.0101262        2.99327e-01                4995
 ```
 
 Each column contains summary statistics for each gene in the given cluster.
@@ -371,7 +371,7 @@ expertise of the original authors who assigned the labels in the first
 place.
 
 In this section, we will demonstrate the use of the
-*[SingleR](https://bioconductor.org/packages/3.19/SingleR)* method for cell type annotation [Aran et al.,
+*[SingleR](https://bioconductor.org/packages/3.22/SingleR)* method for cell type annotation [Aran et al.,
 2019](https://www.nature.com/articles/s41590-018-0276-y). This method
 assigns labels to cells based on the reference samples with the highest
 Spearman rank correlations, using only the marker genes between pairs of
@@ -386,16 +386,18 @@ most of the examples here are derived.
 
 ::: callout
 
-Remember, the quality of reference-based cell type annotation can only be as good as the cell type assignments in the reference. Garbage in, garbage out. In practice, it's worthwhile to spend time carefully assessing your to make sure the original assignments make sense and that it's compatible with the query dataset you're trying to annotate.
+Remember, the quality of reference-based cell type annotation can only be as good as the cell type assignments in the reference. Garbage in, garbage out. In practice, it's worthwhile to spend time carefully assessing the quality of your reference dataset to make sure the original assignments are valid and are compatible with the query dataset you intend to annotate.
 
 :::
 
-Here we take a single sample from `EmbryoAtlasData` as our reference dataset. In practice you would want to take more/all samples, possibly with batch-effect correction (see the next episode).
+Here we take a single sample from `EmbryoAtlasData` as our reference dataset. In practice you would want to take more/all samples, possibly with batch-effect correction (see the [multi-sample analysis episode](https://carpentries-incubator.github.io/bioc-scrnaseq/multi-sample.html)).
 
 
 ``` r
 ref <- EmbryoAtlasData(samples = 29)
+```
 
+``` r
 ref
 ```
 
@@ -699,7 +701,7 @@ mainExpName: NULL
 altExpNames(0):
 ```
 
-We use the *[AUCell](https://bioconductor.org/packages/3.19/AUCell)* package to identify marker sets that
+We use the *[AUCell](https://bioconductor.org/packages/3.22/AUCell)* package to identify marker sets that
 are highly expressed in each cell. This method ranks genes by their
 expression values within each cell and constructs a response curve of
 the number of genes from each marker set that are present with
@@ -1032,21 +1034,21 @@ Remember, this is an exploratory diagnostic, not the final word! At this point i
 -   For manual annotation, cells are first clustered with unsupervised methods
     such as graph-based clustering followed by community detection algorithms such
     as Louvain or Leiden.
--   The `clusterCells` function from the *[scran](https://bioconductor.org/packages/3.19/scran)* package provides different
+-   The `clusterCells` function from the *[scran](https://bioconductor.org/packages/3.22/scran)* package provides different
     algorithms that are commonly used for the clustering of scRNA-seq data.
 -   Once clusters have been obtained, cell type labels are then manually
     assigned to cell clusters by matching cluster-specific upregulated marker
     genes with prior knowledge of cell-type markers.
--   The `scoreMarkers` function from the *[scran](https://bioconductor.org/packages/3.19/scran)* package 
+-   The `scoreMarkers` function from the *[scran](https://bioconductor.org/packages/3.22/scran)* package 
     package can be used to find candidate marker genes for clusters of cells by
     ranking differential expression between pairs of clusters.
 -   Computational annotation using published reference datasets or curated gene sets
     provides a fast, automated, and reproducible alternative to the manual
     annotation of cell clusters based on marker gene expression.
--   The *[SingleR](https://bioconductor.org/packages/3.19/SingleR)*
+-   The *[SingleR](https://bioconductor.org/packages/3.22/SingleR)*
     package is a popular choice for reference-based annotation and assigns labels
     to cells based on the reference samples with the highest Spearman rank correlations.
--   The *[AUCell](https://bioconductor.org/packages/3.19/AUCell)* package provides an enrichment
+-   The *[AUCell](https://bioconductor.org/packages/3.22/AUCell)* package provides an enrichment
     test to identify curated marker sets that are highly expressed in each cell. 
 :::
 
@@ -1058,13 +1060,13 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.4.3 (2025-02-28)
+R version 4.5.2 (2025-10-31)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0 
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0  LAPACK version 3.10.0
 
 locale:
  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
@@ -1080,78 +1082,77 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] GSEABase_1.66.0              graph_1.82.0                
- [3] annotate_1.82.0              XML_3.99-0.18               
- [5] AnnotationDbi_1.66.0         pheatmap_1.0.12             
- [7] scran_1.32.0                 scater_1.32.1               
- [9] ggplot2_3.5.1                scuttle_1.14.0              
-[11] bluster_1.14.0               SingleR_2.6.0               
-[13] MouseGastrulationData_1.18.0 SpatialExperiment_1.14.0    
-[15] SingleCellExperiment_1.26.0  SummarizedExperiment_1.34.0 
-[17] Biobase_2.64.0               GenomicRanges_1.56.2        
-[19] GenomeInfoDb_1.40.1          IRanges_2.38.1              
-[21] S4Vectors_0.42.1             BiocGenerics_0.50.0         
-[23] MatrixGenerics_1.16.0        matrixStats_1.5.0           
-[25] AUCell_1.26.0                BiocStyle_2.32.1            
+ [1] GSEABase_1.72.0              graph_1.88.1                
+ [3] annotate_1.88.0              XML_3.99-0.20               
+ [5] AnnotationDbi_1.72.0         pheatmap_1.0.13             
+ [7] scran_1.38.0                 scater_1.38.0               
+ [9] ggplot2_4.0.1                scuttle_1.20.0              
+[11] bluster_1.20.0               SingleR_2.12.0              
+[13] MouseGastrulationData_1.24.0 SpatialExperiment_1.20.0    
+[15] SingleCellExperiment_1.32.0  SummarizedExperiment_1.40.0 
+[17] Biobase_2.70.0               GenomicRanges_1.62.1        
+[19] Seqinfo_1.0.0                IRanges_2.44.0              
+[21] S4Vectors_0.48.0             BiocGenerics_0.56.0         
+[23] generics_0.1.4               MatrixGenerics_1.22.0       
+[25] matrixStats_1.5.0            AUCell_1.32.0               
+[27] BiocStyle_2.38.0            
 
 loaded via a namespace (and not attached):
-  [1] RColorBrewer_1.1-3        jsonlite_1.8.9           
-  [3] magrittr_2.0.3            ggbeeswarm_0.7.2         
-  [5] magick_2.8.5              farver_2.1.2             
-  [7] rmarkdown_2.29            zlibbioc_1.50.0          
-  [9] vctrs_0.6.5               memoise_2.0.1            
- [11] DelayedMatrixStats_1.26.0 htmltools_0.5.8.1        
- [13] S4Arrays_1.4.1            AnnotationHub_3.12.0     
- [15] curl_6.2.0                BiocNeighbors_1.22.0     
- [17] SparseArray_1.4.8         htmlwidgets_1.6.4        
- [19] plotly_4.10.4             cachem_1.1.0             
- [21] igraph_2.1.4              mime_0.12                
- [23] lifecycle_1.0.4           pkgconfig_2.0.3          
- [25] rsvd_1.0.5                Matrix_1.7-2             
- [27] R6_2.5.1                  fastmap_1.2.0            
- [29] GenomeInfoDbData_1.2.12   digest_0.6.37            
- [31] colorspace_2.1-1          dqrng_0.4.1              
- [33] irlba_2.3.5.1             ExperimentHub_2.12.0     
- [35] RSQLite_2.3.9             beachmat_2.20.0          
- [37] labeling_0.4.3            filelock_1.0.3           
- [39] httr_1.4.7                abind_1.4-8              
- [41] compiler_4.4.3            bit64_4.6.0-1            
- [43] withr_3.0.2               BiocParallel_1.38.0      
- [45] viridis_0.6.5             DBI_1.2.3                
- [47] R.utils_2.12.3            MASS_7.3-64              
- [49] rappdirs_0.3.3            DelayedArray_0.30.1      
- [51] rjson_0.2.23              tools_4.4.3              
- [53] vipor_0.4.7               beeswarm_0.4.0           
- [55] R.oo_1.27.0               glue_1.8.0               
- [57] nlme_3.1-167              grid_4.4.3               
- [59] cluster_2.1.8             generics_0.1.3           
- [61] gtable_0.3.6              R.methodsS3_1.8.2        
- [63] tidyr_1.3.1               data.table_1.16.4        
- [65] BiocSingular_1.20.0       ScaledMatrix_1.12.0      
- [67] metapod_1.12.0            XVector_0.44.0           
- [69] ggrepel_0.9.6             BiocVersion_3.19.1       
- [71] pillar_1.10.1             limma_3.60.6             
- [73] BumpyMatrix_1.12.0        splines_4.4.3            
- [75] dplyr_1.1.4               BiocFileCache_2.12.0     
- [77] lattice_0.22-6            survival_3.8-3           
- [79] renv_1.1.4                FNN_1.1.4.1              
- [81] bit_4.5.0.1               tidyselect_1.2.1         
- [83] locfit_1.5-9.11           Biostrings_2.72.1        
- [85] knitr_1.49                gridExtra_2.3            
- [87] edgeR_4.2.2               xfun_0.50                
- [89] mixtools_2.0.0            statmod_1.5.0            
- [91] UCSC.utils_1.0.0          lazyeval_0.2.2           
- [93] yaml_2.3.10               evaluate_1.0.3           
- [95] codetools_0.2-20          kernlab_0.9-33           
- [97] tibble_3.2.1              BiocManager_1.30.25      
- [99] cli_3.6.3                 uwot_0.2.2               
-[101] xtable_1.8-4              segmented_2.1-3          
-[103] munsell_0.5.1             Rcpp_1.0.14              
-[105] dbplyr_2.5.0              png_0.1-8                
-[107] parallel_4.4.3            blob_1.2.4               
-[109] sparseMatrixStats_1.16.0  viridisLite_0.4.2        
-[111] scales_1.3.0              purrr_1.0.2              
-[113] crayon_1.5.3              rlang_1.1.5              
-[115] formatR_1.14              cowplot_1.1.3            
-[117] KEGGREST_1.44.1          
+  [1] RColorBrewer_1.1-3        jsonlite_2.0.0           
+  [3] magrittr_2.0.4            ggbeeswarm_0.7.3         
+  [5] magick_2.9.0              farver_2.1.2             
+  [7] rmarkdown_2.30            vctrs_0.6.5              
+  [9] memoise_2.0.1             DelayedMatrixStats_1.32.0
+ [11] htmltools_0.5.9           S4Arrays_1.10.1          
+ [13] AnnotationHub_4.0.0       curl_7.0.0               
+ [15] BiocNeighbors_2.4.0       SparseArray_1.10.7       
+ [17] htmlwidgets_1.6.4         httr2_1.2.2              
+ [19] plotly_4.11.0             cachem_1.1.0             
+ [21] igraph_2.2.1              lifecycle_1.0.4          
+ [23] pkgconfig_2.0.3           rsvd_1.0.5               
+ [25] Matrix_1.7-4              R6_2.6.1                 
+ [27] fastmap_1.2.0             digest_0.6.39            
+ [29] dqrng_0.4.1               RSpectra_0.16-2          
+ [31] irlba_2.3.5.1             ExperimentHub_3.0.0      
+ [33] RSQLite_2.4.5             beachmat_2.26.0          
+ [35] filelock_1.0.3            labeling_0.4.3           
+ [37] httr_1.4.7                abind_1.4-8              
+ [39] compiler_4.5.2            bit64_4.6.0-1            
+ [41] withr_3.0.2               S7_0.2.1                 
+ [43] BiocParallel_1.44.0       viridis_0.6.5            
+ [45] DBI_1.2.3                 R.utils_2.13.0           
+ [47] MASS_7.3-65               rappdirs_0.3.3           
+ [49] DelayedArray_0.36.0       rjson_0.2.23             
+ [51] tools_4.5.2               vipor_0.4.7              
+ [53] otel_0.2.0                beeswarm_0.4.0           
+ [55] R.oo_1.27.1               glue_1.8.0               
+ [57] nlme_3.1-168              grid_4.5.2               
+ [59] cluster_2.1.8.1           gtable_0.3.6             
+ [61] R.methodsS3_1.8.2         tidyr_1.3.1              
+ [63] data.table_1.17.8         BiocSingular_1.26.1      
+ [65] ScaledMatrix_1.18.0       metapod_1.18.0           
+ [67] XVector_0.50.0            ggrepel_0.9.6            
+ [69] BiocVersion_3.22.0        pillar_1.11.1            
+ [71] limma_3.66.0              BumpyMatrix_1.18.0       
+ [73] splines_4.5.2             dplyr_1.1.4              
+ [75] BiocFileCache_3.0.0       lattice_0.22-7           
+ [77] survival_3.8-3            renv_1.1.5               
+ [79] FNN_1.1.4.1               bit_4.6.0                
+ [81] tidyselect_1.2.1          locfit_1.5-9.12          
+ [83] Biostrings_2.78.0         knitr_1.50               
+ [85] gridExtra_2.3             edgeR_4.8.1              
+ [87] xfun_0.55                 mixtools_2.0.0.1         
+ [89] statmod_1.5.1             lazyeval_0.2.2           
+ [91] yaml_2.3.12               evaluate_1.0.5           
+ [93] codetools_0.2-20          kernlab_0.9-33           
+ [95] tibble_3.3.0              BiocManager_1.30.27      
+ [97] cli_3.6.5                 uwot_0.2.4               
+ [99] xtable_1.8-4              segmented_2.1-4          
+[101] Rcpp_1.1.0                dbplyr_2.5.1             
+[103] png_0.1-8                 parallel_4.5.2           
+[105] blob_1.2.4                sparseMatrixStats_1.22.0 
+[107] viridisLite_0.4.2         scales_1.4.0             
+[109] purrr_1.2.0               crayon_1.5.3             
+[111] rlang_1.1.6               formatR_1.14             
+[113] cowplot_1.2.0             KEGGREST_1.50.0          
 ```

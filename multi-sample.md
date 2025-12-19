@@ -50,7 +50,9 @@ library(pheatmap)
 library(scuttle)
 
 sce <- WTChimeraData(samples = 5:10, type = "processed")
+```
 
+``` r
 sce
 ```
 
@@ -116,7 +118,7 @@ cell_30702   0.00108837   0.550807
 cell_30703   0.82369305   1.184919
 ```
 
-For the sake of making these examples run faster, we drop some problematic types (stripped nuclei and doublets) and also randomly select 50% cells per sample.
+For the sake of making these examples run faster, we drop low quality cells (stripped nuclei and doublets) and also randomly select 50% cells per sample.
 
 
 ``` r
@@ -134,7 +136,7 @@ idx <- unlist(tapply(colnames(sce), sce$sample, function(x) {
 sce <- sce[,idx]
 ```
 
-We now normalize the data, run some dimensionality reduction steps, and visualize them in a tSNE plot. In this case we happen to have a ton of cell types to visualize, so we define a custom palette with a lot of visually distinct colors (adapted from the `polychrome` palette in the [`pals` package](https://cran.r-project.org/web/packages/pals/vignettes/pals_examples.html)). 
+We now normalize the data, run some dimensionality reduction steps, and visualize the data in a tSNE plot. In this case we have many different cell types, so we define a custom palette with many visually distinct colors (adapted from the `polychrome` palette in the [`pals` package](https://cran.r-project.org/web/packages/pals/vignettes/pals_examples.html)). 
 
 
 ``` r
@@ -176,11 +178,11 @@ For now, let's assume that we want to remove this effect.
 
 :::: challenge
 
-It seems like samples 5 and 6 are separated off from the others in gene expression space. Given the group of cells in each sample, why might this make sense versus some other pair of samples? What is the factor presumably leading to this difference?
+It seems like samples 5 and 6 are clearly separated off the other samples in gene expression space. Given the group of cells in each sample, why might this make sense for these samples as opposed to some other pair of samples? What is the factor presumably leading to this difference?
 
 ::: solution
 
-Samples 5 and 6 were from the same "pool" of cells. Looking at the documentation for the dataset under `?WTChimeraData` we see that the pool variable is defined as: "Integer, embryo pool from which cell derived; samples with same value are matched." So samples 5 and 6 have an experimental factor in common which causes a shared, systematic difference in gene expression profiles compared to the other samples. That's why you can see many of isolated blue/orange clusters on the first TSNE plot. If you were developing single-cell library preparation protocols you might want to preserve this effect to understand how variation in pools leads to variation in expression, but for now, given that we're investigating other effects, we'll want to remove this as undesired technical variation.
+Samples 5 and 6 were from the same "pool" of cells. Looking at the documentation for the dataset under `?WTChimeraData` we see that the pool variable is defined as: "Integer, embryo pool from which cell derived; samples with same value are matched." So samples 5 and 6 have an experimental factor in common which causes a shared, systematic difference in their gene expression profiles compared to the other samples. That's why you can see many isolated blue/orange clusters on the first TSNE plot. If you were developing single-cell library preparation protocols you might want to preserve this effect to understand how variation in pools leads to variation in expression, but for now, given that we're investigating other effects, we'll want to remove this as undesired technical variation.
 
 :::
 
@@ -189,7 +191,7 @@ Samples 5 and 6 were from the same "pool" of cells. Looking at the documentation
 ## Correcting batch effects
 
 We "correct" the effect of samples with the `correctExperiment` function
-in the `batchelor` package and using the `sample` column as batch.
+in the `batchelor` package, using the `sample` column as the batch variable.
 
 
 
@@ -215,7 +217,7 @@ plotTSNE(merged, colour_by = "batch")
 
 <img src="fig/multi-sample-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
 
-We can also see that when coloring by cell type, the cell types are now nicely confined to their own clusters for the most part:
+We can also see that when coloring cells by cell type, the cell types are now largely confined to individual clusters:
 
 
 ``` r
@@ -227,12 +229,12 @@ plotTSNE(merged, colour_by = "celltype.mapped") +
 <img src="fig/multi-sample-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 
-Once we removed the sample batch effect, we can proceed with the Differential 
-Expression Analysis.
+Once we have removed the sample effect, we can proceed with the differential 
+expression (DE) analysis.
 
 :::: challenge
 
-True or False: after batch correction, no batch-level information is present in the corrected data.
+True or False? After batch correction, no batch-level information is present in the corrected data.
 
 ::: solution
 
@@ -247,27 +249,27 @@ While batch effect correction algorithms usually do a pretty good job, it's smar
 
 ## Differential Expression
 
-In order to perform a differential expression analysis, we need to identify 
+In order to perform a differential expression (DE) analysis, we need to identify
 groups of cells across samples/conditions (depending on the experimental 
-design and the final aim of the experiment). 
+design and the overall goal of the experiment). 
 
-As previously seen, we have two ways of grouping cells, cell clustering and cell
-labeling. In our case we will focus on this second aspect to group cells
+As we have seen before, there are two ways of grouping cells, cell clustering and cell
+labeling. Here, we apply the second approach to group cells
 according to the already annotated cell types to proceed with the computation of
 the pseudo-bulk samples.
 
 ### Pseudo-bulk samples
 
 To compute differences between groups of cells, a possible way is to compute
-pseudo-bulk samples, where we mediate the gene signal of all the cells for each
-specific cell type. In this manner, we are then able to detect differences
-between the same cell type across two different conditions.
+pseudo-bulk samples, where we summarize the gene expression for all the cells of each
+specific cell type. We are then able to detect differences in gene expression 
+between two different conditions for one cell type at a time.
 
 To compute pseudo-bulk samples, we use the `aggregateAcrossCells` function in the 
 `scuttle` package, which takes as input not only a SingleCellExperiment, 
-but also the id to use for the identification of the group of cells.
-In our case, we use as id not just the cell type, but also the sample, because
-we want be able to discern between replicates and conditions during further steps.
+but also the label used for the identification of cell groups/types.
+Here, we use as not just the cell type label, but also the sample ID, as
+we want be able to discern between replicates and conditions later in the analysis.
 
 
 ``` r
@@ -298,14 +300,21 @@ mainExpName: NULL
 altExpNames(0):
 ```
 
-### Differential Expression Analysis
+### Differential Expression (DE) Analysis
 
-The main advantage of using pseudo-bulk samples is the possibility to use
-well-tested methods for differential analysis like `edgeR` and `DESeq2`, we will
-focus on the former for this analysis. `edgeR` and `DESeq2` both use negative binomial models under the hood, but differ in their normalization strategies and other implementation details.
+The main advantage of using pseudo-bulk samples is that we can use
+established methods for bulk DE analysis like 
+[edgeR](https://bioconductor.org/packages/edgeR) and
+[DESeq2](https://bioconductor.org/packages/DESeq2). Both, 
+[edgeR](https://bioconductor.org/packages/edgeR) and
+[DESeq2](https://bioconductor.org/packages/DESeq2),
+are based on negative binomial models, but differ in their normalization strategies
+and several implementation details.
 
 First, let's start with a specific cell type, for instance the "Mesenchymal stem
-cells", and look into differences between this cell type across conditions. We put the counts table into a `DGEList` container called `y`, along with the corresponding metadata.
+cells", and analyze gene expression differences between conditions for this cell type.
+We store the counts table in a `DGEList` data container called `y`, along with experimental
+metadata.
 
 
 ``` r
@@ -351,12 +360,11 @@ Sample5        Mesenchyme        9    239
 Sample6        Mesenchyme       10    146
 ```
 
-A typical step is to discard low quality samples due to low sequenced library
-size. We discard these samples because they can affect further steps like
-normalization and/or DEGs analysis.
+We usually want to discard low quality samples with low sequencing depth / library
+size as they have the potential to skew normalization and/or DE analysis.
 
-We can see that in our case we don't have low quality samples and we don't need 
-to filter out any of them.
+We can see that in our case we don't have low quality samples, so there is no need
+for such a filtering step.
 
 
 ``` r
@@ -372,8 +380,9 @@ summary(discarded)
 logical       6 
 ```
 
-The same idea is typically applied to the genes, indeed we need to discard low 
-expressed genes to improve accuracy for the DEGs modeling.
+Typically, we also want to filter out genes
+with too low of an expression to be meaningfully retained in a statistcal analysis
+for differential expression.
 
 
 ``` r
@@ -389,11 +398,10 @@ summary(keep)
 logical    9121    4520 
 ```
 
-We can now proceed to normalize the data. There are several approaches for
-normalizing bulk, and hence pseudo-bulk data. Here, we use the Trimmed Mean of
-M-values method, implemented in the `edgeR` package within the `calcNormFactors`
-function. Keep in mind that because we are going to normalize the pseudo-bulk
-counts, we don't need to normalize the data in "single cell form".
+We can now proceed with normalizing the data. There are several approaches for
+normalizing bulk data, that are thus readily applicable to pseudo-bulk data.
+Here, we use the Trimmed Mean of *M*-values (TMM) method, implemented in the
+`edgeR` package within the `calcNormFactors` function.
 
 
 ``` r
@@ -426,12 +434,12 @@ Sample5        Mesenchyme        9    239
 Sample6        Mesenchyme       10    146
 ```
 
-To investigate the effect of our normalization, we use a Mean-Difference (MD)
-plot for each sample in order to detect possible normalization problems due to
-insufficient cells/reads/UMIs composing a particular pseudo-bulk profile.
+To investigate the effect of the normalization, we use a Mean-Difference (MD)
+plot for each sample in order to detect possible normalization issues due to
+insufficient cells/reads/UMIs in any of the pseudo-bulk profiles.
 
-In our case, we verify that all these plots are centered in 0 (on y-axis) and
-present a trumpet shape, as expected.
+In our case, we verify that all these plots are centered on 0 ($y$-axis) and
+display a trumpet shape, as expected.
 
 
 
@@ -450,9 +458,10 @@ par(mfrow = c(1,1))
 ```
 
 Furthermore, we want to check if the samples cluster together based
-on their known factors (like the tomato injection in this case).
+on known experimental factors (like the tomato injection in this case).
 
-In this case, we'll use the multidimensional scaling (MDS) plot. Multidimensional scaling (which also goes by principal *coordinate* analysis (PCoA)) is a dimensionality reduction technique that's conceptually similar to principal *component* analysis (PCA).
+Here, we use a multidimensional scaling (MDS) plot to inspect this.
+Multidimensional scaling (also called principal *coordinate* analysis (PCoA)) is a dimensionality reduction technique that's conceptually similar to principal *component* analysis (PCA).
     
 
 ``` r
@@ -462,9 +471,8 @@ limma::plotMDS(cpm(y, log = TRUE),
 
 <img src="fig/multi-sample-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
 
-We then construct a design matrix by including both the pool and the tomato as factors.
-This design indicates which samples belong to which pool and condition, so we can
-use it in the next step of the analysis.
+We then construct a design matrix with the tomato variable as the main factors and pool
+as an additional covariate.
 
 
 ``` r
@@ -502,11 +510,11 @@ summary(y$trended.dispersion)
 ```
 
 ``` output
-    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-0.009325 0.016271 0.024233 0.021603 0.026868 0.027993 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.01002 0.01591 0.02472 0.02131 0.02574 0.02652 
 ```
 
-The BCV plot allows us to investigate the relation between the Biological Coefficient
+The BCV plot allows us to visualize the relationship between the Biological Coefficient
 of Variation and the Average log CPM for each gene.
 Additionally, the Common and Trend BCV are shown in `red` and `blue`.
 
@@ -519,7 +527,7 @@ plotBCV(y)
 
 We then fit a Quasi-Likelihood (QL) negative binomial generalized linear model for each gene. 
 The `robust = TRUE` parameter avoids distortions from highly variable clusters.
-The QL method includes an additional dispersion parameter, useful to handle the uncertainty and variability of the per-gene variance, which is not well estimated by the NB dispersions, so the two dispersion types complement each other in the final analysis.
+The QL method includes an additional dispersion parameter for incorporating the uncertainty and variability of the per-gene variance, which is not well estimated by the NB dispersions, so the two dispersion types complement each other in the final analysis.
 
 
 ``` r
@@ -529,8 +537,8 @@ summary(fit$var.prior)
 ```
 
 ``` output
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.2944  0.9342  1.0764  1.0030  1.1300  1.1923 
+Length  Class   Mode 
+     0   NULL   NULL 
 ```
 
 ``` r
@@ -539,7 +547,7 @@ summary(fit$df.prior)
 
 ``` output
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.3042  8.7218  8.7218  8.6433  8.7218  8.7218 
+ 0.6968  7.9221  7.9221  7.8972  7.9221  7.9221 
 ```
 
 QL dispersion estimates for each gene as a function of abundance. Raw estimates (black) are shrunk towards the trend (blue) to yield squeezed estimates (red).
@@ -551,9 +559,8 @@ plotQLDisp(fit)
 
 <img src="fig/multi-sample-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
 
-We then use an empirical Bayes quasi-likelihood F-test to test for differential expression (due to tomato injection) per each gene at a False Discovery Rate (FDR) of 5%.
-The low amount of DGEs highlights that the tomato injection effect has a low 
-influence on the mesenchyme cells.
+We then use an empirical Bayes quasi-likelihood *F*-test to test for differential expression (due to tomato injection) for each gene at a False Discovery Rate (FDR) of 5%.
+The low number of DE genes shwos that tomato injection does not have a major impact on gene expression in mesenchymal cells.
 
 
 ``` r
@@ -576,20 +583,21 @@ topTags(res)
 ``` output
 Coefficient:  factor(tomato)TRUE 
                         logFC   logCPM          F       PValue          FDR
-ENSMUSG00000010760 -4.1526570 9.973704 1116.70486 3.464851e-12 1.566113e-08
-ENSMUSG00000096768  1.9988567 8.844258  376.77267 1.070605e-09 2.419567e-06
-ENSMUSG00000035299  1.7967382 6.904163  119.58114 3.781967e-07 5.698163e-04
-ENSMUSG00000086503 -6.4743977 7.411257  225.86232 2.112730e-06 2.387385e-03
-ENSMUSG00000101609  1.3775797 7.310009   80.03729 2.671320e-06 2.414873e-03
-ENSMUSG00000019188 -1.0192069 7.545530   61.91544 8.939417e-06 6.734361e-03
-ENSMUSG00000024423  0.9941377 7.391075   56.95653 1.312959e-05 8.477962e-03
-ENSMUSG00000042607 -0.9516835 7.468203   45.46329 3.618639e-05 2.044531e-02
-ENSMUSG00000036446 -0.8287663 9.401028   43.05154 4.740864e-05 2.317935e-02
-ENSMUSG00000027520  1.5915670 6.952923   42.77910 5.128175e-05 2.317935e-02
+ENSMUSG00000010760 -4.1560168 9.973704 1070.96054 1.940322e-11 8.770254e-08
+ENSMUSG00000096768  1.9992563 8.844258  379.81665 3.081008e-09 6.963079e-06
+ENSMUSG00000086503 -6.4902580 7.411257  248.15766 1.911494e-07 2.879984e-04
+ENSMUSG00000035299  1.7979019 6.904163  126.18570 5.814967e-07 6.570913e-04
+ENSMUSG00000101609  1.3746824 7.310009   81.40822 4.275035e-06 3.864631e-03
+ENSMUSG00000019188 -1.0193854 7.545530   62.43651 1.374972e-05 1.035812e-02
+ENSMUSG00000024423  0.9943824 7.391075   59.10516 1.742749e-05 1.125318e-02
+ENSMUSG00000042607 -0.9541504 7.468203   45.63814 5.201678e-05 2.938948e-02
+ENSMUSG00000027520  1.5873733 6.952923   41.78827 7.480284e-05 3.594063e-02
+ENSMUSG00000036446 -0.8307640 9.401028   41.16271 7.951468e-05 3.594063e-02
 ```
 
-All the previous steps can be easily performed with the following function 
-for each cell type, thanks to the `pseudoBulkDGE` function in the `scran` package.
+All the previous steps can be conveniently performed for each cell type, with
+the `pseudoBulkDGE` function from the [scran](https://bioconductor.org/packages/scran)
+package.
 
 
 ``` r
@@ -604,8 +612,8 @@ de.results <- pseudoBulkDGE(
 )
 ```
 
-The returned object is a list of `DataFrame`s each with the results for a cell type.
-Each of these contains also the intermediate results in `edgeR` format to perform any intermediate plot or diagnostic.
+The returned object is a list of `DataFrame`s each storing the results for one of the cell types.
+Each of these `DataFrame`s also contains the intermediate results of the full [edgeR](https://bioconductor.org/packages/edgeR) pipeline carried out above, which allows us to apply diagnostics and visualization of individual steps of the pipeline.
 
 
 ``` r
@@ -618,11 +626,11 @@ cur.results[order(cur.results$PValue),]
 DataFrame with 13641 rows and 5 columns
                        logFC    logCPM         F      PValue         FDR
                    <numeric> <numeric> <numeric>   <numeric>   <numeric>
-ENSMUSG00000037664 -7.993258  11.55290  3389.401 1.49770e-25 6.29183e-22
-ENSMUSG00000010760 -2.574986  12.40592  1154.193 1.78995e-20 3.75980e-17
-ENSMUSG00000086503 -7.015615   7.49749   728.110 2.59315e-18 3.63127e-15
-ENSMUSG00000096768  1.828370   9.33239   304.252 2.37781e-14 2.49729e-11
-ENSMUSG00000022464  0.970406  10.28302   119.624 2.36805e-10 1.98964e-07
+ENSMUSG00000037664  -8.00072  11.56010  3349.683 1.15757e-27 4.81318e-24
+ENSMUSG00000010760  -2.57691  12.41096  1095.755 8.21809e-22 1.70854e-18
+ENSMUSG00000086503  -7.01824   7.50026   762.544 6.36342e-20 8.81970e-17
+ENSMUSG00000096768   1.82579   9.33347   314.684 1.83678e-15 1.90934e-12
+ENSMUSG00000022464   0.96701  10.28038   119.758 6.65050e-11 5.53056e-08
 ...                      ...       ...       ...         ...         ...
 ENSMUSG00000095247        NA        NA        NA          NA          NA
 ENSMUSG00000096808        NA        NA        NA          NA          NA
@@ -633,31 +641,30 @@ ENSMUSG00000095742        NA        NA        NA          NA          NA
 
 :::: challenge
 
-Clearly some of the results have low p-values. What about the effect sizes? What does `logFC` stand for?
+Clearly some of the results have low *p*-values. What about the effect sizes? What does `logFC` stand for?
 
 ::: solution
 
-"logFC" stands for log fold-change. `edgeR` uses a log2 convention. Rather than reporting e.g. a 5-fold increase, it's better to report a logFC of log2(5) = 2.32. Additive log scales are easier to work with than multiplicative identity scales, once you get used to it.
+"logFC" stands for log fold-change, typically on a log2 scale. That means a 2-fold increase in gene expression corresponds to a logFC of log2(2) = 1. 
 
-`ENSMUSG00000037664` seems to have an estimated logFC of about -8. That's a big difference if it's real.
+`ENSMUSG00000037664` seems to have an estimated logFC of about -8. That points to a large decrease in expression of that gene in Allantois cells of the tomato positive samples.
 
 :::
 
 ::::
 
 
-## Differential Abundance
+## Differential Abundance (DA) analysis
 
-With DA we look for differences in cluster *abundance* across conditions (the
-tomato injection in our case), rather than differences in gene expression.
+In addition to differences in gene expression, we also want to find differences
+in cell type *abundance* between conditions (here in tomato positive vs wild type
+samples).
 
-Our first steps are quantifying the number of cells per each cell type and
-fitting a model to catch differences between the injected cells and the
-background.
+Therefore, we first quantify the number of cells for each cell type, and then
+fit a model to detect differences between the injected cells and the background.
 
-The process is very similar differential expression modeling, but this time we
-start our analysis on the computed abundances and without normalizing the data
-with TMM.
+This process is very similar to differential expression analysis, but here we
+apply the analysis on the computed abundances without normalizing the data first.
 
 
 ``` r
@@ -672,47 +679,51 @@ y.ab <- DGEList(abundances, samples = extra.info)
 design <- model.matrix(~factor(pool) + factor(tomato), y.ab$samples)
 
 y.ab <- estimateDisp(y.ab, design, trend = "none")
+```
 
+``` error
+Error in loglik + prior.n * m0: non-conformable arrays
+```
+
+``` r
 fit.ab <- glmQLFit(y.ab, design, robust = TRUE, abundance.trend = FALSE)
 ```
 
 ### Background on compositional effect
 
-As mentioned before, in DA we don't normalize our data with `calcNormFactors`
-function, because this approach considers that most of the input features do not
-vary between conditions. This cannot be applied to DA analysis because we have a
-small number of cell populations that all can change due to the treatment. This
-means that here we will normalize only for library depth, which in pseudo-bulk
-data means by the total number of cells in each sample (cell type).
+We don't normalize the abundance data with the `calcNormFactors` function, as this would
+implicitly work under the assumption that most of the input features do not
+vary between conditions. This is typically not a reasonable assumption for
+cell type abundances as we often only have a few different cell populations that
+all can change with different experimental conditions.
+This means that here we will not normalize for library size, which in abundance
+data corresponds to the total number of cells in each sample (cell type).
 
-On the other hand, this can lead our data to be susceptible to compositional
-effect. "Compositional" refers to the fact that the cluster abundances in a
+However, this can lead our data to be susceptible to compositional
+effects. "Compositional" refers to the fact that the cluster abundances in a
 sample are not independent of one another because each cell type is effectively
 competing for space in the sample. They behave like proportions in that they
-must sum to 1. If cell type A abundance increases in a new condition, that means
-we'll observe less of everything else, even if everything else is unaffected by
-the new condition.
+must sum to 1. If the abundance of cell type A increases under a certain condition,
+we consequenlty observe less abundance of all other cell types,
+even if all other cell types are not directly affected by this condition.
 
-Compositionality means that our conclusions can be biased by the amount of cells
-present in each cell type. And this amount of cells can be totally unbalanced
-between cell types. This is particularly problematic for cell types that start
-at or end up near 0 or 100 percent.
-
-For example, a specific cell type can be 40% of the total amount of cells
-present in the experiment, while another just the 3%. The differences in terms
-of abundance of these cell types are detected between the different conditions,
-but our final interpretation could be biased if we don't consider this aspect.
+Not accounting for compositionality means that any conclusions derived from the DA
+analysis can be biased by the amount of cells present for each cell type.
+And it is not uncommon that the number of cells can be strongly unbalanced between
+cell types, with some low abundance cell types comprising close to 0 percent and
+certain high abundance cell types making up close to 100 percent of all cells in 
+a sample.
 
 We now look at different approaches for handling the compositional effect.
 
 ### Assuming most labels do not change
 
-We can use a similar approach used during the DEGs analysis, assuming that most
-labels are not changing, in particular if we think about the low number of DEGs 
-resulted from the previous analysis.
+We can use a similar approach as for the DE analysis, assuming that most
+labels are not changing, in particular if we consider the fact that only few genes
+where found to be differentially expressed in the analysis above.
 
 To do so, we first normalize the data with `calcNormFactors` and then we fit and 
-estimate a QL-model for our abundance data.
+estimate a QL-model for the abundance data.
 
 
 ``` r
@@ -725,12 +736,18 @@ y.ab2$samples$norm.factors
 [1] 1.1029040 1.0228173 1.0695358 0.7686501 1.0402941 1.0365354
 ```
 
-We then use edgeR in a manner similar to what we ran before: 
+We then use functions from [edgeR](https://bioconductor.org/packages/edgeR) as before: 
 
 
 ``` r
 y.ab2 <- estimateDisp(y.ab2, design, trend = "none")
+```
 
+``` error
+Error in loglik + prior.n * m0: non-conformable arrays
+```
+
+``` r
 fit.ab2 <- glmQLFit(y.ab2, design, robust = TRUE, abundance.trend = FALSE)
 
 res2 <- glmQLFTest(fit.ab2, coef = ncol(design))
@@ -752,27 +769,27 @@ topTags(res2, n = 10)
 ``` output
 Coefficient:  factor(tomato)TRUE 
                        logFC   logCPM         F       PValue          FDR
-ExE ectoderm      -5.7462892 13.13490 40.650293 1.853481e-08 6.301836e-07
-Parietal endoderm -6.9020425 12.36649 28.120078 1.338738e-06 2.275854e-05
-Mesenchyme         0.9656630 16.32654  6.729443 1.160472e-02 1.111437e-01
-Erythroid3        -0.9191728 17.34677  6.495750 1.307572e-02 1.111437e-01
-Neural crest      -1.0201642 14.83912  5.769547 1.904354e-02 1.294961e-01
-ExE endoderm      -3.9992208 10.75172  5.058004 2.775531e-02 1.572801e-01
-Endothelium        0.8672530 14.12195  3.614431 6.151880e-02 2.988056e-01
-Cardiomyocytes     0.6955522 14.93321  2.833474 9.690453e-02 4.118442e-01
-Allantois          0.5992522 15.54924  2.277082 1.359313e-01 5.135182e-01
-Erythroid2        -0.5185684 15.97357  1.773710 1.873705e-01 6.370598e-01
+ExE ectoderm      -5.7548150 13.13052 36.592240 6.975860e-08 2.371793e-06
+Parietal endoderm -6.9054141 12.34396 25.026083 4.230885e-06 7.192505e-05
+Mesenchyme         0.9661857 16.32776  6.489987 1.311439e-02 1.220524e-01
+Erythroid3        -0.9188382 17.34602  6.313470 1.435911e-02 1.220524e-01
+Neural crest      -1.0212778 14.84714  5.444709 2.259224e-02 1.536272e-01
+ExE endoderm      -3.9992886 10.75223  4.356716 4.061361e-02 2.301438e-01
+Endothelium        0.8725903 14.12053  3.393104 6.983028e-02 3.391756e-01
+Cardiomyocytes     0.6943555 14.93781  2.662584 1.073567e-01 4.562660e-01
+Allantois          0.5914769 15.55508  2.120304 1.499595e-01 5.665138e-01
+Erythroid2        -0.5257535 15.97144  1.742353 1.912673e-01 6.503088e-01
 ```
 
 ###  Testing against a log-fold change threshold
 
-A second approach assumes that the composition bias introduces a spurious
+An alternative approach assumes that the composition bias introduces a spurious
 log2-fold change of no more than a \tau quantity for a non-DA label.
 
 In other words, we interpret this as the maximum log-fold change in the total
 number of cells given by DA in other labels. On the other hand, when choosing
 \tau, we should not consider fold-differences in the totals due to differences
-in capture efficiency or the size of the original cell population are not
+in capture efficiency or for the case that the size of the original cell population is not
 attributable to composition bias. We then mitigate the effect of composition
 biases by testing each label for changes in abundance beyond \tau.
 
@@ -797,27 +814,27 @@ topTags(res.lfc)
 ``` output
 Coefficient:  factor(tomato)TRUE 
                          logFC unshrunk.logFC   logCPM       PValue
-ExE ectoderm        -5.5199847     -5.9467998 13.06465 7.002934e-06
-Parietal endoderm   -6.5913805    -27.4174596 12.30091 1.486452e-04
-ExE endoderm        -3.9308146    -23.9393101 10.76159 8.050176e-02
-Mesenchyme           1.1622187      1.1634540 16.35239 1.306006e-01
-Endothelium          1.0599946      1.0656145 14.14422 2.114555e-01
-Caudal neurectoderm -1.4559768     -1.6059830 11.09613 3.351750e-01
-Cardiomyocytes       0.8474499      0.8498787 14.96579 3.707748e-01
-Neural crest        -0.8411426     -0.8436838 14.83184 3.730129e-01
-Def. endoderm        0.7372230      0.7504500 12.50001 4.213046e-01
-Allantois            0.7569205      0.7581982 15.54528 4.713874e-01
+ExE ectoderm        -5.5017654     -5.9296357 13.07357 6.705761e-06
+Parietal endoderm   -6.5845020    -27.4411287 12.28571 1.247000e-04
+ExE endoderm        -3.9304866    -23.9322019 10.76304 6.597463e-02
+Mesenchyme           1.1604318      1.1616585 16.35326 1.442717e-01
+Endothelium          1.0475417      1.0530630 14.14043 2.211749e-01
+Caudal neurectoderm -1.4682413     -1.6212501 11.10535 3.169903e-01
+Cardiomyocytes       0.8628677      0.8654665 14.97008 3.478012e-01
+Neural crest        -0.8281842     -0.8307410 14.84525 3.726793e-01
+Allantois            0.7832266      0.7846135 15.55470 4.217972e-01
+Def. endoderm        0.7225404      0.7356721 12.49927 4.304678e-01
                              FDR
-ExE ectoderm        0.0002380998
-Parietal endoderm   0.0025269677
-ExE endoderm        0.9123532342
-Mesenchyme          0.9859547701
-Endothelium         0.9859547701
-Caudal neurectoderm 0.9859547701
-Cardiomyocytes      0.9859547701
-Neural crest        0.9859547701
-Def. endoderm       0.9859547701
-Allantois           0.9859547701
+ExE ectoderm        0.0002279959
+Parietal endoderm   0.0021198993
+ExE endoderm        0.7477125066
+Mesenchyme          0.9876518478
+Endothelium         0.9876518478
+Caudal neurectoderm 0.9876518478
+Cardiomyocytes      0.9876518478
+Neural crest        0.9876518478
+Allantois           0.9876518478
+Def. endoderm       0.9876518478
 ```
 
 Addionally, the choice of \tau can be guided by other external experimental data, like a previous or a pilot experiment.
@@ -966,19 +983,19 @@ Imagine you had one sample that received a drug treatment and one that did not, 
 -   Batch effects are systematic technical differences in the observed expression
     in cells measured in different experimental batches.
 -   Computational removal of batch-to-batch variation with the `correctExperiment`
-    function from the *[batchelor](https://bioconductor.org/packages/3.19/batchelor)* package allows us to combine data
+    function from the *[batchelor](https://bioconductor.org/packages/3.22/batchelor)* package allows us to combine data
     across multiple batches for a consolidated downstream analysis.
 -   Differential expression (DE) analysis of replicated multi-condition scRNA-seq experiments
     is typically based on pseudo-bulk expression profiles, generated by summing
     counts for all cells with the same combination of label and sample.
--   The `aggregateAcrossCells` function from the *[scater](https://bioconductor.org/packages/3.19/scater)* package
+-   The `aggregateAcrossCells` function from the *[scater](https://bioconductor.org/packages/3.22/scater)* package
     facilitates the creation of pseudo-bulk samples.   
--   The `pseudoBulkDGE` function from the *[scran](https://bioconductor.org/packages/3.19/scran)* package can be used
+-   The `pseudoBulkDGE` function from the *[scran](https://bioconductor.org/packages/3.22/scran)* package can be used
     to detect significant changes in expression between conditions for pseudo-bulk samples
     consisting of cells of the same type.
 -   Differential abundance (DA) analysis aims at identifying significant changes in
     cell type abundance across conditions.
--   DA analysis uses bulk DE methods such as *[edgeR](https://bioconductor.org/packages/3.19/edgeR)* and *[DESeq2](https://bioconductor.org/packages/3.19/DESeq2)*,
+-   DA analysis uses bulk DE methods such as *[edgeR](https://bioconductor.org/packages/3.22/edgeR)* and *[DESeq2](https://bioconductor.org/packages/3.22/DESeq2)*,
     which provide suitable statistical models for count data in the presence of
     limited replication - except that the counts are not of reads per gene, but
     of cells per label.
@@ -992,13 +1009,13 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.4.3 (2025-02-28)
+R version 4.5.2 (2025-10-31)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0 
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0  LAPACK version 3.10.0
 
 locale:
  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
@@ -1014,69 +1031,67 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] pheatmap_1.0.12              scran_1.32.0                
- [3] scater_1.32.1                ggplot2_3.5.1               
- [5] scuttle_1.14.0               edgeR_4.2.2                 
- [7] limma_3.60.6                 batchelor_1.20.0            
- [9] MouseGastrulationData_1.18.0 SpatialExperiment_1.14.0    
-[11] SingleCellExperiment_1.26.0  SummarizedExperiment_1.34.0 
-[13] Biobase_2.64.0               GenomicRanges_1.56.2        
-[15] GenomeInfoDb_1.40.1          IRanges_2.38.1              
-[17] S4Vectors_0.42.1             BiocGenerics_0.50.0         
-[19] MatrixGenerics_1.16.0        matrixStats_1.5.0           
-[21] BiocStyle_2.32.1            
+ [1] pheatmap_1.0.13              scran_1.38.0                
+ [3] scater_1.38.0                ggplot2_4.0.1               
+ [5] scuttle_1.20.0               edgeR_4.8.1                 
+ [7] limma_3.66.0                 batchelor_1.26.0            
+ [9] MouseGastrulationData_1.24.0 SpatialExperiment_1.20.0    
+[11] SingleCellExperiment_1.32.0  SummarizedExperiment_1.40.0 
+[13] Biobase_2.70.0               GenomicRanges_1.62.1        
+[15] Seqinfo_1.0.0                IRanges_2.44.0              
+[17] S4Vectors_0.48.0             BiocGenerics_0.56.0         
+[19] generics_0.1.4               MatrixGenerics_1.22.0       
+[21] matrixStats_1.5.0            BiocStyle_2.38.0            
 
 loaded via a namespace (and not attached):
-  [1] DBI_1.2.3                 formatR_1.14             
-  [3] gridExtra_2.3             rlang_1.1.5              
-  [5] magrittr_2.0.3            compiler_4.4.3           
-  [7] RSQLite_2.3.9             DelayedMatrixStats_1.26.0
-  [9] png_0.1-8                 vctrs_0.6.5              
- [11] pkgconfig_2.0.3           crayon_1.5.3             
- [13] fastmap_1.2.0             dbplyr_2.5.0             
- [15] magick_2.8.5              XVector_0.44.0           
- [17] labeling_0.4.3            rmarkdown_2.29           
- [19] ggbeeswarm_0.7.2          UCSC.utils_1.0.0         
- [21] purrr_1.0.2               bit_4.5.0.1              
- [23] bluster_1.14.0            xfun_0.50                
- [25] zlibbioc_1.50.0           cachem_1.1.0             
- [27] beachmat_2.20.0           jsonlite_1.8.9           
- [29] blob_1.2.4                DelayedArray_0.30.1      
- [31] BiocParallel_1.38.0       cluster_2.1.8            
- [33] irlba_2.3.5.1             parallel_4.4.3           
- [35] R6_2.5.1                  RColorBrewer_1.1-3       
- [37] Rcpp_1.0.14               knitr_1.49               
- [39] splines_4.4.3             Matrix_1.7-2             
- [41] igraph_2.1.4              tidyselect_1.2.1         
- [43] viridis_0.6.5             abind_1.4-8              
- [45] yaml_2.3.10               codetools_0.2-20         
- [47] curl_6.2.0                lattice_0.22-6           
- [49] tibble_3.2.1              withr_3.0.2              
- [51] KEGGREST_1.44.1           BumpyMatrix_1.12.0       
- [53] Rtsne_0.17                evaluate_1.0.3           
- [55] BiocFileCache_2.12.0      ExperimentHub_2.12.0     
- [57] Biostrings_2.72.1         pillar_1.10.1            
- [59] BiocManager_1.30.25       filelock_1.0.3           
- [61] renv_1.1.4                generics_0.1.3           
- [63] BiocVersion_3.19.1        sparseMatrixStats_1.16.0 
- [65] munsell_0.5.1             scales_1.3.0             
- [67] glue_1.8.0                metapod_1.12.0           
- [69] tools_4.4.3               AnnotationHub_3.12.0     
- [71] BiocNeighbors_1.22.0      ScaledMatrix_1.12.0      
- [73] locfit_1.5-9.11           cowplot_1.1.3            
- [75] grid_4.4.3                AnnotationDbi_1.66.0     
- [77] colorspace_2.1-1          GenomeInfoDbData_1.2.12  
- [79] beeswarm_0.4.0            BiocSingular_1.20.0      
- [81] vipor_0.4.7               cli_3.6.3                
- [83] rsvd_1.0.5                rappdirs_0.3.3           
- [85] viridisLite_0.4.2         S4Arrays_1.4.1           
- [87] dplyr_1.1.4               ResidualMatrix_1.14.1    
- [89] gtable_0.3.6              digest_0.6.37            
- [91] dqrng_0.4.1               ggrepel_0.9.6            
- [93] SparseArray_1.4.8         farver_2.1.2             
- [95] rjson_0.2.23              memoise_2.0.1            
- [97] htmltools_0.5.8.1         lifecycle_1.0.4          
- [99] httr_1.4.7                mime_0.12                
-[101] statmod_1.5.0             bit64_4.6.0-1            
+ [1] DBI_1.2.3                 formatR_1.14             
+ [3] gridExtra_2.3             httr2_1.2.2              
+ [5] rlang_1.1.6               magrittr_2.0.4           
+ [7] otel_0.2.0                compiler_4.5.2           
+ [9] RSQLite_2.4.5             DelayedMatrixStats_1.32.0
+[11] png_0.1-8                 vctrs_0.6.5              
+[13] pkgconfig_2.0.3           crayon_1.5.3             
+[15] fastmap_1.2.0             dbplyr_2.5.1             
+[17] magick_2.9.0              XVector_0.50.0           
+[19] labeling_0.4.3            rmarkdown_2.30           
+[21] ggbeeswarm_0.7.3          purrr_1.2.0              
+[23] bit_4.6.0                 bluster_1.20.0           
+[25] xfun_0.55                 cachem_1.1.0             
+[27] beachmat_2.26.0           blob_1.2.4               
+[29] DelayedArray_0.36.0       BiocParallel_1.44.0      
+[31] cluster_2.1.8.1           irlba_2.3.5.1            
+[33] parallel_4.5.2            R6_2.6.1                 
+[35] RColorBrewer_1.1-3        Rcpp_1.1.0               
+[37] knitr_1.50                splines_4.5.2            
+[39] Matrix_1.7-4              igraph_2.2.1             
+[41] tidyselect_1.2.1          viridis_0.6.5            
+[43] abind_1.4-8               yaml_2.3.12              
+[45] codetools_0.2-20          curl_7.0.0               
+[47] lattice_0.22-7            tibble_3.3.0             
+[49] withr_3.0.2               KEGGREST_1.50.0          
+[51] BumpyMatrix_1.18.0        S7_0.2.1                 
+[53] Rtsne_0.17                evaluate_1.0.5           
+[55] BiocFileCache_3.0.0       ExperimentHub_3.0.0      
+[57] Biostrings_2.78.0         pillar_1.11.1            
+[59] BiocManager_1.30.27       filelock_1.0.3           
+[61] renv_1.1.5                BiocVersion_3.22.0       
+[63] sparseMatrixStats_1.22.0  scales_1.4.0             
+[65] glue_1.8.0                metapod_1.18.0           
+[67] tools_4.5.2               AnnotationHub_4.0.0      
+[69] BiocNeighbors_2.4.0       ScaledMatrix_1.18.0      
+[71] locfit_1.5-9.12           cowplot_1.2.0            
+[73] grid_4.5.2                AnnotationDbi_1.72.0     
+[75] beeswarm_0.4.0            BiocSingular_1.26.1      
+[77] vipor_0.4.7               cli_3.6.5                
+[79] rsvd_1.0.5                rappdirs_0.3.3           
+[81] viridisLite_0.4.2         S4Arrays_1.10.1          
+[83] dplyr_1.1.4               ResidualMatrix_1.20.0    
+[85] gtable_0.3.6              digest_0.6.39            
+[87] dqrng_0.4.1               ggrepel_0.9.6            
+[89] SparseArray_1.10.7        rjson_0.2.23             
+[91] farver_2.1.2              memoise_2.0.1            
+[93] htmltools_0.5.9           lifecycle_1.0.4          
+[95] httr_1.4.7                statmod_1.5.1            
+[97] bit64_4.6.0-1            
 ```
 

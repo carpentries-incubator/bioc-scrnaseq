@@ -157,7 +157,7 @@ This command is equivalent to the following:
 
 
 ``` r
-summarise(filter(mtcars, cyl != 4), mean_disp = mean(disp), .by = cyl)
+summarise(filter(mtcars, cyl != 4), avg_disp = mean(disp), .by = cyl)
 ```
 
 ## Exploring the metadata

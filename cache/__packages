@@ -24,3 +24,5 @@ scran
 scDblFinder
 CuratedAtlasQueryR
 dplyr
+generics
+Seqinfo

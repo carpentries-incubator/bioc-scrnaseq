@@ -18,17 +18,7 @@
   <div class="container-fluid top-nav-container">
     <div class="col-md-8">
       <div class="large-logo">
-        <img id="incubator-logo" alt="Carpentries Incubator" src="assets/images/incubator-logo.svg"><span class="badge text-bg-danger">
-          <abbr title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.">
-            <a href="https://cdh.carpentries.org/the-lesson-life-cycle.html#early-development-pre-alpha-through-alpha" class="external-link alert-link">
-              <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
-              Pre-Alpha
-            </a>
-            <span class="visually-hidden">This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.</span>
-          </abbr>
-        </span>
-
-      </div>
+        <img id="incubator-logo" alt="Carpentries Incubator" src="assets/images/incubator-logo.svg"></div>
     </div>
     <div class="selector-container">
       <div id="theme-selector">
@@ -56,6 +46,7 @@
             </li>
           </ul></li>
       </div>
+
 
       <div class="dropdown" id="instructor-dropdown">
         <button class="btn btn-secondary dropdown-toggle bordered-button" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -334,9 +325,9 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Exploratory data analysis and quality control</h1>
-        <p>Last updated on 2025-04-15 |
+        <p>Last updated on 2025-12-19 |
 
-        <a href="https://github.com/ccb-hms/osca-carpentries/edit/main/episodes/eda_qc.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/edit/main/episodes/eda_qc.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
 
 
@@ -402,9 +393,13 @@ that contains all the droplets for which we have sequenced reads.</p>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">scran</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">scDblFinder</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">WTChimeraData</span><span class="op">(</span>samples <span class="op">=</span> <span class="fl">5</span>, type <span class="op">=</span> <span class="st">"raw"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="va">sce</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">WTChimeraData</span><span class="op">(</span>samples <span class="op">=</span> <span class="fl">5</span>, type <span class="op">=</span> <span class="st">"raw"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="va">sce</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">sce</span></span></code></pre>
 </div>
@@ -435,8 +430,8 @@ ambient or background RNA.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>Depending on your data source, identifying and discarding empty
 droplets may not be necessary. Some academic institutions have research
@@ -455,7 +450,7 @@ pre-processing steps have been performed, if any.</p>
 <p>We can visualize barcode read totals to visualize the distinction
 between empty droplets and properly profiled single cells in a so-called
 “knee plot”:</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -489,6 +484,7 @@ content.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
@@ -501,9 +497,9 @@ content.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -531,7 +527,7 @@ little RNA, both of which would have similar total counts.</p>
 <p>We call cells at a false discovery rate (FDR) of 0.1%, meaning that
 no more than 0.1% of our called barcodes should be empty droplets on
 average.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -548,9 +544,9 @@ average.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   Mode   FALSE    TRUE    NA's
-logical    6184    3131  513239 </code></pre>
+logical    5919    3396  513239 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -562,27 +558,27 @@ logical    6184    3131  513239 </code></pre>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>class: SingleCellExperiment
-dim: 29453 3131
+dim: 29453 3396
 metadata(0):
 assays(1): counts
 rownames(29453): ENSMUSG00000051951 ENSMUSG00000089699 ...
   ENSMUSG00000095742 tomato-td
 rowData names(2): ENSEMBL SYMBOL
-colnames(3131): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGTCAGTCTGATTG
+colnames(3396): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGTCACATTCTCAT
   TTTGTCATCTGAGTGT
 colData names(0):
 reducedDimNames(0):
 mainExpName: NULL
 altExpNames(0):</code></pre>
 </div>
-<p>The result confirms our expectation: only 3,131 droplets contain a
+<p>The result confirms our expectation: only 3396 droplets contain a
 cell, while the large majority of droplets are empty.</p>
 <div id="accordionSpoiler1" class="accordion spoiler-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> Setting the Random Seed </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
 <div class="accordion-body">
 <p>Whenever your code involves the generation of random numbers, it’s a
 good practice to set the random seed in R with
@@ -635,7 +631,7 @@ stripped.</p>
 <code>EnsDb</code> mouse package available in Bioconductor, but a more
 updated version of Ensembl can be used through the
 <code>AnnotationHub</code> or <code>biomaRt</code> packages.</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -649,7 +645,7 @@ updated version of Ensembl can be used through the
 <p>We can use the <code>scuttle</code> package to compute a set of
 quality control metrics, specifying that we want to use the
 mitochondrial genes as a special set of features.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -662,7 +658,7 @@ mitochondrial genes as a special set of features.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>DataFrame with 3131 rows and 6 columns
+<pre class="output" tabindex="0"><code>DataFrame with 3396 rows and 6 columns
                        sum  detected subsets_Mito_sum subsets_Mito_detected
                  &lt;numeric&gt; &lt;integer&gt;        &lt;numeric&gt;             &lt;integer&gt;
 AAACCTGAGACTGTAA     27577      5418              471                    10
@@ -673,8 +669,8 @@ AAACCTGGTGGTACAG       262       229                0                     0
 ...                    ...       ...              ...                   ...
 TTTGGTTTCGCCATAA     38398      6020              252                    12
 TTTGTCACACCCTATC      3013      1451              123                     9
+TTTGTCACACCGGAAA       820       157              655                    10
 TTTGTCACATTCTCAT      1472       675              599                    11
-TTTGTCAGTCTGATTG       361       293                0                     0
 TTTGTCATCTGAGTGT       267       233               16                     6
                  subsets_Mito_percent     total
                             &lt;numeric&gt; &lt;numeric&gt;
@@ -686,14 +682,14 @@ AAACCTGGTGGTACAG              0.00000       262
 ...                               ...       ...
 TTTGGTTTCGCCATAA             0.656284     38398
 TTTGTCACACCCTATC             4.082310      3013
+TTTGTCACACCGGAAA            79.878049       820
 TTTGTCACATTCTCAT            40.692935      1472
-TTTGTCAGTCTGATTG             0.000000       361
 TTTGTCATCTGAGTGT             5.992509       267</code></pre>
 </div>
 <p>Now that we have computed the metrics, we have to decide on
 thresholds to define high- and low-quality samples. We could check how
 many cells are above/below a certain fixed threshold. For instance,</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -704,9 +700,9 @@ many cells are above/below a certain fixed threshold. For instance,</p>
 </h3>
 <pre class="output" tabindex="0"><code>
 FALSE  TRUE
- 2477   654 </code></pre>
+ 2478   918 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -717,11 +713,11 @@ FALSE  TRUE
 </h3>
 <pre class="output" tabindex="0"><code>
 FALSE  TRUE
- 2761   370 </code></pre>
+ 2747   649 </code></pre>
 </div>
 <p>or we could look at the distribution of such metrics and use a data
 adaptive threshold.</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -731,9 +727,9 @@ adaptive threshold.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
-     98    4126    5168    4455    5670    7908 </code></pre>
+     45    2340    5074    4120    5628    7908 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -743,7 +739,7 @@ adaptive threshold.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
-  0.000   1.155   1.608   5.079   2.182  66.968 </code></pre>
+  0.000   1.206   1.680  10.062   2.890  93.368 </code></pre>
 </div>
 <p>We can use the <code>perCellQCFilters</code> function to apply a set
 of common adaptive filters to identify low-quality cells. By default, we
@@ -751,7 +747,7 @@ consider a value to be an outlier if it is more than 3 median absolute
 deviations (MADs) from the median in the “problematic” direction. This
 is loosely motivated by the fact that such a filter will retain 99% of
 non-outlier values that follow a normal distribution.</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -762,7 +758,7 @@ non-outlier values that follow a normal distribution.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>DataFrame with 3131 rows and 4 columns
+<pre class="output" tabindex="0"><code>DataFrame with 3396 rows and 4 columns
          low_lib_size   low_n_features high_subsets_Mito_percent   discard
      &lt;outlier.filter&gt; &lt;outlier.filter&gt;          &lt;outlier.filter&gt; &lt;logical&gt;
 1               FALSE            FALSE                     FALSE     FALSE
@@ -771,13 +767,13 @@ non-outlier values that follow a normal distribution.</p>
 4               FALSE            FALSE                     FALSE     FALSE
 5                TRUE             TRUE                     FALSE      TRUE
 ...               ...              ...                       ...       ...
-3127            FALSE            FALSE                     FALSE     FALSE
-3128             TRUE             TRUE                      TRUE      TRUE
-3129             TRUE             TRUE                      TRUE      TRUE
-3130             TRUE             TRUE                     FALSE      TRUE
-3131             TRUE             TRUE                      TRUE      TRUE</code></pre>
+3392            FALSE            FALSE                     FALSE     FALSE
+3393             TRUE             TRUE                     FALSE      TRUE
+3394             TRUE             TRUE                      TRUE      TRUE
+3395             TRUE             TRUE                      TRUE      TRUE
+3396             TRUE             TRUE                      TRUE      TRUE</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -787,6 +783,7 @@ non-outlier values that follow a normal distribution.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
@@ -801,18 +798,17 @@ the threshold for outlier calling?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You set <code>nmads = 2.5</code> like so:</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reasons_strict</span> <span class="op">&lt;-</span> <span class="fu">perCellQCFilters</span><span class="op">(</span><span class="va">df</span>, sub.fields <span class="op">=</span> <span class="st">"subsets_Mito_percent"</span>, nmads <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span></code></pre>
 </div>
 <p>You would then need to reassign the <code>discard</code> column as
-well, but we’ll stick with the 3 MADs default for now.
-<!-- This is a direct application of what was just shown --></p>
+well, but we’ll stick with the 3 MADs default for now.</p>
 </div>
 </div>
 </div>
@@ -826,21 +822,21 @@ problems with the procedure. In particular, we expect to have few
 outliers and with a marked difference from “regular” cells (e.g., a
 bimodal distribution or a long tail). Moreover, if there are too many
 discarded cells, further exploration might be needed.</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plotColData</span><span class="op">(</span><span class="va">sce</span>, y <span class="op">=</span> <span class="st">"sum"</span>, colour_by <span class="op">=</span> <span class="st">"discard"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Total count"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/eda_qc-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb26">
+<figure><img src="fig/eda_qc-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plotColData</span><span class="op">(</span><span class="va">sce</span>, y <span class="op">=</span> <span class="st">"detected"</span>, colour_by <span class="op">=</span> <span class="st">"discard"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Detected features"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/eda_qc-rendered-unnamed-chunk-11-2.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb27">
+<figure><img src="fig/eda_qc-rendered-unnamed-chunk-11-2.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -853,7 +849,7 @@ distribution of QC metrics is useful, e.g., to confirm that there are no
 cells with both large total counts and large mitochondrial counts, to
 ensure that we are not inadvertently removing high-quality cells that
 happen to be highly metabolically active.</p>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -866,7 +862,7 @@ removing an unusual cell population rather than low-quality libraries
 1.5 of OSCA advanced</a>).</p>
 <p>Once we are happy with the results, we can discard the low-quality
 cells by subsetting the original object.</p>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -877,13 +873,13 @@ cells by subsetting the original object.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>class: SingleCellExperiment
-dim: 29453 2437
+dim: 29453 2474
 metadata(0):
 assays(1): counts
 rownames(29453): ENSMUSG00000051951 ENSMUSG00000089699 ...
   ENSMUSG00000095742 tomato-td
 rowData names(2): ENSEMBL SYMBOL
-colnames(2437): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
+colnames(2474): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
   TTTGGTTTCGCCATAA
 colData names(7): sum detected ... total discard
 reducedDimNames(0):
@@ -921,7 +917,7 @@ proportional to its library size where the proportionality constant is
 defined such that the mean size factor across all cells is equal to 1.
 This ensures that the normalized expression values are on the same scale
 as the original counts.</p>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -933,9 +929,9 @@ as the original counts.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
- 0.2730  0.7879  0.9600  1.0000  1.1730  2.5598 </code></pre>
+ 0.2323  0.7878  0.9631  1.0000  1.1806  2.5846 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb33">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -967,7 +963,7 @@ populations.</p>
 <p>Note that while we focus on normalization by deconvolution here, many
 other methods have been proposed and lead to similar performance (see <a href="reference.html#litref">Borella 2022</a> for a comparative
 review).</p>
-<div class="codewrapper sourceCode" id="cb34">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -981,10 +977,10 @@ review).</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>clust
-  1   2   3   4   5   6   7   8   9  10  11  12  13
-273 159 250 122 187 201 154 252 152 169 199 215 104 </code></pre>
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14
+165 342 166 127 118 262 204 155 133 215 186 190 107 104 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -996,9 +992,9 @@ review).</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
- 0.3100  0.8028  0.9626  1.0000  1.1736  2.7858 </code></pre>
+ 0.2494  0.8021  0.9671  1.0000  1.1848  2.8222 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb38">
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1010,7 +1006,8 @@ review).</p>
 <span>    <span class="fu">geom_abline</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">clust</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">scale_x_log10</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">scale_y_log10</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<span>    <span class="fu">scale_y_log10</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"library_sf"</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/eda_qc-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Once we have computed the size factors, we compute the normalized
 expression values for each cell by dividing the count for each gene with
@@ -1018,7 +1015,7 @@ the appropriate size factor for that cell. Since we are typically going
 to work with log-transformed counts, the function
 <code>logNormCounts</code> also log-transforms the normalized values,
 creating a new assay called <code>logcounts</code>.</p>
-<div class="codewrapper sourceCode" id="cb39">
+<div class="codewrapper sourceCode" id="cb40">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1032,13 +1029,13 @@ creating a new assay called <code>logcounts</code>.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>class: SingleCellExperiment
-dim: 29453 2437
+dim: 29453 2474
 metadata(0):
 assays(2): counts logcounts
 rownames(29453): ENSMUSG00000051951 ENSMUSG00000089699 ...
   ENSMUSG00000095742 tomato-td
 rowData names(2): ENSEMBL SYMBOL
-colnames(2437): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
+colnames(2474): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
   TTTGGTTTCGCCATAA
 colData names(8): sum detected ... discard sizeFactor
 reducedDimNames(0):
@@ -1049,21 +1046,22 @@ altExpNames(0):</code></pre>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
 <p>Fill in the blanks for normalization that uses simpler library size
 factors instead of deconvolution.</p>
-<div class="codewrapper sourceCode" id="cb41">
+<div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>____ <span class="ot">&lt;-</span> <span class="fu">____SizeFactors</span>(sce)</span>
-<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a><span class="fu">sizeFactors</span>(sce) <span class="ot">&lt;-</span> ____</span>
-<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>sce <span class="ot">&lt;-</span> <span class="fu">____</span>(sce)</span>
-<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a></span>
-<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a>sce</span></code></pre>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>____ <span class="ot">&lt;-</span> <span class="fu">____SizeFactors</span>(sce)</span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a><span class="fu">sizeFactors</span>(sce) <span class="ot">&lt;-</span> ____</span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a>sce <span class="ot">&lt;-</span> <span class="fu">____</span>(sce)</span>
+<span id="cb42-6"><a href="#cb42-6" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" tabindex="-1"></a>sce</span></code></pre>
 </div>
 </div>
 </div>
@@ -1073,9 +1071,9 @@ factors instead of deconvolution.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb42">
+<div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1119,7 +1117,7 @@ cases, which means that the total variance of a gene is driven more by
 its abundance than its underlying biological heterogeneity. To account
 for this, the <code>modelGeneVar</code> function fits a trend to the
 variance with respect to abundance across all genes.</p>
-<div class="codewrapper sourceCode" id="cb43">
+<div class="codewrapper sourceCode" id="cb44">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1153,7 +1151,7 @@ instance, we may expect that only about 10% of genes to be
 differentially expressed across our cell populations and hence select
 10% of genes as highly variable (e.g., by setting
 <code>prop = 0.1</code>).</p>
-<div class="codewrapper sourceCode" id="cb44">
+<div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1171,6 +1169,7 @@ differentially expressed across our cell populations and hence select
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
@@ -1185,7 +1184,7 @@ account for this blocking structure when selecting HVGs?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <p><code>modelGeneVar()</code> can take a <code>block</code>
 argument.</p>
@@ -1198,13 +1197,13 @@ argument.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>Use the <code>block</code> argument in the call to
 <code>modelGeneVar()</code> like so. We don’t have experimenter
 information in this dataset, so in order to have some names to work with
 we assign them randomly from a set of names.</p>
-<div class="codewrapper sourceCode" id="cb46">
+<div class="codewrapper sourceCode" id="cb47">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1257,7 +1256,7 @@ metrics and PCs).</p>
 <p>One simple way to maximize our chance of capturing biological
 variation is by computing the PCs starting from the highly variable
 genes identified before.</p>
-<div class="codewrapper sourceCode" id="cb47">
+<div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1269,13 +1268,13 @@ genes identified before.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>class: SingleCellExperiment
-dim: 29453 2437
+dim: 29453 2474
 metadata(0):
 assays(2): counts logcounts
 rownames(29453): ENSMUSG00000051951 ENSMUSG00000089699 ...
   ENSMUSG00000095742 tomato-td
 rowData names(2): ENSEMBL SYMBOL
-colnames(2437): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
+colnames(2474): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
   TTTGGTTTCGCCATAA
 colData names(8): sum detected ... discard sizeFactor
 reducedDimNames(1): PCA
@@ -1286,7 +1285,7 @@ altExpNames(0):</code></pre>
 components. We can check how much original variability they explain.
 These values are stored in the attributes of the <code>percentVar</code>
 reducedDim:</p>
-<div class="codewrapper sourceCode" id="cb49">
+<div class="codewrapper sourceCode" id="cb50">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1304,7 +1303,7 @@ you’ve captured 50% of the total.</p>
 <p>And we can of course visualize the first 2-3 components, perhaps
 color-coding each point by an interesting feature, in this case the
 total number of UMIs per cell.</p>
-<div class="codewrapper sourceCode" id="cb50">
+<div class="codewrapper sourceCode" id="cb51">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1314,7 +1313,7 @@ total number of UMIs per cell.</p>
 <code>ncomponents</code> argument to <code>plotReducedDim()</code>. For
 example if one batch or cell type splits off on a particular PC, this
 can help visualize the effect of that.</p>
-<div class="codewrapper sourceCode" id="cb51">
+<div class="codewrapper sourceCode" id="cb52">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1330,7 +1329,7 @@ and projection</em>) have gained much popularity in the literature.</p>
 <p>These methods attempt to find a low-dimensional representation of the
 data that attempt to preserve pair-wise distance and structure in
 high-dimensional gene space as best as possible.</p>
-<div class="codewrapper sourceCode" id="cb52">
+<div class="codewrapper sourceCode" id="cb53">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1340,7 +1339,7 @@ high-dimensional gene space as best as possible.</p>
 <span></span>
 <span><span class="fu">plotTSNE</span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/eda_qc-rendered-unnamed-chunk-27-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb53">
+<figure><img src="fig/eda_qc-rendered-unnamed-chunk-27-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1364,7 +1363,7 @@ dimensionality reduced representations of the data for ease of reusing
 and replotting without the need for recomputing. Note the added
 <code>reducedDimNames</code> row when printing <code>sce</code>
 here:</p>
-<div class="codewrapper sourceCode" id="cb54">
+<div class="codewrapper sourceCode" id="cb55">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1374,13 +1373,13 @@ here:</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>class: SingleCellExperiment
-dim: 29453 2437
+dim: 29453 2474
 metadata(0):
 assays(2): counts logcounts
 rownames(29453): ENSMUSG00000051951 ENSMUSG00000089699 ...
   ENSMUSG00000095742 tomato-td
 rowData names(2): ENSEMBL SYMBOL
-colnames(2437): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
+colnames(2474): AAACCTGAGACTGTAA AAACCTGAGATGCCTT ... TTTGGTTTCAGTCAGT
   TTTGGTTTCGCCATAA
 colData names(8): sum detected ... discard sizeFactor
 reducedDimNames(3): PCA TSNE UMAP
@@ -1397,6 +1396,7 @@ parameter of t-SNE).</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
@@ -1411,9 +1411,9 @@ looks different?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb56">
+<div class="codewrapper sourceCode" id="cb57">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1477,23 +1477,23 @@ each cell.</li>
 very likely to be a doublet itself.</p>
 <p>This approach is implemented below using the <code>scDblFinder</code>
 library. We then visualize the scores in a t-SNE plot.</p>
-<div class="codewrapper sourceCode" id="cb57">
+<div class="codewrapper sourceCode" id="cb58">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">set.seed</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">dbl.dens</span> <span class="op">&lt;-</span> <span class="fu">computeDoubletDensity</span><span class="op">(</span><span class="va">sce</span>, subset.row <span class="op">=</span> <span class="va">hvg.sce.var</span>,</span>
-<span>                                  d <span class="op">=</span> <span class="fu">ncol</span><span class="op">(</span><span class="fu">reducedDim</span><span class="op">(</span><span class="va">sce</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>                                  dims <span class="op">=</span> <span class="fu">ncol</span><span class="op">(</span><span class="fu">reducedDim</span><span class="op">(</span><span class="va">sce</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">summary</span><span class="op">(</span><span class="va">dbl.dens</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.
- 0.04874  0.28757  0.46790  0.65614  0.82371 14.88032 </code></pre>
+ 0.03958  0.29193  0.49480  0.66361  0.83126 14.87864 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb59">
+<div class="codewrapper sourceCode" id="cb60">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1504,7 +1504,7 @@ library. We then visualize the scores in a t-SNE plot.</p>
 <figure><img src="fig/eda_qc-rendered-unnamed-chunk-31-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can explicitly convert this into doublet calls by identifying
 large outliers for the score within each sample. Here we use the
 “griffiths” method to do so.</p>
-<div class="codewrapper sourceCode" id="cb60">
+<div class="codewrapper sourceCode" id="cb61">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1517,9 +1517,9 @@ large outliers for the score within each sample. Here we use the
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>singlet doublet
-   2124     313 </code></pre>
+   2123     351 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb62">
+<div class="codewrapper sourceCode" id="cb63">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1527,7 +1527,7 @@ large outliers for the score within each sample. Here we use the
 <span></span>
 <span><span class="fu">plotColData</span><span class="op">(</span><span class="va">sce</span>, y <span class="op">=</span> <span class="st">"DoubletScore"</span>, colour_by <span class="op">=</span> <span class="st">"doublet"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/eda_qc-rendered-unnamed-chunk-32-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb63">
+<figure><img src="fig/eda_qc-rendered-unnamed-chunk-32-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb64">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1536,13 +1536,13 @@ large outliers for the score within each sample. Here we use the
 <figure><img src="fig/eda_qc-rendered-unnamed-chunk-32-2.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>One way to determine whether a cell is in a real transient state or
 it is a doublet is to check the number of detected genes and total UMI
 counts.</p>
-<div class="codewrapper sourceCode" id="cb64">
+<div class="codewrapper sourceCode" id="cb65">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plotColData</span><span class="op">(</span><span class="va">sce</span>, <span class="st">"detected"</span>, <span class="st">"sum"</span>, colour_by <span class="op">=</span> <span class="st">"DoubletScore"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/eda_qc-rendered-unnamed-chunk-33-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb65">
+<figure><img src="fig/eda_qc-rendered-unnamed-chunk-33-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb66">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1558,6 +1558,7 @@ may be safer to discard them to avoid biases in downstream analysis
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="exercise-1-normalization" class="callout-inner">
 <h3 class="callout-title">Exercise 1: Normalization</h3>
 <div class="callout-content">
@@ -1575,9 +1576,9 @@ including clustering information?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
   <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb66">
+<div class="codewrapper sourceCode" id="cb67">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1589,9 +1590,9 @@ including clustering information?</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
- 0.2985  0.8142  0.9583  1.0000  1.1582  2.7054 </code></pre>
+ 0.2411  0.8140  0.9640  1.0000  1.1678  2.7463 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb68">
+<div class="codewrapper sourceCode" id="cb69">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1619,6 +1620,7 @@ This slightly violates the “majority non-DE genes” assumption.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="exercise-2-pbmc-data" class="callout-inner">
 <h3 class="callout-title">Exercise 2: PBMC Data</h3>
 <div class="callout-content">
@@ -1640,9 +1642,9 @@ develop in practice).</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb69">
+<div class="codewrapper sourceCode" id="cb70">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1673,12 +1675,12 @@ develop in practice).</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution7" aria-expanded="false" aria-controls="collapseSolution7">
   <h4 class="accordion-header" id="headingSolution7"> Show me the solution </h4>
 </button>
-<div id="collapseSolution7" class="accordion-collapse collapse" data-bs-parent="#accordionSolution7" aria-labelledby="headingSolution7">
+<div id="collapseSolution7" class="accordion-collapse collapse" aria-labelledby="headingSolution7" data-bs-parent="#accordionSolution7">
 <div class="accordion-body">
 <p>After getting the data, the steps are largely copy-pasted from above.
 For the sake of simplicity the mitochondrial genes are identified by
 gene symbols in the row data. Otherwise the steps are the same:</p>
-<div class="codewrapper sourceCode" id="cb70">
+<div class="codewrapper sourceCode" id="cb71">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1748,6 +1750,7 @@ gene symbols in the row data. Otherwise the steps are the same:</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="extension-challenge-1-spike-ins" class="callout-inner">
 <h3 class="callout-title">Extension challenge 1: Spike-ins</h3>
 <div class="callout-content">
@@ -1763,7 +1766,7 @@ required to use them?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution8" aria-expanded="false" aria-controls="collapseSolution8">
   <h4 class="accordion-header" id="headingSolution8"> Show me the solution </h4>
 </button>
-<div id="collapseSolution8" class="accordion-collapse collapse" data-bs-parent="#accordionSolution8" aria-labelledby="headingSolution8">
+<div id="collapseSolution8" class="accordion-collapse collapse" aria-labelledby="headingSolution8" data-bs-parent="#accordionSolution8">
 <div class="accordion-body">
 <p>Spike-ins are deliberately-introduced exogeneous RNA from an exotic
 or synthetic source at a known concentration. This provides a known
@@ -1780,8 +1783,10 @@ amount of sample-preparation work.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
+<span class="callout-header">Discussion</span>
 <div id="extension-challenge-2-background-research" class="callout-inner">
-<h3 class="callout-title">Extension challenge 2: Background research</h3>
+<h3 class="callout-title">Extension challenge 2: Background
+research</h3>
 <div class="callout-content">
 <p>Run an internet search for some of the most highly variable genes we
 identified in the feature selection section. See if you can identify the
@@ -1794,8 +1799,10 @@ in. Do they make biological sense to you?</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="extension-challenge-3-reduced-dimensionality-representations" class="callout-inner">
-<h3 class="callout-title">Extension challenge 3: Reduced dimensionality representations</h3>
+<h3 class="callout-title">Extension challenge 3: Reduced dimensionality
+representations</h3>
 <div class="callout-content">
 <p>Can dimensionality reduction techniques provide a perfectly accurate
 representation of the data?</p>
@@ -1807,7 +1814,7 @@ representation of the data?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution9" aria-expanded="false" aria-controls="collapseSolution9">
   <h4 class="accordion-header" id="headingSolution9"> Show me the solution </h4>
 </button>
-<div id="collapseSolution9" class="accordion-collapse collapse" data-bs-parent="#accordionSolution9" aria-labelledby="headingSolution9">
+<div id="collapseSolution9" class="accordion-collapse collapse" aria-labelledby="headingSolution9" data-bs-parent="#accordionSolution9">
 <div class="accordion-body">
 <p>Mathematically, this would require the data to fall on a
 two-dimensional plane (for linear methods like PCA) or a smooth 2D
@@ -1823,8 +1830,8 @@ information loss.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
+<span class="callout-header">Key Points</span>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul><li>Empty droplets, i.e. droplets that do not contain intact cells and
 that capture only ambient or background RNA, should be removed prior to
@@ -1863,6 +1870,7 @@ downstream analysis.</li>
 <div class="callout-square">
 <i class="callout-icon" data-feather="check-square"></i>
 </div>
+<span class="callout-header">Checklist</span>
 <div id="further-reading" class="callout-inner">
 <h3 class="callout-title">Further Reading</h3>
 <div class="callout-content">
@@ -1876,7 +1884,7 @@ downstream analysis.</li>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a></h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb71">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb72">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1885,13 +1893,13 @@ downstream analysis.</li>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>R version 4.4.3 (2025-02-28)
+<pre class="output" tabindex="0"><code>R version 4.5.2 (2025-10-31)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0  LAPACK version 3.10.0
 
 locale:
  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8
@@ -1907,81 +1915,83 @@ attached base packages:
 [8] base
 
 other attached packages:
- [1] scDblFinder_1.18.0           scran_1.32.0
- [3] scater_1.32.1                scuttle_1.14.0
- [5] EnsDb.Mmusculus.v79_2.99.0   ensembldb_2.28.1
- [7] AnnotationFilter_1.28.0      GenomicFeatures_1.56.0
- [9] AnnotationDbi_1.66.0         ggplot2_3.5.1
-[11] DropletUtils_1.24.0          MouseGastrulationData_1.18.0
-[13] SpatialExperiment_1.14.0     SingleCellExperiment_1.26.0
-[15] SummarizedExperiment_1.34.0  Biobase_2.64.0
-[17] GenomicRanges_1.56.2         GenomeInfoDb_1.40.1
-[19] IRanges_2.38.1               S4Vectors_0.42.1
-[21] BiocGenerics_0.50.0          MatrixGenerics_1.16.0
-[23] matrixStats_1.5.0            BiocStyle_2.32.1
+ [1] scDblFinder_1.24.0           scran_1.38.0
+ [3] scater_1.38.0                scuttle_1.20.0
+ [5] EnsDb.Mmusculus.v79_2.99.0   ensembldb_2.34.0
+ [7] AnnotationFilter_1.34.0      GenomicFeatures_1.62.0
+ [9] AnnotationDbi_1.72.0         ggplot2_4.0.1
+[11] DropletUtils_1.30.0          MouseGastrulationData_1.24.0
+[13] SpatialExperiment_1.20.0     SingleCellExperiment_1.32.0
+[15] SummarizedExperiment_1.40.0  Biobase_2.70.0
+[17] GenomicRanges_1.62.1         Seqinfo_1.0.0
+[19] IRanges_2.44.0               S4Vectors_0.48.0
+[21] BiocGenerics_0.56.0          generics_0.1.4
+[23] MatrixGenerics_1.22.0        matrixStats_1.5.0
+[25] BiocStyle_2.38.0
 
 loaded via a namespace (and not attached):
-  [1] jsonlite_1.8.9            magrittr_2.0.3
-  [3] ggbeeswarm_0.7.2          magick_2.8.5
-  [5] farver_2.1.2              rmarkdown_2.29
-  [7] BiocIO_1.14.0             zlibbioc_1.50.0
+  [1] RColorBrewer_1.1-3        jsonlite_2.0.0
+  [3] magrittr_2.0.4            ggbeeswarm_0.7.3
+  [5] magick_2.9.0              farver_2.1.2
+  [7] rmarkdown_2.30            BiocIO_1.20.0
   [9] vctrs_0.6.5               memoise_2.0.1
- [11] Rsamtools_2.20.0          DelayedMatrixStats_1.26.0
- [13] RCurl_1.98-1.16           htmltools_0.5.8.1
- [15] S4Arrays_1.4.1            AnnotationHub_3.12.0
- [17] curl_6.2.0                BiocNeighbors_1.22.0
- [19] xgboost_1.7.8.1           Rhdf5lib_1.26.0
- [21] SparseArray_1.4.8         rhdf5_2.48.0
- [23] cachem_1.1.0              GenomicAlignments_1.40.0
- [25] igraph_2.1.4              mime_0.12
+ [11] Rsamtools_2.26.0          DelayedMatrixStats_1.32.0
+ [13] RCurl_1.98-1.17           htmltools_0.5.9
+ [15] S4Arrays_1.10.1           AnnotationHub_4.0.0
+ [17] curl_7.0.0                BiocNeighbors_2.4.0
+ [19] xgboost_3.1.2.1           Rhdf5lib_1.32.0
+ [21] SparseArray_1.10.7        rhdf5_2.54.1
+ [23] httr2_1.2.2               cachem_1.1.0
+ [25] GenomicAlignments_1.46.0  igraph_2.2.1
  [27] lifecycle_1.0.4           pkgconfig_2.0.3
- [29] rsvd_1.0.5                Matrix_1.7-2
- [31] R6_2.5.1                  fastmap_1.2.0
- [33] GenomeInfoDbData_1.2.12   digest_0.6.37
- [35] colorspace_2.1-1          dqrng_0.4.1
- [37] irlba_2.3.5.1             ExperimentHub_2.12.0
- [39] RSQLite_2.3.9             beachmat_2.20.0
- [41] labeling_0.4.3            filelock_1.0.3
- [43] httr_1.4.7                abind_1.4-8
- [45] compiler_4.4.3            bit64_4.6.0-1
- [47] withr_3.0.2               BiocParallel_1.38.0
+ [29] rsvd_1.0.5                Matrix_1.7-4
+ [31] R6_2.6.1                  fastmap_1.2.0
+ [33] digest_0.6.39             RSpectra_0.16-2
+ [35] dqrng_0.4.1               irlba_2.3.5.1
+ [37] ExperimentHub_3.0.0       RSQLite_2.4.5
+ [39] beachmat_2.26.0           labeling_0.4.3
+ [41] filelock_1.0.3            httr_1.4.7
+ [43] abind_1.4-8               compiler_4.5.2
+ [45] bit64_4.6.0-1             withr_3.0.2
+ [47] S7_0.2.1                  BiocParallel_1.44.0
  [49] viridis_0.6.5             DBI_1.2.3
- [51] HDF5Array_1.32.1          R.utils_2.12.3
- [53] MASS_7.3-64               rappdirs_0.3.3
- [55] DelayedArray_0.30.1       bluster_1.14.0
- [57] rjson_0.2.23              tools_4.4.3
- [59] vipor_0.4.7               beeswarm_0.4.0
- [61] R.oo_1.27.0               glue_1.8.0
- [63] restfulr_0.0.15           rhdf5filters_1.16.0
- [65] grid_4.4.3                Rtsne_0.17
- [67] cluster_2.1.8             generics_0.1.3
- [69] gtable_0.3.6              R.methodsS3_1.8.2
- [71] data.table_1.16.4         metapod_1.12.0
- [73] BiocSingular_1.20.0       ScaledMatrix_1.12.0
- [75] XVector_0.44.0            ggrepel_0.9.6
- [77] BiocVersion_3.19.1        pillar_1.10.1
- [79] limma_3.60.6              BumpyMatrix_1.12.0
- [81] dplyr_1.1.4               BiocFileCache_2.12.0
- [83] lattice_0.22-6            FNN_1.1.4.1
- [85] renv_1.1.4                rtracklayer_1.64.0
- [87] bit_4.5.0.1               tidyselect_1.2.1
- [89] locfit_1.5-9.11           Biostrings_2.72.1
- [91] knitr_1.49                gridExtra_2.3
- [93] ProtGenerics_1.36.0       edgeR_4.2.2
- [95] xfun_0.50                 statmod_1.5.0
- [97] UCSC.utils_1.0.0          lazyeval_0.2.2
- [99] yaml_2.3.10               evaluate_1.0.3
-[101] codetools_0.2-20          tibble_3.2.1
-[103] BiocManager_1.30.25       cli_3.6.3
-[105] uwot_0.2.2                munsell_0.5.1
-[107] Rcpp_1.0.14               dbplyr_2.5.0
-[109] png_0.1-8                 XML_3.99-0.18
-[111] parallel_4.4.3            blob_1.2.4
-[113] sparseMatrixStats_1.16.0  bitops_1.0-9
-[115] viridisLite_0.4.2         scales_1.3.0
-[117] purrr_1.0.2               crayon_1.5.3
-[119] rlang_1.1.5               formatR_1.14
-[121] cowplot_1.1.3             KEGGREST_1.44.1          </code></pre>
+ [51] HDF5Array_1.38.0          R.utils_2.13.0
+ [53] MASS_7.3-65               rappdirs_0.3.3
+ [55] DelayedArray_0.36.0       bluster_1.20.0
+ [57] rjson_0.2.23              tools_4.5.2
+ [59] vipor_0.4.7               otel_0.2.0
+ [61] beeswarm_0.4.0            R.oo_1.27.1
+ [63] glue_1.8.0                h5mread_1.2.1
+ [65] restfulr_0.0.16           rhdf5filters_1.22.0
+ [67] grid_4.5.2                Rtsne_0.17
+ [69] cluster_2.1.8.1           gtable_0.3.6
+ [71] R.methodsS3_1.8.2         data.table_1.17.8
+ [73] metapod_1.18.0            BiocSingular_1.26.1
+ [75] ScaledMatrix_1.18.0       XVector_0.50.0
+ [77] ggrepel_0.9.6             BiocVersion_3.22.0
+ [79] pillar_1.11.1             limma_3.66.0
+ [81] BumpyMatrix_1.18.0        dplyr_1.1.4
+ [83] BiocFileCache_3.0.0       lattice_0.22-7
+ [85] FNN_1.1.4.1               renv_1.1.5
+ [87] rtracklayer_1.70.0        bit_4.6.0
+ [89] tidyselect_1.2.1          locfit_1.5-9.12
+ [91] Biostrings_2.78.0         knitr_1.50
+ [93] gridExtra_2.3             ProtGenerics_1.42.0
+ [95] edgeR_4.8.1               xfun_0.55
+ [97] statmod_1.5.1             UCSC.utils_1.6.1
+ [99] lazyeval_0.2.2            yaml_2.3.12
+[101] evaluate_1.0.5            codetools_0.2-20
+[103] cigarillo_1.0.0           tibble_3.3.0
+[105] BiocManager_1.30.27       cli_3.6.5
+[107] uwot_0.2.4                Rcpp_1.1.0
+[109] GenomeInfoDb_1.46.2       dbplyr_2.5.1
+[111] png_0.1-8                 XML_3.99-0.20
+[113] parallel_4.5.2            blob_1.2.4
+[115] sparseMatrixStats_1.22.0  bitops_1.0-9
+[117] viridisLite_0.4.2         scales_1.4.0
+[119] purrr_1.2.0               crayon_1.5.3
+[121] rlang_1.1.6               formatR_1.14
+[123] cowplot_1.2.0             KEGGREST_1.50.0          </code></pre>
 </div>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
@@ -2019,20 +2029,22 @@ any links that you are not going to use.
         <p>This lesson is subject to the <a href="CODE_OF_CONDUCT.html">Code of Conduct</a></p>
         <p>
 
-        <a href="https://github.com/ccb-hms/osca-carpentries/edit/main/episodes/eda_qc.Rmd" class="external-link">Edit on GitHub</a>
+        <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/edit/main/episodes/eda_qc.Rmd" class="external-link">Edit on GitHub</a>
 
 	
-        | <a href="https://github.com/ccb-hms/osca-carpentries/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
-        | <a href="https://github.com/ccb-hms/osca-carpentries/" class="external-link">Source</a></p>
-				<p><a href="https://github.com/ccb-hms/osca-carpentries/blob/main/CITATION" class="external-link">Cite</a> | <a href="mailto:christopher_magnano@hms.harvard.edu">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
-			</div>
-			<div class="col-md-6">
+        | <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
+        | <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/" class="external-link">Source</a></p>
+        <p>
+        <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/blob/main/" class="external-link">Cite</a>
+        | <a href="mailto:ludwig.geistlinger@gmail.com">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
+		</div>
+		<div class="col-md-6">
 
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.11" class="external-link">sandpaper (0.16.11)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.5" class="external-link">varnish (1.0.5)</a></p>
-			</div>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.17.3" class="external-link">sandpaper (0.17.3)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.9" class="external-link">varnish (1.0.9)</a></p>
+		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
 		<a href="#top">
@@ -2042,19 +2054,19 @@ any links that you are not going to use.
   <script type="application/ld+json">
     {
   "@context": "https://schema.org",
-  "@type": "TrainingMaterial",
-  "@id": "https://ccb-hms.github.io/osca-carpentries/eda_qc.html",
+  "@type": "LearningResource",
+  "@id": "https://carpentries-incubator.github.io/bioc-scrnaseq/eda_qc.html",
   "inLanguage": "en",
-  "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
+  "dct:conformsTo": "https://bioschemas.org/profiles/LearningResource/1.0-RELEASE",
   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
-  "keywords": "single-cell RNA-seq, The Carpentries, lesson, genomics, bioconductor",
+  "keywords": "single-cell RNA sequencing, Bioconductor, The Carpentries, genomics",
   "name": "Exploratory data analysis and quality control",
   "creativeWorkStatus": "active",
-  "url": "https://ccb-hms.github.io/osca-carpentries/eda_qc.html",
-  "identifier": "https://ccb-hms.github.io/osca-carpentries/eda_qc.html",
+  "url": "https://carpentries-incubator.github.io/bioc-scrnaseq/eda_qc.html",
+  "identifier": "https://carpentries-incubator.github.io/bioc-scrnaseq/eda_qc.html",
   "dateCreated": "2024-01-10",
-  "dateModified": "2025-04-15",
-  "datePublished": "2025-04-15"
+  "dateModified": "2025-12-19",
+  "datePublished": "2025-12-19"
 }
 
   </script><script>

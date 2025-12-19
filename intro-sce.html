@@ -18,17 +18,7 @@
   <div class="container-fluid top-nav-container">
     <div class="col-md-8">
       <div class="large-logo">
-        <img id="incubator-logo" alt="Carpentries Incubator" src="assets/images/incubator-logo.svg"><span class="badge text-bg-danger">
-          <abbr title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.">
-            <a href="https://cdh.carpentries.org/the-lesson-life-cycle.html#early-development-pre-alpha-through-alpha" class="external-link alert-link">
-              <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
-              Pre-Alpha
-            </a>
-            <span class="visually-hidden">This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.</span>
-          </abbr>
-        </span>
-
-      </div>
+        <img id="incubator-logo" alt="Carpentries Incubator" src="assets/images/incubator-logo.svg"></div>
     </div>
     <div class="selector-container">
       <div id="theme-selector">
@@ -56,6 +46,7 @@
             </li>
           </ul></li>
       </div>
+
 
       <div class="dropdown" id="instructor-dropdown">
         <button class="btn btn-secondary dropdown-toggle bordered-button" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -329,9 +320,9 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to Bioconductor and the SingleCellExperiment class</h1>
-        <p>Last updated on 2025-04-15 |
+        <p>Last updated on 2025-12-19 |
 
-        <a href="https://github.com/ccb-hms/osca-carpentries/edit/main/episodes/intro-sce.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/edit/main/episodes/intro-sce.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
 
 
@@ -407,7 +398,7 @@ package to easily connect to the Bioconductor servers.</p>
 <p>After that, we can use <em><a href="https://CRAN.R-project.org/package=BiocManager" class="external-link">BiocManager</a></em>’s
 <code>install()</code> function to install any package from
 Bioconductor. For example, the code chunk below uses this approach to
-install the <em><a href="https://bioconductor.org/packages/3.19/SingleCellExperiment" class="external-link">SingleCellExperiment</a></em>
+install the <em><a href="https://bioconductor.org/packages/3.22/SingleCellExperiment" class="external-link">SingleCellExperiment</a></em>
 package.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -497,7 +488,7 @@ manner.</p>
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> Benefits of using the integrated SingleCellExperiment data container </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>The complexity of the <code>SingleCellExperiment</code> container
 might be a little bit intimidating in the beginning. One might be
@@ -534,9 +525,13 @@ object named <code>sce</code> like so:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">WTChimeraData</span><span class="op">(</span>samples <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">sce</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">WTChimeraData</span><span class="op">(</span>samples <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sce</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -566,6 +561,7 @@ methods.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
@@ -579,11 +575,11 @@ methods.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Here we obtain the sixth sample and assign it to
 <code>sce6</code>:</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -605,7 +601,7 @@ transformed data. We can access the <em>list</em> of matrices with the
 <code>assay</code> function. If one of these matrices is called
 “counts”, we can use the special <code>counts</code> getter (likewise
 for <code>logcounts</code>).</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -616,7 +612,7 @@ for <code>logcounts</code>).</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "counts"</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -645,7 +641,7 @@ with large data</a> episode).</p>
 the rows of your assay, respectively.</p>
 <p>One can interact with them as usual, e.g., by extracting columns or
 adding additional variables as columns.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -661,7 +657,7 @@ cell_9769   cell_9769 AAACCTGAGACTGTAA         5        E8.5
 cell_9770   cell_9770 AAACCTGAGATGCCTT         5        E8.5
 cell_9771   cell_9771 AAACCTGAGCAGCCTC         5        E8.5</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -680,7 +676,7 @@ ENSMUSG00000102343 ENSMUSG00000102343     Gm37381</code></pre>
 <p>You can access columns of the colData with the <code>$</code>
 accessor to quickly add cell-wise metadata to the
 <code>colData</code>.</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -712,6 +708,7 @@ cell_9771    1.15439     28795</code></pre>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
@@ -724,11 +721,11 @@ cell_9771    1.15439     28795</code></pre>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Here, we add a column of named <code>conservation</code> that could
 represent an evolutionary conservation score.</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -754,7 +751,7 @@ to data analysis with R and Bioconductor</a> course.</p>
 <p>One peculiarity of <code>SingleCellExperiment</code> is its ability
 to store reduced dimension matrices within the object. These may include
 PCA, t-SNE, UMAP, etc.</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -777,7 +774,7 @@ function as an example of how to extract this information
 same results by manually extracting the corresponding
 <code>reducedDim</code> matrix and cell type labels then passing them to
 <code>ggplot</code> in a data frame.</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -789,6 +786,7 @@ same results by manually extracting the corresponding
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="exercise-1" class="callout-inner">
 <h3 class="callout-title">Exercise 1</h3>
 <div class="callout-content">
@@ -804,7 +802,7 @@ or with some fake data in it) and add one or more columns as
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <p>The <code>SingleCellExperiment</code> constructor function can be
 used to create a new <code>SingleCellExperiment</code> object.</p>
@@ -817,9 +815,9 @@ used to create a new <code>SingleCellExperiment</code> object.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -854,6 +852,7 @@ altExpNames(0):</code></pre>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="exercise-2" class="callout-inner">
 <h3 class="callout-title">Exercise 2</h3>
 <div class="callout-content">
@@ -870,17 +869,21 @@ created before.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sce</span>  <span class="op">&lt;-</span> <span class="fu">WTChimeraData</span><span class="op">(</span>samples <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">sce6</span> <span class="op">&lt;-</span> <span class="fu">WTChimeraData</span><span class="op">(</span>samples <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">combined_sce</span> <span class="op">&lt;-</span> <span class="fu">cbind</span><span class="op">(</span><span class="va">sce</span>, <span class="va">sce6</span><span class="op">)</span></span>
+<span><span class="va">sce6</span> <span class="op">&lt;-</span> <span class="fu">WTChimeraData</span><span class="op">(</span>samples <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb28">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">combined_sce</span> <span class="op">&lt;-</span> <span class="fu">cbind</span><span class="op">(</span><span class="va">sce</span>, <span class="va">sce6</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">combined_sce</span></span></code></pre>
 </div>
@@ -908,6 +911,7 @@ altExpNames(0):</code></pre>
 <div class="callout-square">
 <i class="callout-icon" data-feather="check-square"></i>
 </div>
+<span class="callout-header">Checklist</span>
 <div id="further-reading" class="callout-inner">
 <h3 class="callout-title">Further Reading</h3>
 <div class="callout-content">
@@ -920,8 +924,8 @@ altExpNames(0):</code></pre>
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
+<span class="callout-header">Key Points</span>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul><li>The Bioconductor project provides open-source software packages for
 the comprehension of high-throughput biological data.</li>
@@ -940,7 +944,7 @@ fields for storing data unique to single-cell analyses, such as the
 single-cell molecular map of mouse gastrulation and early organogenesis.
 Nature 566, 7745:490-495.</li>
 </ol></section><section><h2 class="section-heading" id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a></h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb28">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -949,13 +953,13 @@ Nature 566, 7745:490-495.</li>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>R version 4.4.3 (2025-02-28)
+<pre class="output" tabindex="0"><code>R version 4.5.2 (2025-10-31)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0  LAPACK version 3.10.0
 
 locale:
  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8
@@ -971,62 +975,46 @@ attached base packages:
 [8] base
 
 other attached packages:
- [1] scater_1.32.1                ggplot2_3.5.1
- [3] scuttle_1.14.0               MouseGastrulationData_1.18.0
- [5] SpatialExperiment_1.14.0     SingleCellExperiment_1.26.0
- [7] SummarizedExperiment_1.34.0  Biobase_2.64.0
- [9] GenomicRanges_1.56.2         GenomeInfoDb_1.40.1
-[11] IRanges_2.38.1               S4Vectors_0.42.1
-[13] BiocGenerics_0.50.0          MatrixGenerics_1.16.0
-[15] matrixStats_1.5.0            BiocStyle_2.32.1
+ [1] scater_1.38.0                ggplot2_4.0.1
+ [3] scuttle_1.20.0               MouseGastrulationData_1.24.0
+ [5] SpatialExperiment_1.20.0     SingleCellExperiment_1.32.0
+ [7] SummarizedExperiment_1.40.0  Biobase_2.70.0
+ [9] GenomicRanges_1.62.1         Seqinfo_1.0.0
+[11] IRanges_2.44.0               S4Vectors_0.48.0
+[13] BiocGenerics_0.56.0          generics_0.1.4
+[15] MatrixGenerics_1.22.0        matrixStats_1.5.0
+[17] BiocStyle_2.38.0
 
 loaded via a namespace (and not attached):
- [1] DBI_1.2.3                 formatR_1.14
- [3] gridExtra_2.3             rlang_1.1.5
- [5] magrittr_2.0.3            compiler_4.4.3
- [7] RSQLite_2.3.9             DelayedMatrixStats_1.26.0
- [9] png_0.1-8                 vctrs_0.6.5
-[11] pkgconfig_2.0.3           crayon_1.5.3
-[13] fastmap_1.2.0             dbplyr_2.5.0
-[15] magick_2.8.5              XVector_0.44.0
-[17] labeling_0.4.3            rmarkdown_2.29
-[19] UCSC.utils_1.0.0          ggbeeswarm_0.7.2
-[21] purrr_1.0.2               bit_4.5.0.1
-[23] xfun_0.50                 zlibbioc_1.50.0
-[25] cachem_1.1.0              beachmat_2.20.0
-[27] jsonlite_1.8.9            blob_1.2.4
-[29] DelayedArray_0.30.1       BiocParallel_1.38.0
-[31] irlba_2.3.5.1             parallel_4.4.3
-[33] R6_2.5.1                  Rcpp_1.0.14
-[35] knitr_1.49                Matrix_1.7-2
-[37] tidyselect_1.2.1          abind_1.4-8
-[39] yaml_2.3.10               viridis_0.6.5
-[41] codetools_0.2-20          curl_6.2.0
-[43] lattice_0.22-6            tibble_3.2.1
-[45] withr_3.0.2               KEGGREST_1.44.1
-[47] BumpyMatrix_1.12.0        evaluate_1.0.3
-[49] BiocFileCache_2.12.0      ExperimentHub_2.12.0
-[51] Biostrings_2.72.1         pillar_1.10.1
-[53] BiocManager_1.30.25       filelock_1.0.3
-[55] renv_1.1.4                generics_0.1.3
-[57] BiocVersion_3.19.1        sparseMatrixStats_1.16.0
-[59] munsell_0.5.1             scales_1.3.0
-[61] glue_1.8.0                tools_4.4.3
-[63] AnnotationHub_3.12.0      BiocNeighbors_1.22.0
-[65] ScaledMatrix_1.12.0       cowplot_1.1.3
-[67] grid_4.4.3                AnnotationDbi_1.66.0
-[69] colorspace_2.1-1          GenomeInfoDbData_1.2.12
-[71] beeswarm_0.4.0            BiocSingular_1.20.0
-[73] vipor_0.4.7               cli_3.6.3
-[75] rsvd_1.0.5                rappdirs_0.3.3
-[77] viridisLite_0.4.2         S4Arrays_1.4.1
-[79] dplyr_1.1.4               gtable_0.3.6
-[81] digest_0.6.37             SparseArray_1.4.8
-[83] ggrepel_0.9.6             farver_2.1.2
-[85] rjson_0.2.23              memoise_2.0.1
-[87] htmltools_0.5.8.1         lifecycle_1.0.4
-[89] httr_1.4.7                mime_0.12
-[91] bit64_4.6.0-1            </code></pre>
+ [1] DBI_1.2.3            formatR_1.14         gridExtra_2.3
+ [4] httr2_1.2.2          rlang_1.1.6          magrittr_2.0.4
+ [7] otel_0.2.0           compiler_4.5.2       RSQLite_2.4.5
+[10] png_0.1-8            vctrs_0.6.5          pkgconfig_2.0.3
+[13] crayon_1.5.3         fastmap_1.2.0        dbplyr_2.5.1
+[16] magick_2.9.0         XVector_0.50.0       labeling_0.4.3
+[19] rmarkdown_2.30       ggbeeswarm_0.7.3     purrr_1.2.0
+[22] bit_4.6.0            xfun_0.55            cachem_1.1.0
+[25] beachmat_2.26.0      blob_1.2.4           DelayedArray_0.36.0
+[28] BiocParallel_1.44.0  irlba_2.3.5.1        parallel_4.5.2
+[31] R6_2.6.1             RColorBrewer_1.1-3   Rcpp_1.1.0
+[34] knitr_1.50           Matrix_1.7-4         tidyselect_1.2.1
+[37] abind_1.4-8          yaml_2.3.12          viridis_0.6.5
+[40] codetools_0.2-20     curl_7.0.0           lattice_0.22-7
+[43] tibble_3.3.0         withr_3.0.2          KEGGREST_1.50.0
+[46] BumpyMatrix_1.18.0   S7_0.2.1             evaluate_1.0.5
+[49] BiocFileCache_3.0.0  ExperimentHub_3.0.0  Biostrings_2.78.0
+[52] pillar_1.11.1        BiocManager_1.30.27  filelock_1.0.3
+[55] renv_1.1.5           BiocVersion_3.22.0   scales_1.4.0
+[58] glue_1.8.0           tools_4.5.2          AnnotationHub_4.0.0
+[61] BiocNeighbors_2.4.0  ScaledMatrix_1.18.0  cowplot_1.2.0
+[64] grid_4.5.2           AnnotationDbi_1.72.0 beeswarm_0.4.0
+[67] BiocSingular_1.26.1  vipor_0.4.7          cli_3.6.5
+[70] rsvd_1.0.5           rappdirs_0.3.3       S4Arrays_1.10.1
+[73] viridisLite_0.4.2    dplyr_1.1.4          gtable_0.3.6
+[76] digest_0.6.39        SparseArray_1.10.7   ggrepel_0.9.6
+[79] rjson_0.2.23         farver_2.1.2         memoise_2.0.1
+[82] htmltools_0.5.9      lifecycle_1.0.4      httr_1.4.7
+[85] bit64_4.6.0-1       </code></pre>
 </div>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
@@ -1056,20 +1044,22 @@ any links that you are not going to use.
         <p>This lesson is subject to the <a href="CODE_OF_CONDUCT.html">Code of Conduct</a></p>
         <p>
 
-        <a href="https://github.com/ccb-hms/osca-carpentries/edit/main/episodes/intro-sce.Rmd" class="external-link">Edit on GitHub</a>
+        <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/edit/main/episodes/intro-sce.Rmd" class="external-link">Edit on GitHub</a>
 
 	
-        | <a href="https://github.com/ccb-hms/osca-carpentries/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
-        | <a href="https://github.com/ccb-hms/osca-carpentries/" class="external-link">Source</a></p>
-				<p><a href="https://github.com/ccb-hms/osca-carpentries/blob/main/CITATION" class="external-link">Cite</a> | <a href="mailto:christopher_magnano@hms.harvard.edu">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
-			</div>
-			<div class="col-md-6">
+        | <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
+        | <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/" class="external-link">Source</a></p>
+        <p>
+        <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/blob/main/" class="external-link">Cite</a>
+        | <a href="mailto:ludwig.geistlinger@gmail.com">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
+		</div>
+		<div class="col-md-6">
 
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.11" class="external-link">sandpaper (0.16.11)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.5" class="external-link">varnish (1.0.5)</a></p>
-			</div>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.17.3" class="external-link">sandpaper (0.17.3)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.9" class="external-link">varnish (1.0.9)</a></p>
+		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
 		<a href="#top">
@@ -1079,19 +1069,19 @@ any links that you are not going to use.
   <script type="application/ld+json">
     {
   "@context": "https://schema.org",
-  "@type": "TrainingMaterial",
-  "@id": "https://ccb-hms.github.io/osca-carpentries/intro-sce.html",
+  "@type": "LearningResource",
+  "@id": "https://carpentries-incubator.github.io/bioc-scrnaseq/intro-sce.html",
   "inLanguage": "en",
-  "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
+  "dct:conformsTo": "https://bioschemas.org/profiles/LearningResource/1.0-RELEASE",
   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
-  "keywords": "single-cell RNA-seq, The Carpentries, lesson, genomics, bioconductor",
+  "keywords": "single-cell RNA sequencing, Bioconductor, The Carpentries, genomics",
   "name": "Introduction to Bioconductor and the SingleCellExperiment class",
   "creativeWorkStatus": "active",
-  "url": "https://ccb-hms.github.io/osca-carpentries/intro-sce.html",
-  "identifier": "https://ccb-hms.github.io/osca-carpentries/intro-sce.html",
+  "url": "https://carpentries-incubator.github.io/bioc-scrnaseq/intro-sce.html",
+  "identifier": "https://carpentries-incubator.github.io/bioc-scrnaseq/intro-sce.html",
   "dateCreated": "2024-01-10",
-  "dateModified": "2025-04-15",
-  "datePublished": "2025-04-15"
+  "dateModified": "2025-12-19",
+  "datePublished": "2025-12-19"
 }
 
   </script><script>

@@ -18,17 +18,7 @@
   <div class="container-fluid top-nav-container">
     <div class="col-md-8">
       <div class="large-logo">
-        <img id="incubator-logo" alt="Carpentries Incubator" src="assets/images/incubator-logo.svg"><span class="badge text-bg-danger">
-          <abbr title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.">
-            <a href="https://cdh.carpentries.org/the-lesson-life-cycle.html#early-development-pre-alpha-through-alpha" class="external-link alert-link">
-              <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
-              Pre-Alpha
-            </a>
-            <span class="visually-hidden">This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.</span>
-          </abbr>
-        </span>
-
-      </div>
+        <img id="incubator-logo" alt="Carpentries Incubator" src="assets/images/incubator-logo.svg"></div>
     </div>
     <div class="selector-container">
       <div id="theme-selector">
@@ -56,6 +46,7 @@
             </li>
           </ul></li>
       </div>
+
 
       <div class="dropdown" id="instructor-dropdown">
         <button class="btn btn-secondary dropdown-toggle bordered-button" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -332,9 +323,9 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Working with large data</h1>
-        <p>Last updated on 2025-04-15 |
+        <p>Last updated on 2025-12-19 |
 
-        <a href="https://github.com/ccb-hms/osca-carpentries/edit/main/episodes/large_data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/edit/main/episodes/large_data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
 
 
@@ -412,9 +403,13 @@ package.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">TENxBrainData</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">sce.brain</span> <span class="op">&lt;-</span> <span class="fu">TENxBrainData20k</span><span class="op">(</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="va">sce.brain</span></span></code></pre>
+<span><span class="va">sce.brain</span> <span class="op">&lt;-</span> <span class="fu">TENxBrainData20k</span><span class="op">(</span><span class="op">)</span> </span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sce.brain</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -437,7 +432,7 @@ the memory usage, it is clear that this matrix object is simply a stub
 that points to the much larger HDF5 file that actually contains the
 data. This avoids the need for large RAM availability during
 analyses.</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -472,7 +467,7 @@ analyses.</p>
 [27997,]        0
 [27998,]        0</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -483,11 +478,11 @@ analyses.</p>
 </h3>
 <pre class="output" tabindex="0"><code>2496 bytes</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">file.info</span><span class="op">(</span><span class="fu">path</span><span class="op">(</span><span class="fu">counts</span><span class="op">(</span><span class="va">sce.brain</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">size</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">file.size</span><span class="op">(</span><span class="fu">path</span><span class="op">(</span><span class="fu">counts</span><span class="op">(</span><span class="va">sce.brain</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -502,7 +497,7 @@ values are realized for use in calculations. The use of delayed
 operations avoids the need to write the modified values to a new file at
 every operation, which would unnecessarily require time-consuming disk
 I/O.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -537,7 +532,7 @@ as well as representation-agnostic C++ code using <a href="https://bioconductor.
 example, we compute QC metrics below with the same
 <code>calculateQCMetrics()</code> function that we used in the other
 workflows.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -591,7 +586,7 @@ exploration and visualization on their personal machines.</p>
 </section><section><h2 class="section-heading" id="parallelization">Parallelization<a class="anchor" aria-label="anchor" href="#parallelization"></a></h2>
 <hr class="half-width"><p>Parallelization of calculations across genes or cells is an obvious
 strategy for speeding up scRNA-seq analysis workflows.</p>
-<p>The <em><a href="https://bioconductor.org/packages/3.19/BiocParallel" class="external-link">BiocParallel</a></em>
+<p>The <em><a href="https://bioconductor.org/packages/3.22/BiocParallel" class="external-link">BiocParallel</a></em>
 package provides a common interface for parallel computing throughout
 the Bioconductor ecosystem, manifesting as a <code>BPPARAM</code>
 argument in compatible functions. We can also use
@@ -599,7 +594,7 @@ argument in compatible functions. We can also use
 through the package’s interface.</p>
 <div class="section level4">
 <h4 id="basic-use">Basic use<a class="anchor" aria-label="anchor" href="#basic-use"></a></h4>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -612,11 +607,11 @@ is required.</p>
 <p>In this example, we find the square root of a vector of numbers in
 parallel by indicating the <code>BPPARAM</code> argument in
 <code>bplapply</code>.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">param</span> <span class="op">&lt;-</span> <span class="fu">MulticoreParam</span><span class="op">(</span>workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">param</span> <span class="op">&lt;-</span> <span class="fu">MulticoreParam</span><span class="op">(</span>workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">bplapply</span><span class="op">(</span></span>
 <span>    X <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">4</span>, <span class="fl">9</span>, <span class="fl">16</span>, <span class="fl">25</span><span class="op">)</span>,</span>
@@ -639,13 +634,17 @@ parallel by indicating the <code>BPPARAM</code> argument in
 [[4]]
 [1] 5</code></pre>
 </div>
-<p><strong>Note</strong>. The number of workers is set to 1 due to
-continuous testing resource limitations.</p>
-<p>There exists a diverse set of parallelization backends depending on
+<p>A couple notes on this:</p>
+<ul><li>The number of workers is explicitly set to 1 in this example due to
+the limited resources used to render the online material.</li>
+<li>Parallel execution with <code>MulticoreParam()</code> is not
+supported on Windows. See <code>?SnowParam()</code> as an
+alternative.</li>
+</ul><p>There exists a diverse set of parallelization backends depending on
 available hardware and operating systems.</p>
 <p>For example, we might use forking across two cores to parallelize the
 variance calculations on a Unix system:</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -694,7 +693,7 @@ tomato-td             0.756202</code></pre>
 </div>
 <p>Another approach would be to distribute jobs across a network of
 computers, which yields the same result:</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -704,9 +703,9 @@ computers, which yields the same result:</p>
 compute nodes, we can distribute jobs via the job scheduler using the
 <code>BatchtoolsParam</code> class. The example below assumes a SLURM
 cluster, though the settings can be easily configured for a particular
-system (see <a href="https://bioconductor.org/packages/3.19/BiocParallel/vignettes/BiocParallel_BatchtoolsParam.pdf" class="external-link">here</a>
+system (see <a href="https://bioconductor.org/packages/3.22/BiocParallel/vignettes/BiocParallel_BatchtoolsParam.pdf" class="external-link">here</a>
 for details).</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -733,6 +732,7 @@ overhead.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
@@ -745,7 +745,7 @@ overhead.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>From <code>?MulticoreParam</code> :</p>
 <blockquote>
@@ -771,13 +771,13 @@ is to favour accuracy over speed by using an exact nearest neighbour
 (NN) search, implemented with the <span class="math inline">\(k\)</span>-means for <span class="math inline">\(k\)</span>-nearest neighbours algorithm. However,
 for large data sets, it may be preferable to use a faster approximate
 approach.</p>
-<p>The <em><a href="https://bioconductor.org/packages/3.19/BiocNeighbors" class="external-link">BiocNeighbors</a></em>
+<p>The <em><a href="https://bioconductor.org/packages/3.22/BiocNeighbors" class="external-link">BiocNeighbors</a></em>
 framework makes it easy to switch between search options by simply
 changing the <code>BNPARAM</code> argument in compatible functions. To
 demonstrate, we will use the wild-type chimera data for which we had
 applied graph-based clustering using the Louvain algorithm for community
 detection:</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -797,7 +797,7 @@ search algorithm and then passing it to the parameterization of the
 approximate searches are consistent with most clusters from the former
 re-appearing in the latter. This suggests that the inaccuracy from the
 approximation can be largely ignored.</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -816,25 +816,24 @@ approximation can be largely ignored.</p>
 </h3>
 <pre class="output" tabindex="0"><code>     approx
 exact   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
-   1   91   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+   1   88   0   0   0   1   0   0   0   2   0   0   0   0   0   0
    2    0 143   0   0   0   0   0   0   0   0   0   0   0   0   1
-   3    0   0  75   0   0   0   0   0   0   0   0   0   0   0   0
-   4    0   0   0 341   0   0   0   0   0   0   0   0   0   0   0
-   5    4   0   2   0  86   0   0   0   0   0   0 306   0   0   0
-   6    0   0   0   0   0 202   0   0   0   0   0   0   0   0   0
-   7    0   0   0   0   0   8 245   0   1   0   0   0   0   0   0
-   8    0   0   0   0  96   0   0   0   0   0   0   0   0   0   0
-   9    1   0   0   0   0   0   0 106   0   0   0   1   0   0   0
-   10   0   0   0   0   0   0   0   0 113   0   0   0   0   0   0
-   11   0   0   0   0   0   0   0   0   0 153   0   0   0   0   0
-   12   0   0   0   0   5   0   0   0  15   0 193   1   0   0   0
+   3    0   0  75   0   3   0   0   0   0   0   0   0   0   0   0
+   4    0   0   0 341   0   0   0   0   0   0   0   0   0   0  56
+   5    0   0   0   0 391   0   0   0   0   1   0   1   0   0   0
+   6    0   0   0   0   0  81 245   0   0   1   0   2   0   0   0
+   7    0   0   0   0   0 128   0   0   0   0   0   0   0   0   0
+   8    0   0   0   0   1   0   0  95   0   0   0   0   0   0   0
+   9    1   0   0   0   1   0   0   0 106   0   0   0   0   0   0
+   10   0   0   0   0   0   0   0   0   0 105   0   8   0   0   0
+   11   0   0   0   0   0   1   0   0   0   5 142   0   6   0   0
+   12   0   0   0   0   1   0   0   0   0   0   0 213   0   0   0
    13   0   0   0   0   0   0   0   0   0   0   0   0 146   0   0
-   14   0   0   0   0   0   0   0   0   0   0   0   0   0  20   0
-   15   0   0   0   0   0   0   0   0   0   0   0   0   0   0  56</code></pre>
+   14   0   0   0   0   0   0   0   0   0   0   0   0   0  20   0</code></pre>
 </div>
 <p>The similarity of the two clusterings can be quantified by
 calculating the pairwise Rand index:</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -847,19 +846,16 @@ search. Thus, it may not actually be faster than the default exact
 algorithm for small datasets, depending on whether the overhead of disk
 write is offset by the computational complexity of the search. It is
 also not difficult to find situations where the approximation
-deteriorates, especially at high dimensions, though this may not have an
-appreciable impact on the biological conclusions.</p>
-<div class="codewrapper sourceCode" id="cb24">
+deteriorates, especially when the number of features exceeds the number
+of data points, though this may not have an appreciable impact on the
+biological conclusions.</p>
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">set.seed</span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu">matrix</span><span class="op">(</span><span class="fu">rnorm</span><span class="op">(</span><span class="fl">50000</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu">matrix</span><span class="op">(</span><span class="fu">rnorm</span><span class="op">(</span><span class="fl">50000</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span>
+<span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu">matrix</span><span class="op">(</span><span class="fu">rnorm</span><span class="op">(</span><span class="fl">3000</span><span class="op">*</span><span class="fl">1000</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">exact</span> <span class="op">&lt;-</span> <span class="fu">findKNN</span><span class="op">(</span><span class="va">Y</span>, k <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span></span>
@@ -870,8 +866,12 @@ appreciable impact on the biological conclusions.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 0.561925</code></pre>
+<pre class="output" tabindex="0"><code>[1] 0.9344167</code></pre>
 </div>
+<p>You can see that in this contrived 1000-dimensional dataset, the
+approximate method didn’t frequently get the same result as the exact
+method.</p>
+<!-- TODO: contrive a better example. They usually have close to the same neighbor sets, just in a different order -->
 </div>
 <div class="section level3">
 <h3 id="singular-value-decomposition">Singular value decomposition<a class="anchor" aria-label="anchor" href="#singular-value-decomposition"></a></h3>
@@ -884,12 +884,12 @@ variation in the PCA.) The default <code>base::svd()</code> function
 performs an exact SVD that is not performant for large datasets.
 Instead, we use fast approximate methods from the <em><a href="https://CRAN.R-project.org/package=irlba" class="external-link">irlba</a></em> and
 <em><a href="https://CRAN.R-project.org/package=rsvd" class="external-link">rsvd</a></em>
-packages, conveniently wrapped into the <em><a href="https://bioconductor.org/packages/3.19/BiocSingular" class="external-link">BiocSingular</a></em>
+packages, conveniently wrapped into the <em><a href="https://bioconductor.org/packages/3.22/BiocSingular" class="external-link">BiocSingular</a></em>
 package for ease of use and package development. Specifically, we can
 change the SVD algorithm used in any of these functions by simply
 specifying an alternative value for the <code>BSPARAM</code>
 argument.</p>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -917,7 +917,7 @@ argument.</p>
   .. ..$ : chr [1:500] "ENSMUSG00000055609" "ENSMUSG00000052217" "ENSMUSG00000069919" "ENSMUSG00000048583" ...
   .. ..$ : chr [1:20] "PC1" "PC2" "PC3" "PC4" ...</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -943,8 +943,8 @@ argument.</p>
 </div>
 <p>Both IRLBA and randomized SVD (RSVD) are much faster than the exact
 SVD and usually yield only a negligible loss of accuracy. This motivates
-their default use in many <em><a href="https://bioconductor.org/packages/3.19/scran" class="external-link">scran</a></em> and
-<em><a href="https://bioconductor.org/packages/3.19/scater" class="external-link">scater</a></em>
+their default use in many <em><a href="https://bioconductor.org/packages/3.22/scran" class="external-link">scran</a></em> and
+<em><a href="https://bioconductor.org/packages/3.22/scater" class="external-link">scater</a></em>
 functions, at the cost of requiring users to set the seed to guarantee
 reproducibility. IRLBA can occasionally fail to converge and require
 more iterations (passed via <code>maxit=</code> in
@@ -957,6 +957,7 @@ RSVD is much faster for file-backed matrices.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
@@ -974,12 +975,12 @@ results.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>This code block calculates the exact PCA coordinates. Another thing
 to note: PC vectors are only identified up to a sign flip. We can see
 that the RSVD PC1 vector points in the</p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1003,7 +1004,7 @@ that the RSVD PC1 vector points in the</p>
   .. ..$ : chr [1:500] "ENSMUSG00000055609" "ENSMUSG00000052217" "ENSMUSG00000069919" "ENSMUSG00000048583" ...
   .. ..$ : chr [1:20] "PC1" "PC2" "PC3" "PC4" ...</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1019,7 +1020,7 @@ cell_9771 -13.066503 16.803152 -0.5602737
 cell_9772  32.185950  6.697517 -0.6945423
 cell_9773  26.452390  3.083474 -0.2271916</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb34">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1037,14 +1038,14 @@ cell_9773 -26.452373  3.083974 -0.2299814</code></pre>
 </div>
 <p>For the sake of visualizing the error we can just flip the PC1
 coordinates:</p>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">reducedDim</span><span class="op">(</span><span class="va">r.out</span>, <span class="st">"PCA"</span><span class="op">)</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="fu">reducedDim</span><span class="op">(</span><span class="va">r.out</span>, <span class="st">"PCA"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>From there we can visualize the error with a histogram:</p>
-<div class="codewrapper sourceCode" id="cb37">
+<div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1071,7 +1072,7 @@ from single-cell transcriptomic measurements, and to integrate diverse
 types of single-cell data. Seurat is developed and maintained by the <a href="https://satijalab.org/seurat/authors.html" class="external-link">Satija lab</a> and is
 released under the <a href="https://opensource.org/license/mit/" class="external-link">MIT
 license</a>.</p>
-<div class="codewrapper sourceCode" id="cb38">
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1093,7 +1094,7 @@ tutorial</a> to a <code>SingleCellExperiment</code> for further analysis
 with functionality from OSCA/Bioconductor. We therefore need to first
 install the <a href="https://github.com/satijalab/seurat-data" class="external-link">SeuratData</a> package,
 which is available from GitHub only.</p>
-<div class="codewrapper sourceCode" id="cb39">
+<div class="codewrapper sourceCode" id="cb40">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1101,7 +1102,7 @@ which is available from GitHub only.</p>
 </div>
 <p>We then proceed by loading all required packages and installing the
 PBMC dataset:</p>
-<div class="codewrapper sourceCode" id="cb40">
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1111,7 +1112,7 @@ PBMC dataset:</p>
 </div>
 <p>We then load the dataset as an <code>SeuratObject</code> and convert
 it to a <code>SingleCellExperiment</code>.</p>
-<div class="codewrapper sourceCode" id="cb41">
+<div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1129,7 +1130,7 @@ it to a <code>SingleCellExperiment</code>.</p>
 <p>Seurat also allows conversion from <code>SingleCellExperiment</code>
 objects to Seurat objects; we demonstrate this here on the wild-type
 chimera mouse gastrulation dataset.</p>
-<div class="codewrapper sourceCode" id="cb42">
+<div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1143,7 +1144,7 @@ chimera mouse gastrulation dataset.</p>
 </div>
 <p>After some processing of the dataset, the actual conversion is
 carried out with the <code>as.Seurat</code> function.</p>
-<div class="codewrapper sourceCode" id="cb43">
+<div class="codewrapper sourceCode" id="cb44">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1170,14 +1171,14 @@ single-cell omics data analysis.</p>
 <code>anndata</code> data structure, scanpy’s integrated single-cell
 data container, which is conceptually very similar to Bioconductor’s
 <code>SingleCellExperiment</code> class.</p>
-<p>Bioconductor’s <em><a href="https://bioconductor.org/packages/3.19/zellkonverter" class="external-link">zellkonverter</a></em>
+<p>Bioconductor’s <em><a href="https://bioconductor.org/packages/3.22/zellkonverter" class="external-link">zellkonverter</a></em>
 package provides a lightweight interface between the Bioconductor
 <code>SingleCellExperiment</code> data structure and the Python
 <code>AnnData</code>-based single-cell analysis environment. The idea is
 to enable users and developers to easily move data between these
 frameworks to construct a multi-language analysis pipeline across
 R/Bioconductor and Python.</p>
-<div class="codewrapper sourceCode" id="cb44">
+<div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1185,9 +1186,9 @@ R/Bioconductor and Python.</p>
 </div>
 <p>The <code>readH5AD()</code> function can be used to read a
 <code>SingleCellExperiment</code> from an H5AD file. Here, we use an
-example H5AD file contained in the <em><a href="https://bioconductor.org/packages/3.19/zellkonverter" class="external-link">zellkonverter</a></em>
+example H5AD file contained in the <em><a href="https://bioconductor.org/packages/3.22/zellkonverter" class="external-link">zellkonverter</a></em>
 package.</p>
-<div class="codewrapper sourceCode" id="cb45">
+<div class="codewrapper sourceCode" id="cb46">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1195,6 +1196,30 @@ package.</p>
 <span>                            package <span class="op">=</span> <span class="st">"zellkonverter"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">readH5AD</span><span class="op">(</span><span class="va">example_h5ad</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Installing pyenv ...
+Done! pyenv has been installed to '/home/runner/.local/share/r-reticulate/pyenv/bin/pyenv'.
+Using Python: /home/runner/.pyenv/versions/3.14.0/bin/python3.14
+Creating virtual environment '/home/runner/.cache/R/basilisk/1.22.0/zellkonverter/1.20.0/zellkonverterAnnDataEnv-0.12.3' ... </code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Done!
+Installing packages: pip, wheel, setuptools</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Installing packages: 'anndata==0.12.3', 'h5py==3.15.1', 'natsort==8.4.0', 'numpy==2.3.4', 'pandas==2.3.3', 'scipy==1.16.2'</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Virtual environment '/home/runner/.cache/R/basilisk/1.22.0/zellkonverter/1.20.0/zellkonverterAnnDataEnv-0.12.3' successfully created.</code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1214,7 +1239,7 @@ altExpNames(0):</code></pre>
 <p>We can also write a <code>SingleCellExperiment</code> to an H5AD file
 with the <code>writeH5AD()</code> function. This is demonstrated below
 on the wild-type chimera mouse gastrulation dataset.</p>
-<div class="codewrapper sourceCode" id="cb47">
+<div class="codewrapper sourceCode" id="cb52">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1232,6 +1257,7 @@ frameworks.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="exercise-1-out-of-memory-representation" class="callout-inner">
 <h3 class="callout-title">Exercise 1: Out of memory representation</h3>
 <div class="callout-content">
@@ -1247,10 +1273,10 @@ matrix in memory as opposed to holding the data out of memory.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <p>See the <code>HDF5Array</code> function for reading from HDF5 and the
-<code>writeHDF5Array</code> function for writing to HDF5 from the <em><a href="https://bioconductor.org/packages/3.19/HDF5Array" class="external-link">HDF5Array</a></em>
+<code>writeHDF5Array</code> function for writing to HDF5 from the <em><a href="https://bioconductor.org/packages/3.22/HDF5Array" class="external-link">HDF5Array</a></em>
 package.</p>
 </div>
 </div>
@@ -1261,17 +1287,21 @@ package.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb48">
+<div class="codewrapper sourceCode" id="cb53">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">wt_out</span> <span class="op">&lt;-</span> <span class="fu">tempfile</span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".h5"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">wt_counts</span> <span class="op">&lt;-</span> <span class="fu">counts</span><span class="op">(</span><span class="fu">WTChimeraData</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">writeHDF5Array</span><span class="op">(</span><span class="va">wt_counts</span>,</span>
+<span><span class="va">wt_counts</span> <span class="op">&lt;-</span> <span class="fu">counts</span><span class="op">(</span><span class="fu">WTChimeraData</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb54">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">writeHDF5Array</span><span class="op">(</span><span class="va">wt_counts</span>,</span>
 <span>               name <span class="op">=</span> <span class="st">"wt_counts"</span>,</span>
 <span>               file <span class="op">=</span> <span class="va">wt_out</span><span class="op">)</span></span></code></pre>
 </div>
@@ -1292,7 +1322,7 @@ ENSMUSG00000096730          0          0          0   .          0          0
 ENSMUSG00000095742          0          0          0   .          0          0
          tomato-td          1          0          1   .          0          0</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb50">
+<div class="codewrapper sourceCode" id="cb56">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1305,7 +1335,7 @@ ENSMUSG00000095742          0          0          0   .          0          0
 </h3>
 <pre class="output" tabindex="0"><code>1520366960 bytes</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb52">
+<div class="codewrapper sourceCode" id="cb58">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1324,6 +1354,7 @@ ENSMUSG00000095742          0          0          0   .          0          0
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="exercise-2-parallelization" class="callout-inner">
 <h3 class="callout-title">Exercise 2: Parallelization</h3>
 <div class="callout-content">
@@ -1340,7 +1371,7 @@ with 3 workers.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
 <div class="accordion-body">
 <p>Use the function <code>system.time</code> to obtain the runtime of
 each job.</p>
@@ -1353,9 +1384,9 @@ each job.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb54">
+<div class="codewrapper sourceCode" id="cb60">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1384,12 +1415,13 @@ each job.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="check-square"></i>
 </div>
+<span class="callout-header">Checklist</span>
 <div id="further-reading" class="callout-inner">
 <h3 class="callout-title">Further Reading</h3>
 <div class="callout-content">
 <ul><li>OSCA book, <a href="https://bioconductor.org/books/release/OSCA.advanced/dealing-with-big-data.html" class="external-link">Chapter
 14</a>: Dealing with big data</li>
-<li>The <code>BiocParallel</code> <a href="https://bioconductor.org/packages/3.19/BiocParallel/vignettes/Introduction_To_BiocParallel.html" class="external-link">intro
+<li>The <code>BiocParallel</code> <a href="https://bioconductor.org/packages/3.22/BiocParallel/vignettes/Introduction_To_BiocParallel.html" class="external-link">intro
 vignette</a>.</li>
 </ul></div>
 </div>
@@ -1398,8 +1430,8 @@ vignette</a>.</li>
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
+<span class="callout-header">Key Points</span>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul><li>Out-of-memory representations can be used to work with single-cell
 datasets that are too large to fit in memory.</li>
@@ -1416,7 +1448,7 @@ poplular single-cell analysis ecosystems.</li>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a></h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb55">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb61">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1425,13 +1457,13 @@ poplular single-cell analysis ecosystems.</li>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>R version 4.4.3 (2025-02-28)
+<pre class="output" tabindex="0"><code>R version 4.5.2 (2025-10-31)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0  LAPACK version 3.10.0
 
 locale:
  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8
@@ -1447,102 +1479,76 @@ attached base packages:
 [8] base
 
 other attached packages:
- [1] zellkonverter_1.14.1         Seurat_5.2.1
- [3] SeuratObject_5.0.2           sp_2.2-0
- [5] BiocSingular_1.20.0          BiocNeighbors_1.22.0
- [7] bluster_1.14.0               scran_1.32.0
- [9] MouseGastrulationData_1.18.0 SpatialExperiment_1.14.0
-[11] BiocParallel_1.38.0          scater_1.32.1
-[13] ggplot2_3.5.1                scuttle_1.14.0
-[15] TENxBrainData_1.24.0         HDF5Array_1.32.1
-[17] rhdf5_2.48.0                 DelayedArray_0.30.1
-[19] SparseArray_1.4.8            S4Arrays_1.4.1
-[21] abind_1.4-8                  Matrix_1.7-2
-[23] SingleCellExperiment_1.26.0  SummarizedExperiment_1.34.0
-[25] Biobase_2.64.0               GenomicRanges_1.56.2
-[27] GenomeInfoDb_1.40.1          IRanges_2.38.1
-[29] S4Vectors_0.42.1             BiocGenerics_0.50.0
-[31] MatrixGenerics_1.16.0        matrixStats_1.5.0
-[33] BiocStyle_2.32.1
+ [1] zellkonverter_1.20.0         Seurat_5.4.0
+ [3] SeuratObject_5.3.0           sp_2.2-0
+ [5] BiocSingular_1.26.1          BiocNeighbors_2.4.0
+ [7] bluster_1.20.0               scran_1.38.0
+ [9] MouseGastrulationData_1.24.0 SpatialExperiment_1.20.0
+[11] BiocParallel_1.44.0          scater_1.38.0
+[13] ggplot2_4.0.1                scuttle_1.20.0
+[15] TENxBrainData_1.30.0         HDF5Array_1.38.0
+[17] h5mread_1.2.1                rhdf5_2.54.1
+[19] DelayedArray_0.36.0          SparseArray_1.10.7
+[21] S4Arrays_1.10.1              abind_1.4-8
+[23] Matrix_1.7-4                 SingleCellExperiment_1.32.0
+[25] SummarizedExperiment_1.40.0  Biobase_2.70.0
+[27] GenomicRanges_1.62.1         Seqinfo_1.0.0
+[29] IRanges_2.44.0               S4Vectors_0.48.0
+[31] BiocGenerics_0.56.0          generics_0.1.4
+[33] MatrixGenerics_1.22.0        matrixStats_1.5.0
+[35] BiocStyle_2.38.0
 
 loaded via a namespace (and not attached):
-  [1] RcppAnnoy_0.0.22          splines_4.4.3
-  [3] later_1.4.1               filelock_1.0.3
-  [5] tibble_3.2.1              polyclip_1.10-7
-  [7] basilisk.utils_1.16.0     fastDummies_1.7.5
-  [9] lifecycle_1.0.4           edgeR_4.2.2
- [11] globals_0.16.3            lattice_0.22-6
- [13] MASS_7.3-64               magrittr_2.0.3
- [15] plotly_4.10.4             limma_3.60.6
- [17] rmarkdown_2.29            yaml_2.3.10
- [19] metapod_1.12.0            httpuv_1.6.15
- [21] sctransform_0.4.1         spam_2.11-1
- [23] spatstat.sparse_3.1-0     reticulate_1.40.0
- [25] pbapply_1.7-2             cowplot_1.1.3
- [27] DBI_1.2.3                 RColorBrewer_1.1-3
- [29] zlibbioc_1.50.0           Rtsne_0.17
- [31] purrr_1.0.2               BumpyMatrix_1.12.0
- [33] rappdirs_0.3.3            GenomeInfoDbData_1.2.12
- [35] ggrepel_0.9.6             irlba_2.3.5.1
- [37] spatstat.utils_3.1-2      listenv_0.9.1
- [39] goftest_1.2-3             RSpectra_0.16-2
- [41] spatstat.random_3.3-2     dqrng_0.4.1
- [43] fitdistrplus_1.2-2        parallelly_1.42.0
- [45] DelayedMatrixStats_1.26.0 codetools_0.2-20
- [47] tidyselect_1.2.1          UCSC.utils_1.0.0
- [49] farver_2.1.2              ScaledMatrix_1.12.0
- [51] viridis_0.6.5             spatstat.explore_3.3-4
- [53] BiocFileCache_2.12.0      jsonlite_1.8.9
- [55] progressr_0.15.1          ggridges_0.5.6
- [57] survival_3.8-3            tools_4.4.3
- [59] ica_1.0-3                 Rcpp_1.0.14
- [61] glue_1.8.0                gridExtra_2.3
- [63] xfun_0.50                 dplyr_1.1.4
- [65] withr_3.0.2               formatR_1.14
- [67] BiocManager_1.30.25       fastmap_1.2.0
- [69] basilisk_1.16.0           rhdf5filters_1.16.0
- [71] digest_0.6.37             rsvd_1.0.5
- [73] R6_2.5.1                  mime_0.12
- [75] colorspace_2.1-1          scattermore_1.2
- [77] tensor_1.5                spatstat.data_3.1-4
- [79] RSQLite_2.3.9             tidyr_1.3.1
- [81] generics_0.1.3            data.table_1.16.4
- [83] renv_1.1.4                htmlwidgets_1.6.4
- [85] httr_1.4.7                uwot_0.2.2
- [87] pkgconfig_2.0.3           gtable_0.3.6
- [89] blob_1.2.4                lmtest_0.9-40
- [91] XVector_0.44.0            htmltools_0.5.8.1
- [93] dotCall64_1.2             scales_1.3.0
- [95] png_0.1-8                 spatstat.univar_3.1-1
- [97] knitr_1.49                reshape2_1.4.4
- [99] rjson_0.2.23              nlme_3.1-167
-[101] curl_6.2.0                cachem_1.1.0
-[103] zoo_1.8-12                stringr_1.5.1
-[105] BiocVersion_3.19.1        KernSmooth_2.23-26
-[107] parallel_4.4.3            miniUI_0.1.1.1
-[109] vipor_0.4.7               AnnotationDbi_1.66.0
-[111] pillar_1.10.1             grid_4.4.3
-[113] vctrs_0.6.5               RANN_2.6.2
-[115] promises_1.3.2            dbplyr_2.5.0
-[117] beachmat_2.20.0           xtable_1.8-4
-[119] cluster_2.1.8             beeswarm_0.4.0
-[121] evaluate_1.0.3            magick_2.8.5
-[123] cli_3.6.3                 locfit_1.5-9.11
-[125] compiler_4.4.3            rlang_1.1.5
-[127] crayon_1.5.3              future.apply_1.11.3
-[129] labeling_0.4.3            plyr_1.8.9
-[131] ggbeeswarm_0.7.2          stringi_1.8.4
-[133] deldir_2.0-4              viridisLite_0.4.2
-[135] munsell_0.5.1             Biostrings_2.72.1
-[137] lazyeval_0.2.2            spatstat.geom_3.3-5
-[139] dir.expiry_1.12.0         ExperimentHub_2.12.0
-[141] RcppHNSW_0.6.0            patchwork_1.3.0
-[143] sparseMatrixStats_1.16.0  bit64_4.6.0-1
-[145] future_1.34.0             Rhdf5lib_1.26.0
-[147] KEGGREST_1.44.1           statmod_1.5.0
-[149] shiny_1.10.0              AnnotationHub_3.12.0
-[151] ROCR_1.0-11               igraph_2.1.4
-[153] memoise_2.0.1             bit_4.5.0.1              </code></pre>
+  [1] RcppAnnoy_0.0.22       splines_4.5.2          later_1.4.4
+  [4] filelock_1.0.3         tibble_3.3.0           polyclip_1.10-7
+  [7] fastDummies_1.7.5      lifecycle_1.0.4        httr2_1.2.2
+ [10] edgeR_4.8.1            globals_0.18.0         lattice_0.22-7
+ [13] MASS_7.3-65            magrittr_2.0.4         plotly_4.11.0
+ [16] limma_3.66.0           rmarkdown_2.30         yaml_2.3.12
+ [19] metapod_1.18.0         httpuv_1.6.16          otel_0.2.0
+ [22] sctransform_0.4.2      spam_2.11-1            spatstat.sparse_3.1-0
+ [25] reticulate_1.44.1      cowplot_1.2.0          pbapply_1.7-4
+ [28] DBI_1.2.3              RColorBrewer_1.1-3     Rtsne_0.17
+ [31] purrr_1.2.0            BumpyMatrix_1.18.0     rappdirs_0.3.3
+ [34] ggrepel_0.9.6          irlba_2.3.5.1          spatstat.utils_3.2-0
+ [37] listenv_0.10.0         goftest_1.2-3          RSpectra_0.16-2
+ [40] spatstat.random_3.4-3  dqrng_0.4.1            fitdistrplus_1.2-4
+ [43] parallelly_1.46.0      codetools_0.2-20       tidyselect_1.2.1
+ [46] farver_2.1.2           ScaledMatrix_1.18.0    viridis_0.6.5
+ [49] spatstat.explore_3.6-0 BiocFileCache_3.0.0    jsonlite_2.0.0
+ [52] progressr_0.18.0       ggridges_0.5.7         survival_3.8-3
+ [55] tools_4.5.2            ica_1.0-3              Rcpp_1.1.0
+ [58] glue_1.8.0             gridExtra_2.3          xfun_0.55
+ [61] dplyr_1.1.4            withr_3.0.2            formatR_1.14
+ [64] BiocManager_1.30.27    fastmap_1.2.0          basilisk_1.22.0
+ [67] rhdf5filters_1.22.0    digest_0.6.39          rsvd_1.0.5
+ [70] R6_2.6.1               mime_0.13              scattermore_1.2
+ [73] tensor_1.5.1           spatstat.data_3.1-9    RSQLite_2.4.5
+ [76] tidyr_1.3.1            data.table_1.17.8      renv_1.1.5
+ [79] htmlwidgets_1.6.4      httr_1.4.7             uwot_0.2.4
+ [82] pkgconfig_2.0.3        gtable_0.3.6           blob_1.2.4
+ [85] lmtest_0.9-40          S7_0.2.1               XVector_0.50.0
+ [88] htmltools_0.5.9        dotCall64_1.2          scales_1.4.0
+ [91] png_0.1-8              spatstat.univar_3.1-5  knitr_1.50
+ [94] reshape2_1.4.5         rjson_0.2.23           nlme_3.1-168
+ [97] curl_7.0.0             cachem_1.1.0           zoo_1.8-15
+[100] stringr_1.6.0          BiocVersion_3.22.0     KernSmooth_2.23-26
+[103] parallel_4.5.2         miniUI_0.1.2           vipor_0.4.7
+[106] AnnotationDbi_1.72.0   pillar_1.11.1          grid_4.5.2
+[109] vctrs_0.6.5            RANN_2.6.2             promises_1.5.0
+[112] dbplyr_2.5.1           beachmat_2.26.0        xtable_1.8-4
+[115] cluster_2.1.8.1        beeswarm_0.4.0         evaluate_1.0.5
+[118] magick_2.9.0           cli_3.6.5              locfit_1.5-9.12
+[121] compiler_4.5.2         rlang_1.1.6            crayon_1.5.3
+[124] future.apply_1.20.1    labeling_0.4.3         plyr_1.8.9
+[127] ggbeeswarm_0.7.3       stringi_1.8.7          deldir_2.0-4
+[130] viridisLite_0.4.2      Biostrings_2.78.0      lazyeval_0.2.2
+[133] spatstat.geom_3.6-1    dir.expiry_1.18.0      ExperimentHub_3.0.0
+[136] RcppHNSW_0.6.0         patchwork_1.3.2        bit64_4.6.0-1
+[139] future_1.68.0          Rhdf5lib_1.32.0        KEGGREST_1.50.0
+[142] statmod_1.5.1          shiny_1.12.1           AnnotationHub_4.0.0
+[145] ROCR_1.0-11            igraph_2.2.1           memoise_2.0.1
+[148] bit_4.6.0             </code></pre>
 </div>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
@@ -1572,20 +1578,22 @@ any links that you are not going to use.
         <p>This lesson is subject to the <a href="CODE_OF_CONDUCT.html">Code of Conduct</a></p>
         <p>
 
-        <a href="https://github.com/ccb-hms/osca-carpentries/edit/main/episodes/large_data.Rmd" class="external-link">Edit on GitHub</a>
+        <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/edit/main/episodes/large_data.Rmd" class="external-link">Edit on GitHub</a>
 
 	
-        | <a href="https://github.com/ccb-hms/osca-carpentries/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
-        | <a href="https://github.com/ccb-hms/osca-carpentries/" class="external-link">Source</a></p>
-				<p><a href="https://github.com/ccb-hms/osca-carpentries/blob/main/CITATION" class="external-link">Cite</a> | <a href="mailto:christopher_magnano@hms.harvard.edu">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
-			</div>
-			<div class="col-md-6">
+        | <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
+        | <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/" class="external-link">Source</a></p>
+        <p>
+        <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/blob/main/" class="external-link">Cite</a>
+        | <a href="mailto:ludwig.geistlinger@gmail.com">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
+		</div>
+		<div class="col-md-6">
 
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.11" class="external-link">sandpaper (0.16.11)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.5" class="external-link">varnish (1.0.5)</a></p>
-			</div>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.17.3" class="external-link">sandpaper (0.17.3)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.9" class="external-link">varnish (1.0.9)</a></p>
+		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
 		<a href="#top">
@@ -1595,19 +1603,19 @@ any links that you are not going to use.
   <script type="application/ld+json">
     {
   "@context": "https://schema.org",
-  "@type": "TrainingMaterial",
-  "@id": "https://ccb-hms.github.io/osca-carpentries/large_data.html",
+  "@type": "LearningResource",
+  "@id": "https://carpentries-incubator.github.io/bioc-scrnaseq/large_data.html",
   "inLanguage": "en",
-  "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
+  "dct:conformsTo": "https://bioschemas.org/profiles/LearningResource/1.0-RELEASE",
   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
-  "keywords": "single-cell RNA-seq, The Carpentries, lesson, genomics, bioconductor",
+  "keywords": "single-cell RNA sequencing, Bioconductor, The Carpentries, genomics",
   "name": "Working with large data",
   "creativeWorkStatus": "active",
-  "url": "https://ccb-hms.github.io/osca-carpentries/large_data.html",
-  "identifier": "https://ccb-hms.github.io/osca-carpentries/large_data.html",
+  "url": "https://carpentries-incubator.github.io/bioc-scrnaseq/large_data.html",
+  "identifier": "https://carpentries-incubator.github.io/bioc-scrnaseq/large_data.html",
   "dateCreated": "2024-01-10",
-  "dateModified": "2025-04-15",
-  "datePublished": "2025-04-15"
+  "dateModified": "2025-12-19",
+  "datePublished": "2025-12-19"
 }
 
   </script><script>

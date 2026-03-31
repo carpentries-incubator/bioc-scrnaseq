@@ -1060,7 +1060,7 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.5.2 (2025-10-31)
+R version 4.5.3 (2026-03-11)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
@@ -1101,14 +1101,14 @@ loaded via a namespace (and not attached):
   [1] RColorBrewer_1.1-3        jsonlite_2.0.0           
   [3] magrittr_2.0.4            ggbeeswarm_0.7.3         
   [5] magick_2.9.0              farver_2.1.2             
-  [7] rmarkdown_2.30            vctrs_0.6.5              
+  [7] rmarkdown_2.30            vctrs_0.7.2              
   [9] memoise_2.0.1             DelayedMatrixStats_1.32.0
  [11] htmltools_0.5.9           S4Arrays_1.10.1          
  [13] AnnotationHub_4.0.0       curl_7.0.0               
  [15] BiocNeighbors_2.4.0       SparseArray_1.10.7       
  [17] htmlwidgets_1.6.4         httr2_1.2.2              
  [19] plotly_4.11.0             cachem_1.1.0             
- [21] igraph_2.2.1              lifecycle_1.0.4          
+ [21] igraph_2.2.1              lifecycle_1.0.5          
  [23] pkgconfig_2.0.3           rsvd_1.0.5               
  [25] Matrix_1.7-4              R6_2.6.1                 
  [27] fastmap_1.2.0             digest_0.6.39            
@@ -1117,16 +1117,16 @@ loaded via a namespace (and not attached):
  [33] RSQLite_2.4.5             beachmat_2.26.0          
  [35] filelock_1.0.3            labeling_0.4.3           
  [37] httr_1.4.7                abind_1.4-8              
- [39] compiler_4.5.2            bit64_4.6.0-1            
+ [39] compiler_4.5.3            bit64_4.6.0-1            
  [41] withr_3.0.2               S7_0.2.1                 
  [43] BiocParallel_1.44.0       viridis_0.6.5            
  [45] DBI_1.2.3                 R.utils_2.13.0           
  [47] MASS_7.3-65               rappdirs_0.3.3           
  [49] DelayedArray_0.36.0       rjson_0.2.23             
- [51] tools_4.5.2               vipor_0.4.7              
+ [51] tools_4.5.3               vipor_0.4.7              
  [53] otel_0.2.0                beeswarm_0.4.0           
  [55] R.oo_1.27.1               glue_1.8.0               
- [57] nlme_3.1-168              grid_4.5.2               
+ [57] nlme_3.1-168              grid_4.5.3               
  [59] cluster_2.1.8.1           gtable_0.3.6             
  [61] R.methodsS3_1.8.2         tidyr_1.3.1              
  [63] data.table_1.17.8         BiocSingular_1.26.1      
@@ -1134,9 +1134,9 @@ loaded via a namespace (and not attached):
  [67] XVector_0.50.0            ggrepel_0.9.6            
  [69] BiocVersion_3.22.0        pillar_1.11.1            
  [71] limma_3.66.0              BumpyMatrix_1.18.0       
- [73] splines_4.5.2             dplyr_1.1.4              
+ [73] splines_4.5.3             dplyr_1.1.4              
  [75] BiocFileCache_3.0.0       lattice_0.22-7           
- [77] survival_3.8-3            renv_1.1.5               
+ [77] survival_3.8-3            renv_1.2.0               
  [79] FNN_1.1.4.1               bit_4.6.0                
  [81] tidyselect_1.2.1          locfit_1.5-9.12          
  [83] Biostrings_2.78.0         knitr_1.50               
@@ -1149,10 +1149,10 @@ loaded via a namespace (and not attached):
  [97] cli_3.6.5                 uwot_0.2.4               
  [99] xtable_1.8-4              segmented_2.1-4          
 [101] Rcpp_1.1.0                dbplyr_2.5.1             
-[103] png_0.1-8                 parallel_4.5.2           
+[103] png_0.1-8                 parallel_4.5.3           
 [105] blob_1.2.4                sparseMatrixStats_1.22.0 
 [107] viridisLite_0.4.2         scales_1.4.0             
 [109] purrr_1.2.0               crayon_1.5.3             
-[111] rlang_1.1.6               formatR_1.14             
+[111] rlang_1.1.7               formatR_1.14             
 [113] cowplot_1.2.0             KEGGREST_1.50.0          
 ```

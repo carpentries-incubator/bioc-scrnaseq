@@ -1120,7 +1120,7 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.5.2 (2025-10-31)
+R version 4.5.3 (2026-03-11)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
@@ -1161,7 +1161,7 @@ loaded via a namespace (and not attached):
   [3] magrittr_2.0.4            ggbeeswarm_0.7.3         
   [5] magick_2.9.0              farver_2.1.2             
   [7] rmarkdown_2.30            BiocIO_1.20.0            
-  [9] vctrs_0.6.5               memoise_2.0.1            
+  [9] vctrs_0.7.2               memoise_2.0.1            
  [11] Rsamtools_2.26.0          DelayedMatrixStats_1.32.0
  [13] RCurl_1.98-1.17           htmltools_0.5.9          
  [15] S4Arrays_1.10.1           AnnotationHub_4.0.0      
@@ -1170,7 +1170,7 @@ loaded via a namespace (and not attached):
  [21] SparseArray_1.10.7        rhdf5_2.54.1             
  [23] httr2_1.2.2               cachem_1.1.0             
  [25] GenomicAlignments_1.46.0  igraph_2.2.1             
- [27] lifecycle_1.0.4           pkgconfig_2.0.3          
+ [27] lifecycle_1.0.5           pkgconfig_2.0.3          
  [29] rsvd_1.0.5                Matrix_1.7-4             
  [31] R6_2.6.1                  fastmap_1.2.0            
  [33] digest_0.6.39             RSpectra_0.16-2          
@@ -1178,19 +1178,19 @@ loaded via a namespace (and not attached):
  [37] ExperimentHub_3.0.0       RSQLite_2.4.5            
  [39] beachmat_2.26.0           labeling_0.4.3           
  [41] filelock_1.0.3            httr_1.4.7               
- [43] abind_1.4-8               compiler_4.5.2           
+ [43] abind_1.4-8               compiler_4.5.3           
  [45] bit64_4.6.0-1             withr_3.0.2              
  [47] S7_0.2.1                  BiocParallel_1.44.0      
  [49] viridis_0.6.5             DBI_1.2.3                
  [51] HDF5Array_1.38.0          R.utils_2.13.0           
  [53] MASS_7.3-65               rappdirs_0.3.3           
  [55] DelayedArray_0.36.0       bluster_1.20.0           
- [57] rjson_0.2.23              tools_4.5.2              
+ [57] rjson_0.2.23              tools_4.5.3              
  [59] vipor_0.4.7               otel_0.2.0               
  [61] beeswarm_0.4.0            R.oo_1.27.1              
  [63] glue_1.8.0                h5mread_1.2.1            
  [65] restfulr_0.0.16           rhdf5filters_1.22.0      
- [67] grid_4.5.2                Rtsne_0.17               
+ [67] grid_4.5.3                Rtsne_0.17               
  [69] cluster_2.1.8.1           gtable_0.3.6             
  [71] R.methodsS3_1.8.2         data.table_1.17.8        
  [73] metapod_1.18.0            BiocSingular_1.26.1      
@@ -1199,7 +1199,7 @@ loaded via a namespace (and not attached):
  [79] pillar_1.11.1             limma_3.66.0             
  [81] BumpyMatrix_1.18.0        dplyr_1.1.4              
  [83] BiocFileCache_3.0.0       lattice_0.22-7           
- [85] FNN_1.1.4.1               renv_1.1.5               
+ [85] FNN_1.1.4.1               renv_1.2.0               
  [87] rtracklayer_1.70.0        bit_4.6.0                
  [89] tidyselect_1.2.1          locfit_1.5-9.12          
  [91] Biostrings_2.78.0         knitr_1.50               
@@ -1213,11 +1213,11 @@ loaded via a namespace (and not attached):
 [107] uwot_0.2.4                Rcpp_1.1.0               
 [109] GenomeInfoDb_1.46.2       dbplyr_2.5.1             
 [111] png_0.1-8                 XML_3.99-0.20            
-[113] parallel_4.5.2            blob_1.2.4               
+[113] parallel_4.5.3            blob_1.2.4               
 [115] sparseMatrixStats_1.22.0  bitops_1.0-9             
 [117] viridisLite_0.4.2         scales_1.4.0             
 [119] purrr_1.2.0               crayon_1.5.3             
-[121] rlang_1.1.6               formatR_1.14             
+[121] rlang_1.1.7               formatR_1.14             
 [123] cowplot_1.2.0             KEGGREST_1.50.0          
 ```
 

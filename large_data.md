@@ -443,18 +443,18 @@ table(exact = colLabels(sce), approx = clusters)
 ``` output
      approx
 exact   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
-   1   88   0   0   0   1   0   0   0   2   0   0   0   0   0   0
+   1   90   0   0   0   2   0   0   0   1   0   0   0   0   0   0
    2    0 143   0   0   0   0   0   0   0   0   0   0   0   0   1
-   3    0   0  75   0   3   0   0   0   0   0   0   0   0   0   0
+   3    0   0  75   0   0   0   0   0   0   0   0   0   0   0   0
    4    0   0   0 341   0   0   0   0   0   0   0   0   0   0  56
-   5    0   0   0   0 391   0   0   0   0   1   0   1   0   0   0
-   6    0   0   0   0   0  81 245   0   0   1   0   2   0   0   0
-   7    0   0   0   0   0 128   0   0   0   0   0   0   0   0   0
-   8    0   0   0   0   1   0   0  95   0   0   0   0   0   0   0
+   5    0   0   2   0 393   0   0   0   0   0   0   2   0   0   0
+   6    0   0   0   0   0  79 131   0   0   0   0   0   0   0   0
+   7    0   0   0   0   0 245   0   0   0   1   0   0   0   0   0
+   8    0   0   0   0   0   0   0  95   0   0   0   0   0   0   0
    9    1   0   0   0   1   0   0   0 106   0   0   0   0   0   0
-   10   0   0   0   0   0   0   0   0   0 105   0   8   0   0   0
-   11   0   0   0   0   0   1   0   0   0   5 142   0   6   0   0
-   12   0   0   0   0   1   0   0   0   0   0   0 213   0   0   0
+   10   0   0   0   0   0   0   0   0   0 128   0   1   0   0   0
+   11   0   0   0   0   0   0   0   0   0   5 142   0   6   0   0
+   12   0   0   0   0   0   0   0   0   0   0   0 198   0   0   0
    13   0   0   0   0   0   0   0   0   0   0   0   0 146   0   0
    14   0   0   0   0   0   0   0   0   0   0   0   0   0  20   0
 ```
@@ -973,7 +973,7 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.5.2 (2025-10-31)
+R version 4.5.3 (2026-03-11)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
@@ -1015,9 +1015,9 @@ other attached packages:
 [35] BiocStyle_2.38.0            
 
 loaded via a namespace (and not attached):
-  [1] RcppAnnoy_0.0.22       splines_4.5.2          later_1.4.4           
+  [1] RcppAnnoy_0.0.22       splines_4.5.3          later_1.4.4           
   [4] filelock_1.0.3         tibble_3.3.0           polyclip_1.10-7       
-  [7] fastDummies_1.7.5      lifecycle_1.0.4        httr2_1.2.2           
+  [7] fastDummies_1.7.5      lifecycle_1.0.5        httr2_1.2.2           
  [10] edgeR_4.8.1            globals_0.18.0         lattice_0.22-7        
  [13] MASS_7.3-65            magrittr_2.0.4         plotly_4.11.0         
  [16] limma_3.66.0           rmarkdown_2.30         yaml_2.3.12           
@@ -1026,40 +1026,40 @@ loaded via a namespace (and not attached):
  [25] reticulate_1.44.1      cowplot_1.2.0          pbapply_1.7-4         
  [28] DBI_1.2.3              RColorBrewer_1.1-3     Rtsne_0.17            
  [31] purrr_1.2.0            BumpyMatrix_1.18.0     rappdirs_0.3.3        
- [34] ggrepel_0.9.6          irlba_2.3.5.1          spatstat.utils_3.2-0  
+ [34] ggrepel_0.9.6          irlba_2.3.5.1          spatstat.utils_3.2-2  
  [37] listenv_0.10.0         goftest_1.2-3          RSpectra_0.16-2       
- [40] spatstat.random_3.4-3  dqrng_0.4.1            fitdistrplus_1.2-4    
+ [40] spatstat.random_3.4-5  dqrng_0.4.1            fitdistrplus_1.2-4    
  [43] parallelly_1.46.0      codetools_0.2-20       tidyselect_1.2.1      
  [46] farver_2.1.2           ScaledMatrix_1.18.0    viridis_0.6.5         
  [49] spatstat.explore_3.6-0 BiocFileCache_3.0.0    jsonlite_2.0.0        
  [52] progressr_0.18.0       ggridges_0.5.7         survival_3.8-3        
- [55] tools_4.5.2            ica_1.0-3              Rcpp_1.1.0            
+ [55] tools_4.5.3            ica_1.0-3              Rcpp_1.1.0            
  [58] glue_1.8.0             gridExtra_2.3          xfun_0.55             
  [61] dplyr_1.1.4            withr_3.0.2            formatR_1.14          
  [64] BiocManager_1.30.27    fastmap_1.2.0          basilisk_1.22.0       
  [67] rhdf5filters_1.22.0    digest_0.6.39          rsvd_1.0.5            
  [70] R6_2.6.1               mime_0.13              scattermore_1.2       
  [73] tensor_1.5.1           spatstat.data_3.1-9    RSQLite_2.4.5         
- [76] tidyr_1.3.1            data.table_1.17.8      renv_1.1.5            
+ [76] tidyr_1.3.1            data.table_1.17.8      renv_1.2.0            
  [79] htmlwidgets_1.6.4      httr_1.4.7             uwot_0.2.4            
  [82] pkgconfig_2.0.3        gtable_0.3.6           blob_1.2.4            
  [85] lmtest_0.9-40          S7_0.2.1               XVector_0.50.0        
  [88] htmltools_0.5.9        dotCall64_1.2          scales_1.4.0          
- [91] png_0.1-8              spatstat.univar_3.1-5  knitr_1.50            
+ [91] png_0.1-8              spatstat.univar_3.1-7  knitr_1.50            
  [94] reshape2_1.4.5         rjson_0.2.23           nlme_3.1-168          
  [97] curl_7.0.0             cachem_1.1.0           zoo_1.8-15            
 [100] stringr_1.6.0          BiocVersion_3.22.0     KernSmooth_2.23-26    
-[103] parallel_4.5.2         miniUI_0.1.2           vipor_0.4.7           
-[106] AnnotationDbi_1.72.0   pillar_1.11.1          grid_4.5.2            
-[109] vctrs_0.6.5            RANN_2.6.2             promises_1.5.0        
+[103] parallel_4.5.3         miniUI_0.1.2           vipor_0.4.7           
+[106] AnnotationDbi_1.72.0   pillar_1.11.1          grid_4.5.3            
+[109] vctrs_0.7.2            RANN_2.6.2             promises_1.5.0        
 [112] dbplyr_2.5.1           beachmat_2.26.0        xtable_1.8-4          
 [115] cluster_2.1.8.1        beeswarm_0.4.0         evaluate_1.0.5        
 [118] magick_2.9.0           cli_3.6.5              locfit_1.5-9.12       
-[121] compiler_4.5.2         rlang_1.1.6            crayon_1.5.3          
+[121] compiler_4.5.3         rlang_1.1.7            crayon_1.5.3          
 [124] future.apply_1.20.1    labeling_0.4.3         plyr_1.8.9            
 [127] ggbeeswarm_0.7.3       stringi_1.8.7          deldir_2.0-4          
 [130] viridisLite_0.4.2      Biostrings_2.78.0      lazyeval_0.2.2        
-[133] spatstat.geom_3.6-1    dir.expiry_1.18.0      ExperimentHub_3.0.0   
+[133] spatstat.geom_3.7-3    dir.expiry_1.18.0      ExperimentHub_3.0.0   
 [136] RcppHNSW_0.6.0         patchwork_1.3.2        bit64_4.6.0-1         
 [139] future_1.68.0          Rhdf5lib_1.32.0        KEGGREST_1.50.0       
 [142] statmod_1.5.1          shiny_1.12.1           AnnotationHub_4.0.0   

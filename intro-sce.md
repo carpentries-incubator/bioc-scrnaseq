@@ -440,7 +440,7 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.5.2 (2025-10-31)
+R version 4.5.3 (2026-03-11)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
@@ -474,15 +474,15 @@ other attached packages:
 
 loaded via a namespace (and not attached):
  [1] DBI_1.2.3            formatR_1.14         gridExtra_2.3       
- [4] httr2_1.2.2          rlang_1.1.6          magrittr_2.0.4      
- [7] otel_0.2.0           compiler_4.5.2       RSQLite_2.4.5       
-[10] png_0.1-8            vctrs_0.6.5          pkgconfig_2.0.3     
+ [4] httr2_1.2.2          rlang_1.1.7          magrittr_2.0.4      
+ [7] otel_0.2.0           compiler_4.5.3       RSQLite_2.4.5       
+[10] png_0.1-8            vctrs_0.7.2          pkgconfig_2.0.3     
 [13] crayon_1.5.3         fastmap_1.2.0        dbplyr_2.5.1        
 [16] magick_2.9.0         XVector_0.50.0       labeling_0.4.3      
 [19] rmarkdown_2.30       ggbeeswarm_0.7.3     purrr_1.2.0         
 [22] bit_4.6.0            xfun_0.55            cachem_1.1.0        
 [25] beachmat_2.26.0      blob_1.2.4           DelayedArray_0.36.0 
-[28] BiocParallel_1.44.0  irlba_2.3.5.1        parallel_4.5.2      
+[28] BiocParallel_1.44.0  irlba_2.3.5.1        parallel_4.5.3      
 [31] R6_2.6.1             RColorBrewer_1.1-3   Rcpp_1.1.0          
 [34] knitr_1.50           Matrix_1.7-4         tidyselect_1.2.1    
 [37] abind_1.4-8          yaml_2.3.12          viridis_0.6.5       
@@ -491,16 +491,16 @@ loaded via a namespace (and not attached):
 [46] BumpyMatrix_1.18.0   S7_0.2.1             evaluate_1.0.5      
 [49] BiocFileCache_3.0.0  ExperimentHub_3.0.0  Biostrings_2.78.0   
 [52] pillar_1.11.1        BiocManager_1.30.27  filelock_1.0.3      
-[55] renv_1.1.5           BiocVersion_3.22.0   scales_1.4.0        
-[58] glue_1.8.0           tools_4.5.2          AnnotationHub_4.0.0 
+[55] renv_1.2.0           BiocVersion_3.22.0   scales_1.4.0        
+[58] glue_1.8.0           tools_4.5.3          AnnotationHub_4.0.0 
 [61] BiocNeighbors_2.4.0  ScaledMatrix_1.18.0  cowplot_1.2.0       
-[64] grid_4.5.2           AnnotationDbi_1.72.0 beeswarm_0.4.0      
+[64] grid_4.5.3           AnnotationDbi_1.72.0 beeswarm_0.4.0      
 [67] BiocSingular_1.26.1  vipor_0.4.7          cli_3.6.5           
 [70] rsvd_1.0.5           rappdirs_0.3.3       S4Arrays_1.10.1     
 [73] viridisLite_0.4.2    dplyr_1.1.4          gtable_0.3.6        
 [76] digest_0.6.39        SparseArray_1.10.7   ggrepel_0.9.6       
 [79] rjson_0.2.23         farver_2.1.2         memoise_2.0.1       
-[82] htmltools_0.5.9      lifecycle_1.0.4      httr_1.4.7          
+[82] htmltools_0.5.9      lifecycle_1.0.5      httr_1.4.7          
 [85] bit64_4.6.0-1       
 ```
 

@@ -1153,6 +1153,6 @@ loaded via a namespace (and not attached):
 [105] blob_1.2.4                sparseMatrixStats_1.22.0 
 [107] viridisLite_0.4.2         scales_1.4.0             
 [109] purrr_1.2.0               crayon_1.5.3             
-[111] rlang_1.1.7               formatR_1.14             
+[111] rlang_1.2.0               formatR_1.14             
 [113] cowplot_1.2.0             KEGGREST_1.50.0          
 ```

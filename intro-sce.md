@@ -474,7 +474,7 @@ other attached packages:
 
 loaded via a namespace (and not attached):
  [1] DBI_1.2.3            formatR_1.14         gridExtra_2.3       
- [4] httr2_1.2.2          rlang_1.1.7          magrittr_2.0.4      
+ [4] httr2_1.2.2          rlang_1.2.0          magrittr_2.0.4      
  [7] otel_0.2.0           compiler_4.5.3       RSQLite_2.4.5       
 [10] png_0.1-8            vctrs_0.7.2          pkgconfig_2.0.3     
 [13] crayon_1.5.3         fastmap_1.2.0        dbplyr_2.5.1        

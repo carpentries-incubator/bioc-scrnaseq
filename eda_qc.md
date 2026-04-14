@@ -1161,7 +1161,7 @@ loaded via a namespace (and not attached):
   [3] magrittr_2.0.4            ggbeeswarm_0.7.3         
   [5] magick_2.9.0              farver_2.1.2             
   [7] rmarkdown_2.30            BiocIO_1.20.0            
-  [9] vctrs_0.7.2               memoise_2.0.1            
+  [9] vctrs_0.7.3               memoise_2.0.1            
  [11] Rsamtools_2.26.0          DelayedMatrixStats_1.32.0
  [13] RCurl_1.98-1.17           htmltools_0.5.9          
  [15] S4Arrays_1.10.1           AnnotationHub_4.0.0      
@@ -1199,7 +1199,7 @@ loaded via a namespace (and not attached):
  [79] pillar_1.11.1             limma_3.66.0             
  [81] BumpyMatrix_1.18.0        dplyr_1.1.4              
  [83] BiocFileCache_3.0.0       lattice_0.22-7           
- [85] FNN_1.1.4.1               renv_1.2.0               
+ [85] FNN_1.1.4.1               renv_1.2.1               
  [87] rtracklayer_1.70.0        bit_4.6.0                
  [89] tidyselect_1.2.1          locfit_1.5-9.12          
  [91] Biostrings_2.78.0         knitr_1.50               

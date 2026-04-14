@@ -444,19 +444,19 @@ table(exact = colLabels(sce), approx = clusters)
      approx
 exact   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
    1   90   0   0   0   1   0   0   0   1   0   0   0   0   0   0
-   2    0 143   0   1   0   0   0   0   0   0   0   0   0   0   0
-   3    0   0  75   0   2   0   0   0   0   0   0   0   0   0   0
-   4    0   0   0 253   0   0   0   0   0   0   0   0 144   0   0
-   5    0   0   0   0 391   0   0   1   0   1   0   2   0   0   0
-   6    0   0   0   0   0 207   0   0   0   0   2   0   0   0   0
-   7    0   0   0   0   0   3 245   0   0   1   0   0   0   0   0
-   8    0   0   0   0   2   0   0  93   0   0   0   0   0   0   0
-   9    0   0   0   0   1   0   0   0 108   0   0   0   0   0   0
-   10   0   0   0   0   0   0   0   0   0 112   1  16   0   0   0
-   11   0   0   0   0   0   0   0   0   0   0 150   0   0   0   0
-   12   0   0   0   0   3   0   0   0   0   0   0 195   0   0   0
-   13   0   0   0   0   0   0   0   0   0   1   0   0   0 146   0
-   14   0   0   0   0   0   0   0   0   0   0   0   0   0   0  20
+   2    0 143   0   0   0   0   0   0   0   0   0   0   0   0   1
+   3    0   0  75   0   3   0   0   0   0   0   0   0   0   0   0
+   4    0   0   0 341   0   0   0   0   0   0   0   0   0   0  56
+   5    0   0   0   0 386   0   0   0   0   1   0   4   0   0   0
+   6    0   0   0   0   0 203   1   0   0   0   0   0   0   0   0
+   7    0   0   0   0   0   5 245   0   0   1   0   0   0   0   0
+   8    0   0   0   0   1   0   0  96   0   0   0   0   0   0   0
+   9    0   0   0   0   0   0   0   0 108   0   0   0   0   0   0
+   10   0   0   0   0   0   0   0   0   0 113   0  16   0   0   0
+   11   0   0   0   0   0   0   0   0   0   0 154   0   0   0   0
+   12   0   0   0   0   7   0   0   0   0   0   0 193   0   0   0
+   13   0   0   0   0   0   0   0   0   0   0   0   0 146   0   0
+   14   0   0   0   0   0   0   0   0   0   0   0   0   0  20   0
 ```
 
 The similarity of the two clusterings can be quantified by calculating the pairwise Rand index: 
@@ -1040,7 +1040,7 @@ loaded via a namespace (and not attached):
  [67] rhdf5filters_1.22.0    digest_0.6.39          rsvd_1.0.5            
  [70] R6_2.6.1               mime_0.13              scattermore_1.2       
  [73] tensor_1.5.1           spatstat.data_3.1-9    RSQLite_2.4.5         
- [76] tidyr_1.3.1            data.table_1.17.8      renv_1.2.0            
+ [76] tidyr_1.3.1            data.table_1.17.8      renv_1.2.1            
  [79] htmlwidgets_1.6.4      httr_1.4.7             uwot_0.2.4            
  [82] pkgconfig_2.0.3        gtable_0.3.6           blob_1.2.4            
  [85] lmtest_0.9-40          S7_0.2.1               XVector_0.50.0        
@@ -1051,7 +1051,7 @@ loaded via a namespace (and not attached):
 [100] stringr_1.6.0          BiocVersion_3.22.0     KernSmooth_2.23-26    
 [103] parallel_4.5.3         miniUI_0.1.2           vipor_0.4.7           
 [106] AnnotationDbi_1.72.0   pillar_1.11.1          grid_4.5.3            
-[109] vctrs_0.7.2            RANN_2.6.2             promises_1.5.0        
+[109] vctrs_0.7.3            RANN_2.6.2             promises_1.5.0        
 [112] dbplyr_2.5.1           beachmat_2.26.0        xtable_1.8-4          
 [115] cluster_2.1.8.1        beeswarm_0.4.0         evaluate_1.0.5        
 [118] magick_2.9.0           cli_3.6.5              locfit_1.5-9.12       

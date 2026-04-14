@@ -476,7 +476,7 @@ loaded via a namespace (and not attached):
  [1] DBI_1.2.3            formatR_1.14         gridExtra_2.3       
  [4] httr2_1.2.2          rlang_1.2.0          magrittr_2.0.4      
  [7] otel_0.2.0           compiler_4.5.3       RSQLite_2.4.5       
-[10] png_0.1-8            vctrs_0.7.2          pkgconfig_2.0.3     
+[10] png_0.1-8            vctrs_0.7.3          pkgconfig_2.0.3     
 [13] crayon_1.5.3         fastmap_1.2.0        dbplyr_2.5.1        
 [16] magick_2.9.0         XVector_0.50.0       labeling_0.4.3      
 [19] rmarkdown_2.30       ggbeeswarm_0.7.3     purrr_1.2.0         
@@ -491,7 +491,7 @@ loaded via a namespace (and not attached):
 [46] BumpyMatrix_1.18.0   S7_0.2.1             evaluate_1.0.5      
 [49] BiocFileCache_3.0.0  ExperimentHub_3.0.0  Biostrings_2.78.0   
 [52] pillar_1.11.1        BiocManager_1.30.27  filelock_1.0.3      
-[55] renv_1.2.0           BiocVersion_3.22.0   scales_1.4.0        
+[55] renv_1.2.1           BiocVersion_3.22.0   scales_1.4.0        
 [58] glue_1.8.0           tools_4.5.3          AnnotationHub_4.0.0 
 [61] BiocNeighbors_2.4.0  ScaledMatrix_1.18.0  cowplot_1.2.0       
 [64] grid_4.5.3           AnnotationDbi_1.72.0 beeswarm_0.4.0      

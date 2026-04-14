@@ -1049,7 +1049,7 @@ loaded via a namespace (and not attached):
  [5] rlang_1.2.0               magrittr_2.0.4           
  [7] otel_0.2.0                compiler_4.5.3           
  [9] RSQLite_2.4.5             DelayedMatrixStats_1.32.0
-[11] png_0.1-8                 vctrs_0.7.2              
+[11] png_0.1-8                 vctrs_0.7.3              
 [13] pkgconfig_2.0.3           crayon_1.5.3             
 [15] fastmap_1.2.0             dbplyr_2.5.1             
 [17] magick_2.9.0              XVector_0.50.0           
@@ -1074,7 +1074,7 @@ loaded via a namespace (and not attached):
 [55] BiocFileCache_3.0.0       ExperimentHub_3.0.0      
 [57] Biostrings_2.78.0         pillar_1.11.1            
 [59] BiocManager_1.30.27       filelock_1.0.3           
-[61] renv_1.2.0                BiocVersion_3.22.0       
+[61] renv_1.2.1                BiocVersion_3.22.0       
 [63] sparseMatrixStats_1.22.0  scales_1.4.0             
 [65] glue_1.8.0                metapod_1.18.0           
 [67] tools_4.5.3               AnnotationHub_4.0.0      

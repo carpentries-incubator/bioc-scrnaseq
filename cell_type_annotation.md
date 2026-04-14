@@ -1101,7 +1101,7 @@ loaded via a namespace (and not attached):
   [1] RColorBrewer_1.1-3        jsonlite_2.0.0           
   [3] magrittr_2.0.4            ggbeeswarm_0.7.3         
   [5] magick_2.9.0              farver_2.1.2             
-  [7] rmarkdown_2.30            vctrs_0.7.2              
+  [7] rmarkdown_2.30            vctrs_0.7.3              
   [9] memoise_2.0.1             DelayedMatrixStats_1.32.0
  [11] htmltools_0.5.9           S4Arrays_1.10.1          
  [13] AnnotationHub_4.0.0       curl_7.0.0               
@@ -1136,7 +1136,7 @@ loaded via a namespace (and not attached):
  [71] limma_3.66.0              BumpyMatrix_1.18.0       
  [73] splines_4.5.3             dplyr_1.1.4              
  [75] BiocFileCache_3.0.0       lattice_0.22-7           
- [77] survival_3.8-3            renv_1.2.0               
+ [77] survival_3.8-3            renv_1.2.1               
  [79] FNN_1.1.4.1               bit_4.6.0                
  [81] tidyselect_1.2.1          locfit_1.5-9.12          
  [83] Biostrings_2.78.0         knitr_1.50               

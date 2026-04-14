@@ -323,7 +323,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Working with large data</h1>
-        <p>Last updated on 2026-04-07 |
+        <p>Last updated on 2026-04-14 |
 
         <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/edit/main/episodes/large_data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -745,7 +745,7 @@ overhead.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>From <code>?MulticoreParam</code> :</p>
 <blockquote>
@@ -817,19 +817,19 @@ approximation can be largely ignored.</p>
 <pre class="output" tabindex="0"><code>     approx
 exact   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
    1   90   0   0   0   1   0   0   0   1   0   0   0   0   0   0
-   2    0 143   0   1   0   0   0   0   0   0   0   0   0   0   0
-   3    0   0  75   0   2   0   0   0   0   0   0   0   0   0   0
-   4    0   0   0 253   0   0   0   0   0   0   0   0 144   0   0
-   5    0   0   0   0 391   0   0   1   0   1   0   2   0   0   0
-   6    0   0   0   0   0 207   0   0   0   0   2   0   0   0   0
-   7    0   0   0   0   0   3 245   0   0   1   0   0   0   0   0
-   8    0   0   0   0   2   0   0  93   0   0   0   0   0   0   0
-   9    0   0   0   0   1   0   0   0 108   0   0   0   0   0   0
-   10   0   0   0   0   0   0   0   0   0 112   1  16   0   0   0
-   11   0   0   0   0   0   0   0   0   0   0 150   0   0   0   0
-   12   0   0   0   0   3   0   0   0   0   0   0 195   0   0   0
-   13   0   0   0   0   0   0   0   0   0   1   0   0   0 146   0
-   14   0   0   0   0   0   0   0   0   0   0   0   0   0   0  20</code></pre>
+   2    0 143   0   0   0   0   0   0   0   0   0   0   0   0   1
+   3    0   0  75   0   3   0   0   0   0   0   0   0   0   0   0
+   4    0   0   0 341   0   0   0   0   0   0   0   0   0   0  56
+   5    0   0   0   0 386   0   0   0   0   1   0   4   0   0   0
+   6    0   0   0   0   0 203   1   0   0   0   0   0   0   0   0
+   7    0   0   0   0   0   5 245   0   0   1   0   0   0   0   0
+   8    0   0   0   0   1   0   0  96   0   0   0   0   0   0   0
+   9    0   0   0   0   0   0   0   0 108   0   0   0   0   0   0
+   10   0   0   0   0   0   0   0   0   0 113   0  16   0   0   0
+   11   0   0   0   0   0   0   0   0   0   0 154   0   0   0   0
+   12   0   0   0   0   7   0   0   0   0   0   0 193   0   0   0
+   13   0   0   0   0   0   0   0   0   0   0   0   0 146   0   0
+   14   0   0   0   0   0   0   0   0   0   0   0   0   0  20   0</code></pre>
 </div>
 <p>The similarity of the two clusterings can be quantified by
 calculating the pairwise Rand index:</p>
@@ -975,7 +975,7 @@ results.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>This code block calculates the exact PCA coordinates. Another thing
 to note: PC vectors are only identified up to a sign flip. We can see
@@ -1273,7 +1273,7 @@ matrix in memory as opposed to holding the data out of memory.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <p>See the <code>HDF5Array</code> function for reading from HDF5 and the
 <code>writeHDF5Array</code> function for writing to HDF5 from the <em><a href="https://bioconductor.org/packages/3.22/HDF5Array" class="external-link">HDF5Array</a></em>
@@ -1287,7 +1287,7 @@ package.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb53">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1371,7 +1371,7 @@ with 3 workers.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
 <div class="accordion-body">
 <p>Use the function <code>system.time</code> to obtain the runtime of
 each job.</p>
@@ -1384,7 +1384,7 @@ each job.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb60">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1524,7 +1524,7 @@ loaded via a namespace (and not attached):
  [67] rhdf5filters_1.22.0    digest_0.6.39          rsvd_1.0.5
  [70] R6_2.6.1               mime_0.13              scattermore_1.2
  [73] tensor_1.5.1           spatstat.data_3.1-9    RSQLite_2.4.5
- [76] tidyr_1.3.1            data.table_1.17.8      renv_1.2.0
+ [76] tidyr_1.3.1            data.table_1.17.8      renv_1.2.1
  [79] htmlwidgets_1.6.4      httr_1.4.7             uwot_0.2.4
  [82] pkgconfig_2.0.3        gtable_0.3.6           blob_1.2.4
  [85] lmtest_0.9-40          S7_0.2.1               XVector_0.50.0
@@ -1535,7 +1535,7 @@ loaded via a namespace (and not attached):
 [100] stringr_1.6.0          BiocVersion_3.22.0     KernSmooth_2.23-26
 [103] parallel_4.5.3         miniUI_0.1.2           vipor_0.4.7
 [106] AnnotationDbi_1.72.0   pillar_1.11.1          grid_4.5.3
-[109] vctrs_0.7.2            RANN_2.6.2             promises_1.5.0
+[109] vctrs_0.7.3            RANN_2.6.2             promises_1.5.0
 [112] dbplyr_2.5.1           beachmat_2.26.0        xtable_1.8-4
 [115] cluster_2.1.8.1        beeswarm_0.4.0         evaluate_1.0.5
 [118] magick_2.9.0           cli_3.6.5              locfit_1.5-9.12
@@ -1614,8 +1614,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/bioc-scrnaseq/large_data.html",
   "identifier": "https://carpentries-incubator.github.io/bioc-scrnaseq/large_data.html",
   "dateCreated": "2024-01-10",
-  "dateModified": "2026-04-07",
-  "datePublished": "2026-04-07"
+  "dateModified": "2026-04-14",
+  "datePublished": "2026-04-14"
 }
 
   </script><script>

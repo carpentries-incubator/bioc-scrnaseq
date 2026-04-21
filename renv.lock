@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.5.2",
+    "Version": "4.5.3",
     "Repositories": [
       {
         "Name": "BioCsoft",
@@ -6703,7 +6703,7 @@
     },
     "lifecycle": {
       "Package": "lifecycle",
-      "Version": "1.0.4",
+      "Version": "1.0.5",
       "Source": "Repository",
       "Title": "Manage the Life Cycle of your Package Functions",
       "Authors@R": "c( person(\"Lionel\", \"Henry\", , \"lionel@posit.co\", role = c(\"aut\", \"cre\")), person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\", comment = c(ORCID = \"0000-0003-4757-117X\")), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")) )",
@@ -6716,29 +6716,28 @@
       ],
       "Imports": [
         "cli (>= 3.4.0)",
-        "glue",
         "rlang (>= 1.1.0)"
       ],
       "Suggests": [
         "covr",
-        "crayon",
         "knitr",
-        "lintr",
+        "lintr (>= 3.1.0)",
         "rmarkdown",
         "testthat (>= 3.0.1)",
         "tibble",
         "tidyverse",
         "tools",
         "vctrs",
-        "withr"
+        "withr",
+        "xml2"
       ],
       "VignetteBuilder": "knitr",
       "Config/Needs/website": "tidyverse/tidytemplate, usethis",
       "Config/testthat/edition": "3",
       "Encoding": "UTF-8",
-      "RoxygenNote": "7.2.1",
+      "RoxygenNote": "7.3.3",
       "NeedsCompilation": "no",
-      "Author": "Lionel Henry [aut, cre], Hadley Wickham [aut] (<https://orcid.org/0000-0003-4757-117X>), Posit Software, PBC [cph, fnd]",
+      "Author": "Lionel Henry [aut, cre], Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>), Posit Software, PBC [cph, fnd]",
       "Maintainer": "Lionel Henry <lionel@posit.co>",
       "Repository": "CRAN"
     },
@@ -8095,7 +8094,7 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "1.1.6",
+      "Version": "1.2.0",
       "Source": "Repository",
       "Title": "Functions for Base Types and Core R and 'Tidyverse' Features",
       "Description": "A toolbox for working with base types, core R features like the condition system, and core 'Tidyverse' features like tidy evaluation.",
@@ -8104,7 +8103,7 @@
       "ByteCompile": "true",
       "Biarch": "true",
       "Depends": [
-        "R (>= 3.5.0)"
+        "R (>= 4.0.0)"
       ],
       "Imports": [
         "utils"
@@ -8123,7 +8122,7 @@
         "pkgload",
         "rmarkdown",
         "stats",
-        "testthat (>= 3.2.0)",
+        "testthat (>= 3.3.2)",
         "tibble",
         "usethis",
         "vctrs (>= 0.2.3)",
@@ -8133,7 +8132,7 @@
         "winch"
       ],
       "Encoding": "UTF-8",
-      "RoxygenNote": "7.3.2",
+      "RoxygenNote": "7.3.3",
       "URL": "https://rlang.r-lib.org, https://github.com/r-lib/rlang",
       "BugReports": "https://github.com/r-lib/rlang/issues",
       "Config/build/compilation-database": "true",
@@ -9126,16 +9125,16 @@
     },
     "spatstat.geom": {
       "Package": "spatstat.geom",
-      "Version": "3.6-1",
+      "Version": "3.7-3",
       "Source": "Repository",
-      "Date": "2025-11-20",
+      "Date": "2026-03-23",
       "Title": "Geometrical Functionality of the 'spatstat' Family",
       "Authors@R": "c(person(\"Adrian\", \"Baddeley\",  role = c(\"aut\", \"cre\", \"cph\"), email = \"Adrian.Baddeley@curtin.edu.au\", comment = c(ORCID=\"0000-0001-9499-8382\")), person(\"Rolf\", \"Turner\",  role = c(\"aut\", \"cph\"), email=\"rolfturner@posteo.net\", comment=c(ORCID=\"0000-0001-5521-5218\")), person(\"Ege\",   \"Rubak\",  role = c(\"aut\", \"cph\"), email = \"rubak@math.aau.dk\", comment=c(ORCID=\"0000-0002-6675-533X\")), person(\"Warick\",    \"Brown\" ,        role = \"ctb\"), person(\"Tilman\",    \"Davies\",        role = \"ctb\"), person(\"Ute\",       \"Hahn\",          role = \"ctb\"), person(\"Martin\",    \"Hazelton\",      role = \"ctb\"), person(\"Abdollah\",  \"Jalilian\",      role = \"ctb\"), person(\"Greg\",      \"McSwiggan\",     role = c(\"ctb\", \"cph\")), person(\"Sebastian\", \"Meyer\",         role = c(\"ctb\", \"cph\")), person(\"Jens\",      \"Oehlschlaegel\", role = c(\"ctb\", \"cph\")), person(\"Suman\",     \"Rakshit\",       role = \"ctb\"), person(\"Dominic\",   \"Schuhmacher\",   role = \"ctb\"), person(\"Rasmus\",    \"Waagepetersen\", role = \"ctb\"))",
       "Maintainer": "Adrian Baddeley <Adrian.Baddeley@curtin.edu.au>",
       "Depends": [
         "R (>= 3.5.0)",
-        "spatstat.data (>= 3.1-8)",
-        "spatstat.univar (>= 3.1-4)",
+        "spatstat.data (>= 3.1-9)",
+        "spatstat.univar (>= 3.1-6)",
         "stats",
         "graphics",
         "grDevices",
@@ -9143,18 +9142,18 @@
         "methods"
       ],
       "Imports": [
-        "spatstat.utils (>= 3.2-0)",
+        "spatstat.utils (>= 3.2-2)",
         "deldir (>= 1.0-2)",
         "polyclip (>= 1.10)"
       ],
       "Suggests": [
-        "spatstat.random (>= 3.4)",
-        "spatstat.explore (>= 3.4)",
-        "spatstat.model (>= 3.3)",
-        "spatstat.linnet (>= 3.2)",
+        "spatstat.random (>= 3.4-3)",
+        "spatstat.explore (>= 3.7)",
+        "spatstat.model (>= 3.5)",
+        "spatstat.linnet (>= 3.4)",
         "spatial",
         "fftwtools (>= 0.9-8)",
-        "spatstat (>= 3.3)"
+        "spatstat (>= 3.5)"
       ],
       "Description": "Defines spatial data types and supports geometrical operations on them. Data types include point patterns, windows (domains), pixel images, line segment patterns, tessellations and hyperframes. Capabilities include creation and manipulation of data (using command line or graphical interaction), plotting, geometrical operations (rotation, shift, rescale, affine transformation), convex hull, discretisation and pixellation, Dirichlet tessellation, Delaunay triangulation, pairwise distances, nearest-neighbour distances, distance transform, morphological operations (erosion, dilation, closing, opening), quadrat counting, geometrical measurement, geometrical covariance, colour maps, calculus on spatial domains, Gaussian blur, level sets of images, transects of images, intersections between objects, minimum distance matching. (Excludes spatial data on a network, which are supported by the package 'spatstat.linnet'.)",
       "License": "GPL (>= 2)",
@@ -9167,31 +9166,31 @@
     },
     "spatstat.random": {
       "Package": "spatstat.random",
-      "Version": "3.4-3",
+      "Version": "3.4-5",
       "Source": "Repository",
-      "Date": "2025-11-21",
+      "Date": "2026-03-22",
       "Title": "Random Generation Functionality for the 'spatstat' Family",
       "Authors@R": "c(person(\"Adrian\", \"Baddeley\",  role = c(\"aut\", \"cre\", \"cph\"), email = \"Adrian.Baddeley@curtin.edu.au\", comment = c(ORCID=\"0000-0001-9499-8382\")), person(\"Rolf\", \"Turner\",  role = c(\"aut\", \"cph\"), email=\"rolfturner@posteo.net\", comment=c(ORCID=\"0000-0001-5521-5218\")), person(\"Ege\",   \"Rubak\",  role = c(\"aut\", \"cph\"), email = \"rubak@math.aau.dk\", comment=c(ORCID=\"0000-0002-6675-533X\")), person(\"Tilman\", \"Davies\", role = c(\"aut\", \"cph\"), comment=c(ORCID=\"0000-0003-0565-1825\")), person(\"Kasper\", \"Klitgaard Berthelsen\", role = c(\"ctb\", \"cph\")), person(\"David\", \"Bryant\", role = c(\"ctb\", \"cph\")), person(\"Ya-Mei\", \"Chang\", role = c(\"ctb\", \"cph\"), email = \"yamei628@gmail.com\"), person(\"Ute\", \"Hahn\", role = \"ctb\"), person(\"Abdollah\", \"Jalilian\",  role = \"ctb\"), person(\"Dominic\", \"Schuhmacher\", role = c(\"ctb\", \"cph\")), person(\"Rasmus\", \"Plenge Waagepetersen\", role = c(\"ctb\", \"cph\")))",
       "Maintainer": "Adrian Baddeley <Adrian.Baddeley@curtin.edu.au>",
       "Depends": [
         "R (>= 3.5.0)",
-        "spatstat.data (>= 3.1)",
-        "spatstat.univar (>= 3.1)",
-        "spatstat.geom (>= 3.6-0)",
+        "spatstat.data (>= 3.1-9)",
+        "spatstat.univar (>= 3.1-6)",
+        "spatstat.geom (>= 3.7-0)",
         "stats",
         "utils",
         "methods",
         "grDevices"
       ],
       "Imports": [
-        "spatstat.utils (>= 3.1-4)"
+        "spatstat.utils (>= 3.2-2)"
       ],
       "Suggests": [
         "spatial",
-        "spatstat.linnet (>= 3.2)",
+        "spatstat.linnet (>= 3.4)",
         "spatstat.explore",
         "spatstat.model",
-        "spatstat (>= 3.3)",
+        "spatstat (>= 3.5)",
         "gsl"
       ],
       "Description": "Functionality for random generation of spatial data in the 'spatstat' family of packages. Generates random spatial patterns of points according to many simple rules (complete spatial randomness, Poisson, binomial, random grid, systematic, cell), randomised alteration of patterns (thinning, random shift, jittering),  simulated realisations of random point processes including simple sequential inhibition, Matern inhibition models, Neyman-Scott cluster processes (using direct, Brix-Kendall, or hybrid algorithms), log-Gaussian Cox processes, product shot noise cluster processes and Gibbs point processes (using Metropolis-Hastings birth-death-shift algorithm, alternating Gibbs sampler, or coupling-from-the-past perfect simulation). Also generates random spatial patterns of line segments, random tessellations, and random images (random noise, random mosaics). Excludes random generation on a linear network, which is covered by the separate package 'spatstat.linnet'.",
@@ -9234,9 +9233,9 @@
     },
     "spatstat.univar": {
       "Package": "spatstat.univar",
-      "Version": "3.1-5",
+      "Version": "3.1-7",
       "Source": "Repository",
-      "Date": "2025-11-17",
+      "Date": "2026-02-18",
       "Title": "One-Dimensional Probability Distribution Support for the 'spatstat' Family",
       "Authors@R": "c(person(\"Adrian\", \"Baddeley\",  role = c(\"aut\", \"cre\", \"cph\"), email = \"Adrian.Baddeley@curtin.edu.au\", comment = c(ORCID=\"0000-0001-9499-8382\")), person(c(\"Tilman\", \"M.\"), \"Davies\", role = c(\"aut\", \"ctb\", \"cph\"), email = \"Tilman.Davies@otago.ac.nz\", comment = c(ORCID=\"0000-0003-0565-1825\")), person(c(\"Martin\", \"L.\"), \"Hazelton\", role = c(\"aut\", \"ctb\", \"cph\"), email = \"Martin.Hazelton@otago.ac.nz\", comment = c(ORCID=\"0000-0001-7831-725X\")), person(\"Ege\",   \"Rubak\",  role = c(\"aut\", \"cph\"), email = \"rubak@math.aau.dk\", comment=c(ORCID=\"0000-0002-6675-533X\")), person(\"Rolf\", \"Turner\",  role = c(\"aut\", \"cph\"), email=\"rolfturner@posteo.net\", comment=c(ORCID=\"0000-0001-5521-5218\")), person(\"Greg\", \"McSwiggan\", role = c(\"ctb\", \"cph\")))",
       "Maintainer": "Adrian Baddeley <Adrian.Baddeley@curtin.edu.au>",
@@ -9245,7 +9244,7 @@
         "stats"
       ],
       "Imports": [
-        "spatstat.utils (>= 3.1-2)",
+        "spatstat.utils (>= 3.2-2)",
         "graphics"
       ],
       "Description": "Estimation of one-dimensional probability distributions including kernel density estimation, weighted empirical cumulative distribution functions, Kaplan-Meier and reduced-sample estimators for right-censored data, heat kernels, kernel properties, quantiles and integration.",
@@ -9259,9 +9258,9 @@
     },
     "spatstat.utils": {
       "Package": "spatstat.utils",
-      "Version": "3.2-0",
+      "Version": "3.2-2",
       "Source": "Repository",
-      "Date": "2025-09-20",
+      "Date": "2026-03-10",
       "Title": "Utility Functions for 'spatstat'",
       "Authors@R": "c(person(\"Adrian\", \"Baddeley\",  role = c(\"aut\", \"cre\"), email = \"Adrian.Baddeley@curtin.edu.au\", comment = c(ORCID=\"0000-0001-9499-8382\")), person(\"Rolf\", \"Turner\",  role = \"aut\", email=\"rolfturner@posteo.net\", comment=c(ORCID=\"0000-0001-5521-5218\")), person(\"Ege\",   \"Rubak\",  role = \"aut\", email = \"rubak@math.aau.dk\", comment=c(ORCID=\"0000-0002-6675-533X\")))",
       "Maintainer": "Adrian Baddeley <Adrian.Baddeley@curtin.edu.au>",
@@ -9804,7 +9803,7 @@
     },
     "vctrs": {
       "Package": "vctrs",
-      "Version": "0.6.5",
+      "Version": "0.7.3",
       "Source": "Repository",
       "Title": "Vector Helpers",
       "Authors@R": "c( person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\"), person(\"Lionel\", \"Henry\", , \"lionel@posit.co\", role = \"aut\"), person(\"Davis\", \"Vaughan\", , \"davis@posit.co\", role = c(\"aut\", \"cre\")), person(\"data.table team\", role = \"cph\", comment = \"Radix sort based on data.table's forder() and their contribution to R's order()\"), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")) )",
@@ -9813,13 +9812,13 @@
       "URL": "https://vctrs.r-lib.org/, https://github.com/r-lib/vctrs",
       "BugReports": "https://github.com/r-lib/vctrs/issues",
       "Depends": [
-        "R (>= 3.5.0)"
+        "R (>= 4.0.0)"
       ],
       "Imports": [
         "cli (>= 3.4.0)",
         "glue",
         "lifecycle (>= 1.0.3)",
-        "rlang (>= 1.1.0)"
+        "rlang (>= 1.1.7)"
       ],
       "Suggests": [
         "bit64",
@@ -9839,11 +9838,14 @@
         "zeallot"
       ],
       "VignetteBuilder": "knitr",
+      "Config/build/compilation-database": "true",
       "Config/Needs/website": "tidyverse/tidytemplate",
       "Config/testthat/edition": "3",
+      "Config/testthat/parallel": "true",
       "Encoding": "UTF-8",
+      "KeepSource": "true",
       "Language": "en-GB",
-      "RoxygenNote": "7.2.3",
+      "RoxygenNote": "7.3.3",
       "NeedsCompilation": "yes",
       "Author": "Hadley Wickham [aut], Lionel Henry [aut], Davis Vaughan [aut, cre], data.table team [cph] (Radix sort based on data.table's forder() and their contribution to R's order()), Posit Software, PBC [cph, fnd]",
       "Maintainer": "Davis Vaughan <davis@posit.co>",

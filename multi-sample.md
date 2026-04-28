@@ -1061,7 +1061,7 @@ loaded via a namespace (and not attached):
 [29] DelayedArray_0.36.0       BiocParallel_1.44.0      
 [31] cluster_2.1.8.1           irlba_2.3.5.1            
 [33] parallel_4.5.3            R6_2.6.1                 
-[35] RColorBrewer_1.1-3        Rcpp_1.1.0               
+[35] RColorBrewer_1.1-3        Rcpp_1.1.1-1.1           
 [37] knitr_1.50                splines_4.5.3            
 [39] Matrix_1.7-4              igraph_2.2.1             
 [41] tidyselect_1.2.1          viridis_0.6.5            
@@ -1074,7 +1074,7 @@ loaded via a namespace (and not attached):
 [55] BiocFileCache_3.0.0       ExperimentHub_3.0.0      
 [57] Biostrings_2.78.0         pillar_1.11.1            
 [59] BiocManager_1.30.27       filelock_1.0.3           
-[61] renv_1.2.1                BiocVersion_3.22.0       
+[61] renv_1.2.2                BiocVersion_3.22.0       
 [63] sparseMatrixStats_1.22.0  scales_1.4.0             
 [65] glue_1.8.0                metapod_1.18.0           
 [67] tools_4.5.3               AnnotationHub_4.0.0      

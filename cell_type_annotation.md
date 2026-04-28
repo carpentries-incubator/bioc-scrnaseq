@@ -1136,7 +1136,7 @@ loaded via a namespace (and not attached):
  [71] limma_3.66.0              BumpyMatrix_1.18.0       
  [73] splines_4.5.3             dplyr_1.1.4              
  [75] BiocFileCache_3.0.0       lattice_0.22-7           
- [77] survival_3.8-3            renv_1.2.1               
+ [77] survival_3.8-3            renv_1.2.2               
  [79] FNN_1.1.4.1               bit_4.6.0                
  [81] tidyselect_1.2.1          locfit_1.5-9.12          
  [83] Biostrings_2.78.0         knitr_1.50               
@@ -1148,7 +1148,7 @@ loaded via a namespace (and not attached):
  [95] tibble_3.3.0              BiocManager_1.30.27      
  [97] cli_3.6.5                 uwot_0.2.4               
  [99] xtable_1.8-4              segmented_2.1-4          
-[101] Rcpp_1.1.0                dbplyr_2.5.1             
+[101] Rcpp_1.1.1-1.1            dbplyr_2.5.1             
 [103] png_0.1-8                 parallel_4.5.3           
 [105] blob_1.2.4                sparseMatrixStats_1.22.0 
 [107] viridisLite_0.4.2         scales_1.4.0             

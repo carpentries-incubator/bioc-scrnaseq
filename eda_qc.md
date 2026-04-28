@@ -1199,7 +1199,7 @@ loaded via a namespace (and not attached):
  [79] pillar_1.11.1             limma_3.66.0             
  [81] BumpyMatrix_1.18.0        dplyr_1.1.4              
  [83] BiocFileCache_3.0.0       lattice_0.22-7           
- [85] FNN_1.1.4.1               renv_1.2.1               
+ [85] FNN_1.1.4.1               renv_1.2.2               
  [87] rtracklayer_1.70.0        bit_4.6.0                
  [89] tidyselect_1.2.1          locfit_1.5-9.12          
  [91] Biostrings_2.78.0         knitr_1.50               
@@ -1210,7 +1210,7 @@ loaded via a namespace (and not attached):
 [101] evaluate_1.0.5            codetools_0.2-20         
 [103] cigarillo_1.0.0           tibble_3.3.0             
 [105] BiocManager_1.30.27       cli_3.6.5                
-[107] uwot_0.2.4                Rcpp_1.1.0               
+[107] uwot_0.2.4                Rcpp_1.1.1-1.1           
 [109] GenomeInfoDb_1.46.2       dbplyr_2.5.1             
 [111] png_0.1-8                 XML_3.99-0.20            
 [113] parallel_4.5.3            blob_1.2.4               

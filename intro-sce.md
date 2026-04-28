@@ -483,7 +483,7 @@ loaded via a namespace (and not attached):
 [22] bit_4.6.0            xfun_0.55            cachem_1.1.0        
 [25] beachmat_2.26.0      blob_1.2.4           DelayedArray_0.36.0 
 [28] BiocParallel_1.44.0  irlba_2.3.5.1        parallel_4.5.3      
-[31] R6_2.6.1             RColorBrewer_1.1-3   Rcpp_1.1.0          
+[31] R6_2.6.1             RColorBrewer_1.1-3   Rcpp_1.1.1-1.1      
 [34] knitr_1.50           Matrix_1.7-4         tidyselect_1.2.1    
 [37] abind_1.4-8          yaml_2.3.12          viridis_0.6.5       
 [40] codetools_0.2-20     curl_7.0.0           lattice_0.22-7      
@@ -491,7 +491,7 @@ loaded via a namespace (and not attached):
 [46] BumpyMatrix_1.18.0   S7_0.2.1             evaluate_1.0.5      
 [49] BiocFileCache_3.0.0  ExperimentHub_3.0.0  Biostrings_2.78.0   
 [52] pillar_1.11.1        BiocManager_1.30.27  filelock_1.0.3      
-[55] renv_1.2.1           BiocVersion_3.22.0   scales_1.4.0        
+[55] renv_1.2.2           BiocVersion_3.22.0   scales_1.4.0        
 [58] glue_1.8.0           tools_4.5.3          AnnotationHub_4.0.0 
 [61] BiocNeighbors_2.4.0  ScaledMatrix_1.18.0  cowplot_1.2.0       
 [64] grid_4.5.3           AnnotationDbi_1.72.0 beeswarm_0.4.0      

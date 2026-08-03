@@ -111,7 +111,7 @@ representations (e.g., subsetting, combining, methods from
 [DelayedMatrixStats](https://bioconductor.org/packages/DelayedMatrixStats) 
 as well as representation-agnostic C++ code 
 using [beachmat](https://bioconductor.org/packages/beachmat).
-For example, we compute QC metrics below with the same `calculateQCMetrics()` 
+For example, we compute QC metrics below with the same `perCellQCMetrics()`
 function that we used in the other workflows.
 
 ```{r, message = FALSE}
@@ -245,7 +245,8 @@ Progress bars are a helpful way to gauge whether that task is going to take 5 mi
 ### Nearest neighbor searching
 
 Identification of neighbouring cells in PC or expression space is a common procedure
-that is used in many functions, e.g., `buildSNNGraph()`, `doubletCells()`.
+that is used in many functions, e.g., `bluster::makeSNNGraph()`,
+`scDblFinder::computeDoubletDensity()`.
 The default is to favour accuracy over speed by using an exact nearest neighbour
 (NN) search, implemented with the $k$-means for $k$-nearest neighbours algorithm.
 However, for large data sets, it may be preferable to use a faster approximate 
@@ -323,7 +324,8 @@ You can see that in this contrived 1000-dimensional dataset, the approximate met
 ### Singular value decomposition 
 
 The singular value decomposition (SVD) underlies the PCA used throughout our
-analyses, e.g., in `denoisePCA()`, `fastMNN()`, `doubletCells()`. (Briefly, the
+analyses, e.g., in `denoisePCA()`, `fastMNN()`,
+`scDblFinder::computeDoubletDensity()`. (Briefly, the
 right singular vectors are the eigenvectors of the gene-gene covariance matrix,
 where each eigenvector represents the axis of maximum remaining variation in the
 PCA.) The default `base::svd()` function performs an exact SVD that is not

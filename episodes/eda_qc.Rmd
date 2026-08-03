@@ -733,7 +733,7 @@ sce <- runUMAP(sce, dimred = "PCA")
 
 # Doublet finding ----
 dbl.dens <- computeDoubletDensity(sce, subset.row = hvg.sce.var,
-                                  d = ncol(reducedDim(sce)))
+                                  dims = ncol(reducedDim(sce)))
 
 sce$DoubletScore <- dbl.dens
 

@@ -4,7 +4,7 @@ teaching: 20 # Minutes of teaching in the lesson
 exercises: 10 # Minutes of exercises in the lesson
 ---
 
-:::::::::::::::::::::::::::::::::::::: questions 
+:::::::::::::::::::::::::::::::::::::: questions
 
 - How to obtain single-cell reference maps from the Human Cell Atlas?
 
@@ -13,8 +13,8 @@ exercises: 10 # Minutes of exercises in the lesson
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Learn about different resources for public single-cell RNA-seq data.
-- Access data from the Human Cell Atlas using the `CuratedAtlasQueryR` package.
-- Query for cells of interest and download them into a `SingleCellExperiment` object. 
+- Access data from the CELLxGENE data portal using the `cellxgenedp` package.
+- Query for datasets of interest and download them into a `SingleCellExperiment` object.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -47,21 +47,34 @@ through TileDB-SOMA, or get slices in AnnData or Seurat objects, thus
 accelerating your research by significantly minimizing data harmonization at
 https://chanzuckerberg.github.io/cellxgene-census/.
 
-## The CuratedAtlasQueryR Project
+## The cellxgenedp package
 
-The `CuratedAtlasQueryR` is an alternative package that can also be used to access the CELLxGENE data from R through a tidy API. The data has also been harmonized, curated, and re-annotated across studies.
+`cellxgenedp` is a Bioconductor package that provides an R interface to the
+CELLxGENE data portal. It exposes the portal's metadata as ordinary data
+frames, so that datasets can be discovered with the same `dplyr` verbs used
+elsewhere in this lesson, and then downloaded as `SingleCellExperiment`
+objects.
 
-`CuratedAtlasQueryR` supports data access and programmatic exploration of the
-harmonized atlas. Cells of interest can be selected based on ontology, tissue of
-origin, demographics, and disease. For example, the user can select CD4 T helper
-cells across healthy and diseased lymphoid tissue. The data for the selected
-cells can be downloaded locally into SingleCellExperiment objects. Pseudo
-bulk counts are also available to facilitate large-scale, summary analyses of
-transcriptional profiles. 
+The portal organizes data into a three-level hierarchy, and `cellxgenedp` gives
+you one table per level:
 
-```{r, echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/carpentries-incubator/bioc-scrnaseq/main/episodes/figures/curatedAtlasQuery.png")
-```
+* **collections** — a publication or project, e.g. a lung cell atlas paper
+* **datasets** — the individual data objects within a collection, annotated
+  with the tissues, assays, cell types, diseases and donors they contain
+* **files** — the downloadable representations of a dataset (`H5AD` for
+  Python/AnnData, `RDS` for Seurat)
+
+::: callout
+
+Earlier versions of this episode used the `CuratedAtlasQueryR` package, which
+offered *cell*-level queries against a harmonized version of the same data.
+That package has been deprecated and removed from Bioconductor, so this episode
+now uses `cellxgenedp`. The trade-off is granularity: `cellxgenedp` queries
+select whole **datasets**, and you filter to the cells of interest after
+downloading. For cell-level slicing across the whole corpus, see the CELLxGENE
+Census linked above.
+
+:::
 
 ## Data Sources in R / Bioconductor
 
@@ -69,9 +82,8 @@ There are a few options to access single cell data with R / Bioconductor.
 
 | Package | Target | Description |
 |---------|-------------|---------|
-| [hca](https://bioconductor.org/packages/hca) | [HCA Data Portal API](https://www.humancellatlas.org/data-portal/) | Project, Sample, and File level HCA data |
 | [cellxgenedp](https://bioconductor.org/packages/cellxgenedp) | [CellxGene](https://cellxgene.cziscience.com/) | Human and mouse SC data including HCA |
-| [CuratedAtlasQueryR](https://stemangiola.github.io/CuratedAtlasQueryR/) | [CellxGene](https://cellxgene.cziscience.com/) | fine-grained query capable CELLxGENE data including HCA |
+| [zellkonverter](https://bioconductor.org/packages/zellkonverter) | `H5AD` files | Reads the portal's `H5AD` files into `SingleCellExperiment` objects |
 
 ## Installation
 
@@ -79,43 +91,59 @@ There are a few options to access single cell data with R / Bioconductor.
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
-BiocManager::install("CuratedAtlasQueryR")
+BiocManager::install(c("cellxgenedp", "zellkonverter"))
 ```
 
-## Package load 
+## Package load
 
 ```{r chunk-opts, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE, message = FALSE, warning = FALSE)
 library(BiocStyle)
 ```
 
+Note that `SingleCellExperiment` is loaded first on purpose: it and `dplyr`
+share several function names, and we want the `dplyr` versions to win.
+
 ```{r}
-library(CuratedAtlasQueryR)
+library(SingleCellExperiment)
+library(zellkonverter)
 library(dplyr)
+library(cellxgenedp)
 ```
 
-## HCA Metadata
+## Portal metadata
 
-The metadata allows the user to get a lay of the land of what is available
-via the package. In this example, we are using the sample database URL which
-allows us to get a small and quick subset of the available metadata.
+`db()` retrieves the metadata describing everything available in the portal.
+The result is cached locally, so subsequent calls in the same session are fast.
 
 ```{r, message = FALSE}
-metadata <- get_metadata(remote_url = CuratedAtlasQueryR::SAMPLE_DATABASE_URL) |> 
-  collect()
+db <- db()
+
+db
 ```
 
-Get a view of the first 10 columns in the metadata with `glimpse()`
+The three tables are extracted with `collections()`, `datasets()` and
+`files()`:
 
 ```{r}
-metadata |>
+collections(db)
+
+datasets(db)
+
+files(db)
+```
+
+Get a view of the first 10 columns of the dataset metadata with `glimpse()`
+
+```{r}
+datasets(db) |>
   select(1:10) |>
   glimpse()
 ```
 
 ## A tangent on the pipe operator
 
-The vignette materials provided by `CuratedAtlasQueryR` show the use of the
+The vignette materials provided by `cellxgenedp` show the use of the
 'native' R pipe (implemented after R version `4.1.0`). For those not familiar
 with the pipe operator (`|>`), it allows you to chain functions by passing the
 left-hand side as the first argument to the function on the right-hand side. It is used extensively in the `tidyverse` dialect of R, especially within the [`dplyr` package](https://dplyr.tidyverse.org/).
@@ -125,8 +153,8 @@ The pipe operator can be read as "and then". Thankfully, R doesn't care about wh
 In this example, we start with the built-in `mtcars` dataset and then filter to rows where `cyl` is not equal to 4, and then compute the mean `disp` value by each unique `cyl` value.
 
 ```{r}
-mtcars |> 
-  filter(cyl != 4) |> 
+mtcars |>
+  filter(cyl != 4) |>
   summarise(avg_disp = mean(disp),
             .by = cyl)
 ```
@@ -141,94 +169,122 @@ summarise(filter(mtcars, cyl != 4), avg_disp = mean(disp), .by = cyl)
 
 Let's examine the metadata to understand what information it contains.
 
-We can tally the tissue types across datasets to see what tissues the experimental data come from:
+Several of the most useful columns — tissue, assay, cell type, disease, sex,
+and so on — describe a dataset with *many* values at once: a lung atlas
+contains dozens of cell types, and a multi-donor study contains several
+ethnicities. These are stored as list columns, one small data frame per
+dataset:
 
 ```{r}
-metadata |>
-  distinct(tissue, dataset_id) |> 
-  count(tissue) |> 
-  arrange(-n)
+datasets(db) |>
+    select(where(is.list)) |>
+    names()
+
+datasets(db) |>
+    pull(tissue) |>
+    head(2)
+```
+
+Rather than unpacking those by hand, `facets()` tallies how many datasets carry
+each label. This is the equivalent of asking "what tissues do the experimental
+data come from?":
+
+```{r}
+facets(db, "tissue") |>
+    arrange(-n)
 ```
 
 We can do the same for the assay types:
 
 ```{r}
-metadata |>
-    distinct(assay, dataset_id) |>
-    count(assay)
+facets(db, "assay") |>
+    arrange(-n)
 ```
 
 :::: challenge
 
-Look through the full list of metadata column names. Do any other metadata
-columns jump out as interesting to you for your work?
+Look through the full list of dataset metadata column names. Do any other
+metadata columns jump out as interesting to you for your work?
 
 ```{r eval=FALSE}
-names(metadata)
+names(datasets(db))
 ```
 
 ::::
 
-## Downloading single cell data 
+## Downloading single cell data
 
-The data can be provided as either "counts" or counts per million "cpm" as given
-by the `assays` argument in the `get_single_cell_experiment()` function. By
-default, the `SingleCellExperiment` provided will contain only the 'counts'
-data.
+To select datasets on the values inside those list columns, use
+`facets_filter()` inside `filter()`. For the sake of demonstration, we'll focus
+on datasets meeting the following criteria:
 
-For the sake of demonstration, we'll focus this small subset of samples. We use the `filter()` function from the `dplyr` package to identify cells meeting the following criteria:
-
-* African ethnicity
-* 10x assay
-* lung parenchyma tissue
-* CD4 cells
+* lung tissue
+* 10x 3' v3 assay
+* containing CD4-positive, alpha-beta T cells
 
 ```{r}
-sample_subset <- metadata |>
+lung_cd4 <- datasets(db) |>
     filter(
-        ethnicity == "African" &
-        grepl("10x", assay) &
-        tissue == "lung parenchyma" &
-        grepl("CD4", cell_type)
+        facets_filter(tissue, "label", "lung"),
+        facets_filter(assay, "label", "10x 3' v3"),
+        facets_filter(cell_type, "label", "CD4-positive, alpha-beta T cell")
     )
+
+lung_cd4 |>
+    select(dataset_id, title, cell_count)
 ```
 
-Out of the `r nrow(metadata)` cells in the sample database, `r nrow(sample_subset)` cells meet this criteria.
+Out of the `r nrow(datasets(db))` datasets in the portal, `r nrow(lung_cd4)`
+meet these criteria.
 
-Now we can use `get_single_cell_experiment()`:
+Each dataset is available as one or more files. We join our selection to the
+file table, keep the `H5AD` representation, and pick the smallest one so that
+the download finishes quickly:
+
+```{r}
+selected_file <- lung_cd4 |>
+    select(dataset_id, title, cell_count) |>
+    left_join(files(db) |> filter(filetype == "H5AD"),
+              by = "dataset_id") |>
+    arrange(filesize) |>
+    slice(1)
+
+selected_file |>
+    select(title, cell_count, filesize)
+```
+
+`files_download()` fetches the file and caches it locally, so a second call
+does not re-download it:
 
 ```{r, message = FALSE}
-single_cell_counts <- sample_subset |>
-    get_single_cell_experiment()
+local_file <- selected_file |>
+    files_download(dry.run = FALSE)
 
-single_cell_counts
+basename(local_file)
 ```
 
-You can provide different arguments to `get_single_cell_experiment()` to get different formats or subsets of the data, like data scaled to counts per million:
+Finally, `readH5AD()` from `r Biocpkg("zellkonverter")` reads the file into a
+`SingleCellExperiment`. Setting `use_hdf5 = TRUE` leaves the counts on disk
+rather than loading them into memory, exactly as we saw in the
+[Working with large data](https://carpentries-incubator.github.io/bioc-scrnaseq/large_data.html)
+episode.
 
-```{r, message = FALSE}
-sample_subset |>
-  get_single_cell_experiment(assays = "cpm")
+```{r}
+sce <- readH5AD(local_file, use_hdf5 = TRUE, reader = "R")
+
+sce
 ```
 
-or data on only specific genes:
+The cell-level annotations that the portal curates are in the `colData`, which
+is where we can finally get down to individual cells — here, the CD4 cells we
+selected the dataset for:
 
-```{r, message = FALSE}
-single_cell_counts <- sample_subset |>
-    get_single_cell_experiment(assays = "cpm", features = "PUM1")
-
-single_cell_counts
-```
-
-Or if needed, the H5 `SingleCellExperiment` can be returned a Seurat
-object (note that this may take a long time and use a lot of memory depending on
-how many cells you are requesting).
-
-```{r,eval=FALSE}
-single_cell_counts <- sample_subset |>
-    get_seurat()
-
-single_cell_counts
+```{r}
+colData(sce) |>
+    as.data.frame() |>
+    count(cell_type) |>
+    arrange(-n) |>
+    head()
 ```
 
 ## Save your `SingleCellExperiment`
@@ -237,7 +293,7 @@ Once you have a dataset you're happy with, you'll probably want to save it. The 
 `saveHDF5SummarizedExperiment` from the `HDF5Array` package.
 
 ```{r, eval=FALSE}
-single_cell_counts |> saveHDF5SummarizedExperiment("single_cell_counts")
+sce |> saveHDF5SummarizedExperiment("single_cell_counts")
 ```
 
 ## Exercises
@@ -246,14 +302,13 @@ single_cell_counts |> saveHDF5SummarizedExperiment("single_cell_counts")
 
 #### Exercise 1: Basic counting + piping
 
-Use `count` and `arrange` to get the number of cells per tissue in descending
-order.
+Use `facets()` and `arrange()` to get the number of datasets per organism in
+descending order.
 
 :::::::::::::: solution
 
 ```{r}
-metadata |>
-    count(tissue) |>
+facets(db, "organism") |>
     arrange(-n)
 ```
 :::::::::::::::::::::::
@@ -262,20 +317,20 @@ metadata |>
 
 :::::::::::::::::::::::::::::::::: challenge
 
-#### Exercise 2: Tissue & type counting
+#### Exercise 2: Counting datasets and cells
 
-`count()` can group by multiple factors by simply adding another grouping column
-as an additional argument. Get a tally of the highest number of cell types per
-tissue combination. What tissue has the most numerous type of cells?
+`datasets()` records the number of cells in each dataset in the `cell_count`
+column. Which single collection contributes the most cells to the portal?
 
 :::::::::::::: solution
 
 ```{r}
-metadata |>
-    count(tissue, cell_type) |>
-    arrange(-n) |> 
-    head(n = 1)
-
+datasets(db) |>
+    summarise(cells = sum(cell_count), .by = collection_id) |>
+    arrange(-cells) |>
+    slice(1) |>
+    left_join(collections(db), by = "collection_id") |>
+    select(name, cells)
 ```
 :::::::::::::::::::::::
 
@@ -285,64 +340,70 @@ metadata |>
 
 #### Exercise 3: Comparing metadata categories
 
-Spot some differences between the `tissue` and `tissue_harmonised` columns.
-Use `count` to summarise.
+The portal annotates both `tissue` (where the sample came from) and
+`cell_type` (what the cells are). Use `facets()` to summarise each, and spot a
+case where the two vocabularies describe overlapping biology.
 
 :::::::::::::: solution
 
 ```{r}
-metadata |>
-    count(tissue) |>
-    arrange(-n)
+facets(db, "tissue") |>
+    arrange(-n) |>
+    head()
 
-metadata |>
-    count(tissue_harmonised) |>
-    arrange(-n)
+facets(db, "cell_type") |>
+    arrange(-n) |>
+    head()
 ```
 
-For example you can see that `tissue_harmonised` merges the `cortex of kidney`
-and `kidney` groups in `tissue`.
+For example, blood is one of the most heavily sampled tissues, and several of
+the most common cell types are the lymphocytes you would find in it.
 
-To see the full list of curated columns in the metadata, see the Details section
-in the `?get_metadata` documentation page.
-    
+To see the full list of metadata available for each dataset, see the
+`?datasets` documentation page.
+
 :::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::: challenge
 
-#### Exercise 4: Highly specific cell groups
+#### Exercise 4: Highly specific dataset groups
 
-Now that we are a little familiar with navigating the metadata, let's obtain
-a `SingleCellExperiment` of 10X scRNA-seq counts of `cd8 tem` `lung` cells for
-females older than `80` with `COVID-19`. Note: Use the harmonized columns, where
-possible. 
+Now that we are a little familiar with navigating the metadata, let's find the
+datasets of 10x scRNA-seq data from lung tissue of female donors with
+`COVID-19`. How many are there, and how many cells do they contain in total?
 
 :::::::::::::: solution
 
-```{r, message = FALSE}
-metadata |> 
+```{r}
+covid_lung <- datasets(db) |>
     filter(
-        sex == "female" &
-        age_days > 80 * 365 &
-        grepl("10x", assay) &
-        disease == "COVID-19" &  
-        tissue_harmonised == "lung" & 
-        cell_type_harmonised == "cd8 tem"
-    ) |>
-    get_single_cell_experiment()
+        facets_filter(tissue, "label", "lung"),
+        facets_filter(disease, "label", "COVID-19"),
+        facets_filter(sex, "label", "female"),
+        facets_filter(assay, "label", "10x 3' v3")
+    )
+
+nrow(covid_lung)
+
+covid_lung |>
+    summarise(datasets = n(), cells = sum(cell_count))
 ```
 
-You can see we don't get very many cells given the strict set of conditions we used.
+You can see we don't get very many datasets given the strict set of conditions
+we used. Note that these filters select datasets that *contain* female donors
+and COVID-19 samples — the downloaded object will still need subsetting to
+those cells.
 :::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::: keypoints 
+::::::::::::::::::::::::::::::::::::: keypoints
 
-- The `CuratedAtlasQueryR` package provides programmatic access to single-cell reference maps from the Human Cell Atlas.
-- The package provides functionality to query for cells of interest and to download them into a `SingleCellExperiment` object.
+- The `cellxgenedp` package provides programmatic access to the CELLxGENE data portal, which includes data from the Human Cell Atlas.
+- Portal metadata is organized as collections, datasets, and files; `facets()` summarises the multi-valued annotations attached to each dataset.
+- `files_download()` retrieves a dataset's `H5AD` file, which `zellkonverter::readH5AD()` reads into a `SingleCellExperiment` object.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

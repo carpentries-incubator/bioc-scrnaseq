@@ -407,13 +407,22 @@ This process is very similar to differential expression analysis, but here we
 apply the analysis on the computed abundances without normalizing the data first.
 
 ```{r}
-abundances <- table(merged$celltype.mapped, merged$sample) 
+abundances <- table(merged$celltype.mapped, merged$sample)
 
-abundances <- unclass(abundances) 
+abundances <- unclass(abundances)
 
 extra.info <- colData(merged)[match(colnames(abundances), merged$sample),]
 
 y.ab <- DGEList(abundances, samples = extra.info)
+
+# Cell types seen only a handful of times across all samples carry no useful
+# information about differential abundance, and edgeR cannot estimate a
+# dispersion for them, so we drop them first.
+keep.ab <- rowSums(y.ab$counts) >= 5
+
+summary(keep.ab)
+
+y.ab <- y.ab[keep.ab,]
 
 design <- model.matrix(~factor(pool) + factor(tomato), y.ab$samples)
 

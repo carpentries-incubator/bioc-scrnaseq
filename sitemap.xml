@@ -10,9 +10,6 @@
     <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/aio.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/cell_type_annotation.html</loc>
   </url>
   <url>
@@ -20,9 +17,6 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/hca.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/images.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/index.html</loc>
@@ -37,9 +31,6 @@
     <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/aio.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/cell_type_annotation.html</loc>
   </url>
   <url>
@@ -49,22 +40,10 @@
     <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/hca.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/images.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/index.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/instructor-notes.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/intro-sce.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/introduction.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/large_data.html</loc>
@@ -79,16 +58,7 @@
     <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/reference.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/instructor-notes.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/intro-sce.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/introduction.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/bioc-scrnaseq/large_data.html</loc>

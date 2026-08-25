@@ -81,7 +81,7 @@
 </div>
     </div>
   </div>
-  <hr></header><nav class="navbar navbar-expand-xl bottom-nav incubator" aria-label="Main Navigation"><div class="container-fluid nav-container">
+</header><nav class="navbar navbar-expand-xl bottom-nav incubator" aria-label="Main Navigation"><div class="container-fluid nav-container">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
       <span class="navbar-toggler-icon"></span>
       <span class="menu-title">Menu</span>
@@ -199,8 +199,7 @@
             </div>
 <!--/div.col -->
 
-            <hr>
-</div>
+          </div>
 <!--/div.mobile-row -->
 
           <div class="accordion accordion-flush" id="accordion-chapters-toggle">
@@ -373,8 +372,7 @@ an analysis. The <code>emptyDrops</code> function from the <a href="https://bioc
 package can be used to identify empty droplets.</li>
 <li>Doublets, i.e. instances where two cells are captured in the same
 droplet, should also be removed prior to an analysis. The
-<code>computeDoubletDensity</code> and <code>doubletThresholding</code>
-functions from the <a href="https://bioconductor.org/packages/scDblFinder" class="external-link">scDblFinder</a>
+<code>scDblFinder()</code> function from the <a href="https://bioconductor.org/packages/scDblFinder" class="external-link">scDblFinder</a>
 package can be used to identify doublets.</li>
 <li>Quality control (QC) uses metrics such as library size, number of
 expressed features, and mitochondrial read proportion, based on which
@@ -388,8 +386,8 @@ for each cell by a cell-specific scaling factor.</li>
 <li>Feature selection aims at selecting genes that contain useful
 information about the biology of the system while removing genes that
 contain only random noise. Calculate per-gene variance with the
-<code>modelGeneVar</code> function and select highly-variable genes with
-<code>getTopHVGs</code>.</li>
+<code>modelGeneVariances()</code> function and select highly-variable
+genes with <code>chooseRnaHvgs.se()</code>.</li>
 <li>Dimensionality reduction aims at reducing the computational work and
 at obtaining less noisy and more interpretable results. PCA is a simple
 and effective linear dimensionality reduction technique that provides
@@ -407,13 +405,12 @@ datasets or marker gene set enrichment testing.</li>
 <li>For manual annotation, cells are first clustered with unsupervised
 methods such as graph-based clustering followed by community detection
 algorithms such as Louvain or Leiden.</li>
-<li>The <code>clusterCells</code> function from the <em><a href="https://bioconductor.org/packages/3.22/scran" class="external-link">scran</a></em>
-package provides different algorithms that are commonly used for the
-clustering of scRNA-seq data.</li>
+<li>The <code>clusterGraph.se()</code> function from the <em><a href="https://bioconductor.org/packages/3.23/scrapper" class="external-link">scrapper</a></em>
+package enables graph clustering for scRNA-seq data.</li>
 <li>Once clusters have been obtained, cell type labels are then manually
 assigned to cell clusters by matching cluster-specific upregulated
 marker genes with prior knowledge of cell-type markers.</li>
-<li>The <code>scoreMarkers</code> function from the <em><a href="https://bioconductor.org/packages/3.22/scran" class="external-link">scran</a></em>
+<li>The <code>scoreMarkers.se()</code> function from the <em><a href="https://bioconductor.org/packages/3.23/scrapper" class="external-link">scrapper</a></em>
 package package can be used to find candidate marker genes for clusters
 of cells by ranking differential expression between pairs of
 clusters.</li>
@@ -421,11 +418,11 @@ clusters.</li>
 curated gene sets provides a fast, automated, and reproducible
 alternative to the manual annotation of cell clusters based on marker
 gene expression.</li>
-<li>The <em><a href="https://bioconductor.org/packages/3.22/SingleR" class="external-link">SingleR</a></em>
+<li>The <em><a href="https://bioconductor.org/packages/3.23/SingleR" class="external-link">SingleR</a></em>
 package is a popular choice for reference-based annotation and assigns
 labels to cells based on the reference samples with the highest Spearman
 rank correlations.</li>
-<li>The <em><a href="https://bioconductor.org/packages/3.22/AUCell" class="external-link">AUCell</a></em>
+<li>The <em><a href="https://bioconductor.org/packages/3.23/AUCell" class="external-link">AUCell</a></em>
 package provides an enrichment test to identify curated marker sets that
 are highly expressed in each cell.</li>
 </ul></section><section id="multi-sample"><h2 class="section-heading"><a href="multi-sample.html">Multi-sample analyses</a></h2>
@@ -434,24 +431,20 @@ are highly expressed in each cell.</li>
 <li>Batch effects are systematic technical differences in the observed
 expression in cells measured in different experimental batches.</li>
 <li>Computational removal of batch-to-batch variation with the
-<code>correctExperiment</code> function from the <em><a href="https://bioconductor.org/packages/3.22/batchelor" class="external-link">batchelor</a></em>
+<code>correctMnn.se()</code> function from the <em><a href="https://bioconductor.org/packages/3.23/scrapper" class="external-link">scrapper</a></em>
 package allows us to combine data across multiple batches for a
 consolidated downstream analysis.</li>
 <li>Differential expression (DE) analysis of replicated multi-condition
 scRNA-seq experiments is typically based on pseudo-bulk expression
 profiles, generated by summing counts for all cells with the same
 combination of label and sample.</li>
-<li>The <code>aggregateAcrossCells</code> function from the <em><a href="https://bioconductor.org/packages/3.22/scater" class="external-link">scater</a></em>
+<li>The <code>aggregateAcrossCells.se()</code> function from the <em><a href="https://bioconductor.org/packages/3.23/scrapper" class="external-link">scrapper</a></em>
 package facilitates the creation of pseudo-bulk samples.<br>
 </li>
-<li>The <code>pseudoBulkDGE</code> function from the <em><a href="https://bioconductor.org/packages/3.22/scran" class="external-link">scran</a></em>
-package can be used to detect significant changes in expression between
-conditions for pseudo-bulk samples consisting of cells of the same
-type.</li>
 <li>Differential abundance (DA) analysis aims at identifying significant
 changes in cell type abundance across conditions.</li>
-<li>DA analysis uses bulk DE methods such as <em><a href="https://bioconductor.org/packages/3.22/edgeR" class="external-link">edgeR</a></em> and
-<em><a href="https://bioconductor.org/packages/3.22/DESeq2" class="external-link">DESeq2</a></em>,
+<li>DA analysis uses bulk DE methods such as <em><a href="https://bioconductor.org/packages/3.23/edgeR" class="external-link">edgeR</a></em> and
+<em><a href="https://bioconductor.org/packages/3.23/DESeq2" class="external-link">DESeq2</a></em>,
 which provide suitable statistical models for count data in the presence
 of limited replication - except that the counts are not of reads per
 gene, but of cells per label.</li>
@@ -472,8 +465,8 @@ poplular single-cell analysis ecosystems.</li>
 </ul></section><section id="hca"><h2 class="section-heading"><a href="hca.html">Accessing data from the Human Cell Atlas (HCA)Single Cell data sources<a class="anchor" aria-label="anchor" href="#single-cell-data-sources"></a></a></h2>
 <hr class="half-width">
 <ul>
-<li>The <code>CuratedAtlasQueryR</code> package provides programmatic
-access to single-cell reference maps from the Human Cell Atlas.</li>
+<li>The <code>cellNexus</code> package provides programmatic access to
+single-cell reference maps from the Human Cell Atlas.</li>
 <li>The package provides functionality to query for cells of interest
 and to download them into a <code>SingleCellExperiment</code>
 object.</li>
@@ -504,7 +497,7 @@ object.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.20.1" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.1.0" class="external-link">varnish (1.1.0)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.1)</a></p>
 		</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -527,8 +520,8 @@ object.</li>
   "url": "https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/key-points.html",
   "identifier": "https://carpentries-incubator.github.io/bioc-scrnaseq/instructor/key-points.html",
   "dateCreated": "2024-01-10",
-  "dateModified": "2026-05-12",
-  "datePublished": "2026-05-12"
+  "dateModified": "2026-08-25",
+  "datePublished": "2026-08-25"
 }
 
   </script><script>

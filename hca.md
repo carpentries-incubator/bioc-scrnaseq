@@ -13,7 +13,7 @@ exercises: 10 # Minutes of exercises in the lesson
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Learn about different resources for public single-cell RNA-seq data.
-- Access data from the Human Cell Atlas using the `CuratedAtlasQueryR` package.
+- Access data from the Human Cell Atlas using the `cellNexus` package.
 - Query for cells of interest and download them into a `SingleCellExperiment` object. 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -47,19 +47,12 @@ through TileDB-SOMA, or get slices in AnnData or Seurat objects, thus
 accelerating your research by significantly minimizing data harmonization at
 https://chanzuckerberg.github.io/cellxgene-census/.
 
-## The CuratedAtlasQueryR Project
+## cellNexus
 
-The `CuratedAtlasQueryR` is an alternative package that can also be used to access the CELLxGENE data from R through a tidy API. The data has also been harmonized, curated, and re-annotated across studies.
-
-`CuratedAtlasQueryR` supports data access and programmatic exploration of the
-harmonized atlas. Cells of interest can be selected based on ontology, tissue of
-origin, demographics, and disease. For example, the user can select CD4 T helper
-cells across healthy and diseased lymphoid tissue. The data for the selected
-cells can be downloaded locally into SingleCellExperiment objects. Pseudo
-bulk counts are also available to facilitate large-scale, summary analyses of
-transcriptional profiles. 
-
-<img src="https://raw.githubusercontent.com/carpentries-incubator/bioc-scrnaseq/main/episodes/figures/curatedAtlasQuery.png" style="display: block; margin: auto;" />
+[`cellNexus`](https://cellnexus.org/) is "a query interface for programmatic
+exploration and retrieval of harmonised, curated, and reannotated CELLxGENE
+human-cell-atlas data." This is what we'll be using in this lesson for the most
+part since having the data pre-harmonised and pre-annotated makes life simpler.
 
 ## Data Sources in R / Bioconductor
 
@@ -67,27 +60,28 @@ There are a few options to access single cell data with R / Bioconductor.
 
 | Package | Target | Description |
 |---------|-------------|---------|
-| [hca](https://bioconductor.org/packages/hca) | [HCA Data Portal API](https://www.humancellatlas.org/data-portal/) | Project, Sample, and File level HCA data |
 | [cellxgenedp](https://bioconductor.org/packages/cellxgenedp) | [CellxGene](https://cellxgene.cziscience.com/) | Human and mouse SC data including HCA |
-| [CuratedAtlasQueryR](https://stemangiola.github.io/CuratedAtlasQueryR/) | [CellxGene](https://cellxgene.cziscience.com/) | fine-grained query capable CELLxGENE data including HCA |
+| [cellNexus](https://cellnexus.org/) | [CellxGene](https://cellxgene.cziscience.com/) | fine-grained query capable CELLxGENE data including HCA |
 
 ## Installation
+
+If you don't have `cellNexus` already:
 
 
 ``` r
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
-BiocManager::install("CuratedAtlasQueryR")
+BiocManager::install("MangiolaLaboratory/cellNexus")
 ```
 
-## Package load 
+## Setup
 
 
 
 
 ``` r
-library(CuratedAtlasQueryR)
+library(cellNexus)
 library(dplyr)
 ```
 
@@ -99,11 +93,20 @@ allows us to get a small and quick subset of the available metadata.
 
 
 ``` r
-metadata <- get_metadata(remote_url = CuratedAtlasQueryR::SAMPLE_DATABASE_URL) |> 
+sample_url <- cellNexus::SAMPLE_DATABASE_URL
+
+metadata <- get_metadata(cloud_metadata = sample_url) |> 
   collect()
 ```
 
-Get a view of the first 10 columns in the metadata with `glimpse()`
+Some database details: `get_metadata()` returns a "connection" to the duckdb
+server hosting the sample metadata, so we used the `collect()` function to pull
+the corresponding table into our R session as a data.frame. This is fine for the
+small sample database, but for larger tables with huge numbers of rows, it's
+generally better to run a filtered query on the connection and *then* collect
+the much smaller result.
+
+Get a view of the first 10 columns in the metadata with `glimpse()`:
 
 
 ``` r
@@ -113,38 +116,49 @@ metadata |>
 ```
 
 ``` output
-Rows: ??
+Rows: 50,151
 Columns: 10
-Database: DuckDB v0.10.2 [unknown@Linux 6.5.0-1021-azure:R 4.4.0/:memory:]
-$ cell_                             <chr> "TTATGCTAGGGTGTTG_12", "GCTTGAACATGG…
-$ sample_                           <chr> "039c558ca1c43dc74c563b58fe0d6289", …
-$ cell_type                         <chr> "mature NK T cell", "mature NK T cel…
-$ cell_type_harmonised              <chr> "immune_unclassified", "cd8 tem", "i…
-$ confidence_class                  <dbl> 5, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, …
-$ cell_annotation_azimuth_l2        <chr> "gdt", "cd8 tem", "cd8 tem", "cd8 te…
-$ cell_annotation_blueprint_singler <chr> "cd4 tem", "cd8 tem", "cd8 tcm", "cl…
-$ cell_annotation_monaco_singler    <chr> "natural killer", "effector memory c…
-$ sample_id_db                      <chr> "0c1d320a7d0cbbc281a535912722d272", …
-$ `_sample_name`                    <chr> "BPH340PrSF_Via___transition zone of…
+$ cell_id                      <dbl> 15, 16, 17, 18, 19, 20, 14, 2, 3, 4, 5, 2…
+$ dataset_id                   <chr> "842c6f5d-4a94-4eef-8510-8c792d1124bc", "…
+$ sample_id                    <chr> "1119f4825edbcfb74341b89d9dec4ac8", "1119…
+$ sample_                      <chr> "1119f4825edbcfb74341b89d9dec4ac8", "1119…
+$ experiment___                <chr> "", "", "", "", "", "", "", "", "", "", "…
+$ run_from_cell_id             <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ sample_heuristic             <chr> "182a61cc-b041-4c9b-bf33-1d065115274d___P…
+$ age_days                     <int> 14600, 14600, 14600, 14600, 14600, 14600,…
+$ tissue_groups                <chr> "breast", "breast", "breast", "breast", "…
+$ nFeature_expressed_in_sample <int> 1701, 2438, 2122, 1894, 1876, 1441, 1547,…
 ```
+
+These are just the first ten, but there are many more metadata columns as we'll
+see. Additional metadata from the original CELLxGENE annotations such as sex,
+disease, and assay type [are
+available](https://github.com/MangiolaLaboratory/cellNexus#join-census-metadata).
+But here we will stick with what's in the sample database.
 
 ## A tangent on the pipe operator
 
-The vignette materials provided by `CuratedAtlasQueryR` show the use of the
-'native' R pipe (implemented after R version `4.1.0`). For those not familiar
-with the pipe operator (`|>`), it allows you to chain functions by passing the
-left-hand side as the first argument to the function on the right-hand side. It is used extensively in the `tidyverse` dialect of R, especially within the [`dplyr` package](https://dplyr.tidyverse.org/).
+The vignette materials provided by `cellNexus` show the use of the 'native' R
+pipe. For those not familiar with the pipe operator (`|>`), it allows you to
+chain functions by passing the left-hand side as the first argument to the
+function on the right-hand side. It is used extensively in the [`tidyverse`
+dialect of R](https://dplyr.tidyverse.org/).
 
-The pipe operator can be read as "and then". Thankfully, R doesn't care about whitespace, so it's common to start a new line after a pipe. Together these points enable users to "chain" complex sequences of commands into readable blocks.
+The pipe operator can be read as "and then". R is very permissive when it comes
+to whitespace, so it's common to start a new line after a pipe. Together these
+points enable users to "chain" complex sequences of commands into readable
+blocks.
 
-In this example, we start with the built-in `mtcars` dataset and then filter to rows where `cyl` is not equal to 4, and then compute the mean `disp` value by each unique `cyl` value.
+In this example, we start with the built-in `mtcars` dataset and then filter to
+rows where `cyl` is not equal to 4, and then by each unique `cyl` value, compute
+the mean `disp` value.
 
 
 ``` r
 mtcars |> 
   filter(cyl != 4) |> 
-  summarise(avg_disp = mean(disp),
-            .by = cyl)
+  summarise(.by = cyl,
+            avg_disp = mean(disp))
 ```
 
 ``` output
@@ -153,11 +167,11 @@ mtcars |>
 2   8 353.1000
 ```
 
-This command is equivalent to the following:
+Which is equivalent to the following:
 
 
 ``` r
-summarise(filter(mtcars, cyl != 4), avg_disp = mean(disp), .by = cyl)
+summarise(filter(mtcars, cyl != 4), .by = cyl, avg_disp = mean(disp))
 ```
 
 ## Exploring the metadata
@@ -169,64 +183,110 @@ We can tally the tissue types across datasets to see what tissues the experiment
 
 ``` r
 metadata |>
-  distinct(tissue, dataset_id) |> 
-  count(tissue) |> 
+  distinct(tissue_groups, dataset_id) |> 
+  count(tissue_groups) |> 
   arrange(-n)
 ```
 
 ``` output
-# A tibble: 33 × 2
-   tissue                   n
-   <chr>                <int>
- 1 blood                   17
- 2 kidney                   8
- 3 cortex of kidney         7
- 4 heart left ventricle     7
- 5 renal medulla            6
- 6 respiratory airway       6
- 7 bone marrow              4
- 8 kidney blood vessel      4
- 9 lung                     4
-10 renal pelvis             4
-# ℹ 23 more rows
+# A tibble: 19 × 2
+   tissue_groups                           n
+   <chr>                               <int>
+ 1 blood                                  10
+ 2 respiratory system                      7
+ 3 bone marrow                             6
+ 4 renal system                            4
+ 5 breast                                  3
+ 6 thymus                                  3
+ 7 cerebral lobes and cortical areas       2
+ 8 female reproductive system              2
+ 9 nasal, oral, and pharyngeal regions     2
+10 spleen                                  2
+11 brainstem and cerebellar structures     1
+12 endocrine system                        1
+13 epithelium and mucosal tissues          1
+14 lymphatic system                        1
+15 oesophagus                              1
+16 sensory-related structures              1
+17 small intestine                         1
+18 stomach                                 1
+19 vasculature                             1
 ```
 
-We can do the same for the assay types:
+
+
+
+That is to say, there are 10 studies that investigate blood.
+
+We can do the same for the imputed ethnicities:
 
 
 ``` r
 metadata |>
-    distinct(assay, dataset_id) |>
-    count(assay)
+    distinct(imputed_ethnicity, dataset_id) |>
+    count(imputed_ethnicity)
 ```
 
 ``` output
-# A tibble: 12 × 2
-   assay                              n
-   <chr>                          <int>
- 1 10x 3' v1                          1
- 2 10x 3' v2                         27
- 3 10x 3' v3                         21
- 4 10x 5' v1                          7
- 5 10x 5' v2                          2
- 6 Drop-seq                           1
- 7 Seq-Well                           2
- 8 Slide-seq                          4
- 9 Smart-seq2                         1
-10 Visium Spatial Gene Expression     7
-11 scRNA-seq                          4
-12 sci-RNA-seq                        1
+# A tibble: 15 × 2
+   imputed_ethnicity                      n
+   <chr>                              <int>
+ 1 African                                7
+ 2 African American                       1
+ 3 African American or Afro-Caribbean     1
+ 4 American                               1
+ 5 Asian                                  1
+ 6 East Asian                             5
+ 7 European                              25
+ 8 Hispanic or Latin American             1
+ 9 Hispanic/Latin American                2
+10 Japanese                               2
+11 Korean                                 1
+12 Singaporean Chinese                    1
+13 Singaporean Indian                     1
+14 South Asian                            5
+15 unknown                               17
 ```
 
 :::: challenge
 
-Look through the full list of metadata column names. Do any other metadata
-columns jump out as interesting to you for your work?
+Look at the other metadata columns with `colnames(metadata)` and inspect a few
+that catch your interest.
+
+::: solution
+
+Let's look at `age_days` and `cell_type_unified_ensemble`. We'll collect the
+results locally and shuffle the rows here just to see some variability beyond
+the first sample listed.
 
 
 ``` r
-names(metadata)
+metadata |> 
+  select(age_days, cell_type_unified_ensemble) |> 
+  slice_sample(prop = 1)
 ```
+
+``` output
+# A tibble: 50,151 × 2
+   age_days cell_type_unified_ensemble
+      <int> <chr>                     
+ 1    19892 cd4 th1/th17 em           
+ 2    25185 cd8 tem                   
+ 3       NA t cd4                     
+ 4       NA cd4 th2 em                
+ 5    16425 cd4 th2 em                
+ 6       NA treg                      
+ 7    26280 epithelial                
+ 8    26280 t cd4                     
+ 9    26280 cd4 th1 em                
+10       NA t cd4                     
+# ℹ 50,141 more rows
+```
+
+You can see that age_days is commonly NA and cell types are mostly immune
+related (that's what was selected for in the sample database).
+
+:::
 
 ::::
 
@@ -239,44 +299,42 @@ data.
 
 For the sake of demonstration, we'll focus this small subset of samples. We use the `filter()` function from the `dplyr` package to identify cells meeting the following criteria:
 
-* African ethnicity
-* 10x assay
-* lung parenchyma tissue
-* CD4 cells
+* Cell type: CD4 TCM
+* Tissue group: Respiratory system
+
+<!-- TODO: Find an example that works better with the sample database  -->
 
 
 ``` r
 sample_subset <- metadata |>
     filter(
-        ethnicity == "African" &
-        grepl("10x", assay) &
-        tissue == "lung parenchyma" &
-        grepl("CD4", cell_type)
+        cell_type_unified_ensemble == "cd4 tcm" &
+        tissue_groups == "respiratory system" 
     )
 ```
 
-Out of the 111355 cells in the sample database, 1571 cells meet this criteria.
+Out of the 50151 cells in the sample database, 2415 cells meet this criteria.
 
 Now we can use `get_single_cell_experiment()`:
 
 
 ``` r
-single_cell_counts <- sample_subset |>
+sce <- sample_subset |>
     get_single_cell_experiment()
 
-single_cell_counts
+sce
 ```
 
 ``` output
 class: SingleCellExperiment 
-dim: 36229 1571 
+dim: 56239 2415 
 metadata(0):
 assays(1): counts
-rownames(36229): A1BG A1BG-AS1 ... ZZEF1 ZZZ3
+rownames(56239): ENSG00000121410 ENSG00000268895 ... ENSG00000135605
+  ENSG00000109501
 rowData names(0):
-colnames(1571): ACACCAAAGCCACCTG_SC18_1 TCAGCTCCAGACAAGC_SC18_1 ...
-  CAGCATAAGCTAACAA_F02607_1 AAGGAGCGTATAATGG_F02607_1
-colData names(56): sample_ cell_type ... updated_at_y original_cell_id
+colnames(2415): 3031_1 2077_1 ... 1889_10 330_10
+colData names(36): dataset_id sample_id ... atlas_id original_cell_
 reducedDimNames(0):
 mainExpName: NULL
 altExpNames(0):
@@ -292,14 +350,14 @@ sample_subset |>
 
 ``` output
 class: SingleCellExperiment 
-dim: 36229 1571 
+dim: 56239 2415 
 metadata(0):
 assays(1): cpm
-rownames(36229): A1BG A1BG-AS1 ... ZZEF1 ZZZ3
+rownames(56239): ENSG00000121410 ENSG00000268895 ... ENSG00000135605
+  ENSG00000109501
 rowData names(0):
-colnames(1571): ACACCAAAGCCACCTG_SC18_1 TCAGCTCCAGACAAGC_SC18_1 ...
-  CAGCATAAGCTAACAA_F02607_1 AAGGAGCGTATAATGG_F02607_1
-colData names(56): sample_ cell_type ... updated_at_y original_cell_id
+colnames(2415): 3031_1 2077_1 ... 1889_10 330_10
+colData names(36): dataset_id sample_id ... atlas_id original_cell_
 reducedDimNames(0):
 mainExpName: NULL
 altExpNames(0):
@@ -309,47 +367,37 @@ or data on only specific genes:
 
 
 ``` r
-single_cell_counts <- sample_subset |>
-    get_single_cell_experiment(assays = "cpm", features = "PUM1")
+sce <- sample_subset |>
+    get_single_cell_experiment(assays = "cpm", 
+                               features = "ENSG00000085265") # FCN1
 
-single_cell_counts
+sce
 ```
 
 ``` output
 class: SingleCellExperiment 
-dim: 1 1571 
+dim: 1 2415 
 metadata(0):
 assays(1): cpm
-rownames(1): PUM1
+rownames(1): ENSG00000085265
 rowData names(0):
-colnames(1571): ACACCAAAGCCACCTG_SC18_1 TCAGCTCCAGACAAGC_SC18_1 ...
-  CAGCATAAGCTAACAA_F02607_1 AAGGAGCGTATAATGG_F02607_1
-colData names(56): sample_ cell_type ... updated_at_y original_cell_id
+colnames(2415): 3031_1 2077_1 ... 1889_10 330_10
+colData names(36): dataset_id sample_id ... atlas_id original_cell_
 reducedDimNames(0):
 mainExpName: NULL
 altExpNames(0):
 ```
 
-Or if needed, the H5 `SingleCellExperiment` can be returned a Seurat
-object (note that this may take a long time and use a lot of memory depending on
-how many cells you are requesting).
-
-
-``` r
-single_cell_counts <- sample_subset |>
-    get_seurat()
-
-single_cell_counts
-```
-
 ## Save your `SingleCellExperiment`
 
-Once you have a dataset you're happy with, you'll probably want to save it. The recommended way of saving these `SingleCellExperiment` objects is to use
+Once you have a dataset you're happy with, you'll probably want to save it. The
+recommended way of saving these `SingleCellExperiment` objects is to use
 `saveHDF5SummarizedExperiment` from the `HDF5Array` package.
 
 
 ``` r
-single_cell_counts |> saveHDF5SummarizedExperiment("single_cell_counts")
+sce |> 
+  saveHDF5SummarizedExperiment(dir = "my_sce")
 ```
 
 ## Exercises
@@ -358,33 +406,43 @@ single_cell_counts |> saveHDF5SummarizedExperiment("single_cell_counts")
 
 #### Exercise 1: Basic counting + piping
 
-Use `count` and `arrange` to get the number of cells per tissue in descending
-order.
+Use `count` and `arrange` to get the number of cells per coarse tissue group in
+descending order.
 
 :::::::::::::: solution
+
+We specify `dplyr::count` here to avoid a function name conflict with `matrixStats::count`, which might be loaded if you ran the `saveHDF5SummarizedExperiment()` above.
 
 
 ``` r
 metadata |>
-    count(tissue) |>
+    dplyr::count(tissue_groups) |>
     arrange(-n)
 ```
 
 ``` output
-# A tibble: 33 × 2
-   tissue                          n
-   <chr>                       <int>
- 1 cortex of kidney            36940
- 2 kidney                      23549
- 3 lung parenchyma             16719
- 4 renal medulla                7729
- 5 respiratory airway           7153
- 6 blood                        4248
- 7 bone marrow                  4113
- 8 heart left ventricle         1454
- 9 transition zone of prostate  1140
-10 lung                         1137
-# ℹ 23 more rows
+# A tibble: 19 × 2
+   tissue_groups                           n
+   <chr>                               <int>
+ 1 respiratory system                  36611
+ 2 renal system                        10844
+ 3 blood                                1242
+ 4 breast                                318
+ 5 nasal, oral, and pharyngeal regions   224
+ 6 cerebral lobes and cortical areas     194
+ 7 bone marrow                           146
+ 8 female reproductive system            136
+ 9 thymus                                 99
+10 small intestine                        72
+11 vasculature                            48
+12 spleen                                 45
+13 lymphatic system                       44
+14 sensory-related structures             44
+15 stomach                                35
+16 epithelium and mucosal tissues         25
+17 endocrine system                       12
+18 brainstem and cerebellar structures    10
+19 oesophagus                              2
 ```
 :::::::::::::::::::::::
 
@@ -395,24 +453,40 @@ metadata |>
 #### Exercise 2: Tissue & type counting
 
 `count()` can group by multiple factors by simply adding another grouping column
-as an additional argument. Get a tally of the highest number of cell types per
-tissue combination. What tissue has the most numerous type of cells?
+as an additional argument. 1) Find which tissue + cell type combination has the
+most number of observations in the sample database and 2) Then find which tissue
+has the most types of cells.
 
 :::::::::::::: solution
 
 
 ``` r
 metadata |>
-    count(tissue, cell_type) |>
+    dplyr::count(tissue_groups, cell_type_unified_ensemble) |>
     arrange(-n) |> 
-    head(n = 1)
+    head(1)
 ```
 
 ``` output
 # A tibble: 1 × 3
-  tissue           cell_type                              n
-  <chr>            <chr>                              <int>
-1 cortex of kidney epithelial cell of proximal tubule 29986
+  tissue_groups      cell_type_unified_ensemble     n
+  <chr>              <chr>                      <int>
+1 respiratory system t cd4                      15019
+```
+
+``` r
+metadata |> 
+  dplyr::count(tissue_groups, cell_type_unified_ensemble) |>
+  dplyr::count(tissue_groups) |> 
+  arrange(-n) |> 
+  head(1)
+```
+
+``` output
+# A tibble: 1 × 2
+  tissue_groups          n
+  <chr>              <int>
+1 respiratory system    24
 ```
 :::::::::::::::::::::::
 
@@ -420,126 +494,51 @@ metadata |>
 
 :::::::::::::::::::::::::::::::::: challenge
 
-#### Exercise 3: Comparing metadata categories
+#### Exercise 3: Highly specific cell groups
 
-Spot some differences between the `tissue` and `tissue_harmonised` columns.
-Use `count` to summarise.
-
-:::::::::::::: solution
-
-
-``` r
-metadata |>
-    count(tissue) |>
-    arrange(-n)
-```
-
-``` output
-# A tibble: 33 × 2
-   tissue                          n
-   <chr>                       <int>
- 1 cortex of kidney            36940
- 2 kidney                      23549
- 3 lung parenchyma             16719
- 4 renal medulla                7729
- 5 respiratory airway           7153
- 6 blood                        4248
- 7 bone marrow                  4113
- 8 heart left ventricle         1454
- 9 transition zone of prostate  1140
-10 lung                         1137
-# ℹ 23 more rows
-```
-
-``` r
-metadata |>
-    count(tissue_harmonised) |>
-    arrange(-n)
-```
-
-``` output
-# A tibble: 19 × 2
-   tissue_harmonised     n
-   <chr>             <int>
- 1 kidney            68851
- 2 lung              25737
- 3 blood              4248
- 4 bone               4113
- 5 heart              1454
- 6 lymph node         1210
- 7 prostate           1156
- 8 intestine large     816
- 9 liver               793
-10 thymus              753
-11 intestine small     530
-12 eye                 437
-13 intestine           360
-14 esophagus           334
-15 nose                290
-16 vasculature         143
-17 brain                97
-18 adrenal gland        20
-19 axilla               13
-```
-
-For example you can see that `tissue_harmonised` merges the `cortex of kidney`
-and `kidney` groups in `tissue`.
-
-To see the full list of curated columns in the metadata, see the Details section
-in the `?get_metadata` documentation page.
-    
-:::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::: challenge
-
-#### Exercise 4: Highly specific cell groups
-
-Now that we are a little familiar with navigating the metadata, let's obtain
-a `SingleCellExperiment` of 10X scRNA-seq counts of `cd8 tem` `lung` cells for
-females older than `80` with `COVID-19`. Note: Use the harmonized columns, where
-possible. 
+`cellNexus` metadata comes with pre-computed QC stats like mitochondrial percent
+and feature count. There's also a utility function `keep_quality_cells()` that
+can pre-filter empty droplets, dead cells, and doublets. Use that function and
+filter on other metadata columns to choose a highly-specific set of cells.
 
 :::::::::::::: solution
 
 
 ``` r
 metadata |> 
-    filter(
-        sex == "female" &
-        age_days > 80 * 365 &
-        grepl("10x", assay) &
-        disease == "COVID-19" &  
-        tissue_harmonised == "lung" & 
-        cell_type_harmonised == "cd8 tem"
-    ) |>
+  keep_quality_cells() |> 
+  filter(tissue_groups == "respiratory system" & 
+           cell_type_unified_ensemble == "t cd4" & 
+           imputed_ethnicity == "East Asian") |>
     get_single_cell_experiment()
 ```
 
 ``` output
 class: SingleCellExperiment 
-dim: 36229 12 
+dim: 56239 118 
 metadata(0):
 assays(1): counts
-rownames(36229): A1BG A1BG-AS1 ... ZZEF1 ZZZ3
+rownames(56239): ENSG00000121410 ENSG00000268895 ... ENSG00000135605
+  ENSG00000109501
 rowData names(0):
-colnames(12): TCATCATCATAACCCA_1 TATCTGTCAGAACCGA_1 ...
-  CCCTTAGCATGACTTG_1 CAGTTCCGTAGCGTAG_1
-colData names(56): sample_ cell_type ... updated_at_y original_cell_id
+colnames(118): 5440_1 3381_1 ... 3517_4 3570_4
+colData names(36): dataset_id sample_id ... atlas_id original_cell_
 reducedDimNames(0):
 mainExpName: NULL
 altExpNames(0):
 ```
 
-You can see we don't get very many cells given the strict set of conditions we used.
+You can see we don't get very many cells given the strict set of conditions we
+used. Reminder that you can also filter on other annotations from CELLxGENE like
+sex, disease, assay type, etc. if you [join them on](age_days,
+cell_type_unified_ensemble).
 :::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- The `CuratedAtlasQueryR` package provides programmatic access to single-cell reference maps from the Human Cell Atlas.
+- The `cellNexus` package provides programmatic access to single-cell reference maps from the Human Cell Atlas.
 - The package provides functionality to query for cells of interest and to download them into a `SingleCellExperiment` object.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -553,131 +552,72 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.4.1 (2024-06-14)
+R version 4.6.0 (2026-04-24)
 Platform: x86_64-pc-linux-gnu
-Running under: Ubuntu 22.04.5 LTS
+Running under: Ubuntu 24.04.4 LTS
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0 
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
 
 locale:
- [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
- [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
- [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
-time zone: UTC
+time zone: Etc/UTC
 tzcode source: system (glibc)
 
 attached base packages:
-[1] stats4    stats     graphics  grDevices utils     datasets  methods  
-[8] base     
+[1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] dplyr_1.1.4                  CuratedAtlasQueryR_1.2.0    
- [3] scDblFinder_1.18.0           scran_1.32.0                
- [5] scater_1.32.0                ggplot2_3.5.1               
- [7] scuttle_1.14.0               EnsDb.Mmusculus.v79_2.99.0  
- [9] ensembldb_2.28.0             AnnotationFilter_1.28.0     
-[11] GenomicFeatures_1.56.0       AnnotationDbi_1.66.0        
-[13] DropletUtils_1.24.0          MouseGastrulationData_1.18.0
-[15] SpatialExperiment_1.14.0     SingleCellExperiment_1.26.0 
-[17] SummarizedExperiment_1.34.0  Biobase_2.64.0              
-[19] GenomicRanges_1.56.0         GenomeInfoDb_1.40.1         
-[21] IRanges_2.38.0               S4Vectors_0.42.0            
-[23] BiocGenerics_0.50.0          MatrixGenerics_1.16.0       
-[25] matrixStats_1.3.0            BiocStyle_2.32.0            
+[1] dplyr_1.2.1       cellNexus_0.99.30 BiocStyle_2.40.0 
 
 loaded via a namespace (and not attached):
-  [1] spatstat.sparse_3.0-3     ProtGenerics_1.36.0      
-  [3] bitops_1.0-7              httr_1.4.7               
-  [5] RColorBrewer_1.1-3        tools_4.4.1              
-  [7] sctransform_0.4.1         utf8_1.2.4               
-  [9] R6_2.5.1                  HDF5Array_1.32.0         
- [11] uwot_0.2.2                lazyeval_0.2.2           
- [13] rhdf5filters_1.16.0       withr_3.0.0              
- [15] sp_2.1-4                  gridExtra_2.3            
- [17] progressr_0.14.0          cli_3.6.2                
- [19] formatR_1.14              spatstat.explore_3.2-7   
- [21] fastDummies_1.7.3         Seurat_5.1.0             
- [23] spatstat.data_3.0-4       ggridges_0.5.6           
- [25] pbapply_1.7-2             Rsamtools_2.20.0         
- [27] R.utils_2.12.3            parallelly_1.37.1        
- [29] limma_3.60.2              RSQLite_2.3.7            
- [31] generics_0.1.3            BiocIO_1.14.0            
- [33] spatstat.random_3.2-3     ica_1.0-3                
- [35] Matrix_1.7-0              ggbeeswarm_0.7.2         
- [37] fansi_1.0.6               abind_1.4-5              
- [39] R.methodsS3_1.8.2         lifecycle_1.0.4          
- [41] yaml_2.3.8                edgeR_4.2.0              
- [43] rhdf5_2.48.0              SparseArray_1.4.8        
- [45] BiocFileCache_2.12.0      Rtsne_0.17               
- [47] grid_4.4.1                blob_1.2.4               
- [49] promises_1.3.0            dqrng_0.4.1              
- [51] ExperimentHub_2.12.0      crayon_1.5.2             
- [53] miniUI_0.1.1.1            lattice_0.22-6           
- [55] beachmat_2.20.0           cowplot_1.1.3            
- [57] KEGGREST_1.44.0           magick_2.8.3             
- [59] pillar_1.9.0              knitr_1.47               
- [61] metapod_1.12.0            rjson_0.2.21             
- [63] xgboost_1.7.7.1           future.apply_1.11.2      
- [65] codetools_0.2-20          leiden_0.4.3.1           
- [67] glue_1.7.0                data.table_1.15.4        
- [69] vctrs_0.6.5               png_0.1-8                
- [71] spam_2.10-0               gtable_0.3.5             
- [73] assertthat_0.2.1          cachem_1.1.0             
- [75] xfun_0.44                 S4Arrays_1.4.1           
- [77] mime_0.12                 survival_3.6-4           
- [79] statmod_1.5.0             bluster_1.14.0           
- [81] fitdistrplus_1.1-11       ROCR_1.0-11              
- [83] nlme_3.1-164              bit64_4.0.5              
- [85] filelock_1.0.3            RcppAnnoy_0.0.22         
- [87] BumpyMatrix_1.12.0        irlba_2.3.5.1            
- [89] vipor_0.4.7               KernSmooth_2.23-24       
- [91] colorspace_2.1-0          DBI_1.2.3                
- [93] duckdb_0.10.2             tidyselect_1.2.1         
- [95] bit_4.0.5                 compiler_4.4.1           
- [97] curl_5.2.1                BiocNeighbors_1.22.0     
- [99] DelayedArray_0.30.1       plotly_4.10.4            
-[101] rtracklayer_1.64.0        scales_1.3.0             
-[103] lmtest_0.9-40             rappdirs_0.3.3           
-[105] goftest_1.2-3             stringr_1.5.1            
-[107] digest_0.6.35             spatstat.utils_3.0-4     
-[109] rmarkdown_2.27            XVector_0.44.0           
-[111] htmltools_0.5.8.1         pkgconfig_2.0.3          
-[113] sparseMatrixStats_1.16.0  highr_0.11               
-[115] dbplyr_2.5.0              fastmap_1.2.0            
-[117] rlang_1.1.3               htmlwidgets_1.6.4        
-[119] UCSC.utils_1.0.0          shiny_1.8.1.1            
-[121] DelayedMatrixStats_1.26.0 zoo_1.8-12               
-[123] jsonlite_1.8.8            BiocParallel_1.38.0      
-[125] R.oo_1.26.0               BiocSingular_1.20.0      
-[127] RCurl_1.98-1.14           magrittr_2.0.3           
-[129] GenomeInfoDbData_1.2.12   dotCall64_1.1-1          
-[131] patchwork_1.2.0           Rhdf5lib_1.26.0          
-[133] munsell_0.5.1             Rcpp_1.0.12              
-[135] viridis_0.6.5             reticulate_1.37.0        
-[137] stringi_1.8.4             zlibbioc_1.50.0          
-[139] MASS_7.3-60.2             AnnotationHub_3.12.0     
-[141] plyr_1.8.9                parallel_4.4.1           
-[143] listenv_0.9.1             ggrepel_0.9.5            
-[145] deldir_2.0-4              Biostrings_2.72.1        
-[147] splines_4.4.1             tensor_1.5               
-[149] locfit_1.5-9.9            igraph_2.0.3             
-[151] spatstat.geom_3.2-9       RcppHNSW_0.6.0           
-[153] reshape2_1.4.4            ScaledMatrix_1.12.0      
-[155] BiocVersion_3.19.1        XML_3.99-0.16.1          
-[157] evaluate_0.23             SeuratObject_5.0.2       
-[159] renv_1.0.11               BiocManager_1.30.23      
-[161] httpuv_1.6.15             polyclip_1.10-6          
-[163] RANN_2.6.1                tidyr_1.3.1              
-[165] purrr_1.0.2               future_1.33.2            
-[167] scattermore_1.2           rsvd_1.0.5               
-[169] xtable_1.8-4              restfulr_0.0.15          
-[171] RSpectra_0.16-1           later_1.3.2              
-[173] viridisLite_0.4.2         tibble_3.2.1             
-[175] memoise_2.0.1             beeswarm_0.4.0           
-[177] GenomicAlignments_1.40.0  cluster_2.1.6            
-[179] globals_0.16.3           
+ [1] SummarizedExperiment_1.42.0 dir.expiry_1.20.0          
+ [3] xfun_0.60                   bslib_0.12.0               
+ [5] rhdf5_2.56.0                Biobase_2.72.0             
+ [7] lattice_0.22-9              rhdf5filters_1.24.1        
+ [9] vctrs_0.7.3                 tools_4.6.0                
+[11] generics_0.1.4              parallel_4.6.0             
+[13] stats4_4.6.0                curl_7.1.0                 
+[15] rclipboard_0.2.1            tibble_3.3.1               
+[17] anndataR_1.2.1              pkgconfig_2.0.3            
+[19] Matrix_1.7-6                checkmate_2.3.4            
+[21] dbplyr_2.6.0                S4Vectors_0.50.1           
+[23] lifecycle_1.0.5             compiler_4.6.0             
+[25] zellkonverter_1.22.0        codetools_0.2-20           
+[27] Seqinfo_1.2.0               httpuv_1.6.17              
+[29] shinyWidgets_0.9.1          htmltools_0.5.9            
+[31] sass_0.4.10                 yaml_2.3.12                
+[33] pillar_1.11.1               later_1.4.8                
+[35] jquerylib_0.1.4             SingleCellExperiment_1.34.0
+[37] cachem_1.1.0                DelayedArray_0.38.2        
+[39] abind_1.4-8                 mime_0.13                  
+[41] basilisk_1.24.0             tidyselect_1.2.1           
+[43] digest_0.6.39               duckdb_1.5.5               
+[45] purrr_1.2.2                 fastmap_1.2.0              
+[47] grid_4.6.0                  cli_3.6.6                  
+[49] SparseArray_1.12.2          magrittr_2.0.5             
+[51] S4Arrays_1.12.0             h5mread_1.4.0              
+[53] utf8_1.2.6                  withr_3.0.3                
+[55] filelock_1.0.3              promises_1.5.0             
+[57] backports_1.5.1             rmarkdown_2.31             
+[59] XVector_0.52.0              httr_1.4.8                 
+[61] matrixStats_1.5.0           otel_0.2.0                 
+[63] reticulate_1.46.0           png_0.1-9                  
+[65] HDF5Array_1.40.0            shiny_1.14.0               
+[67] evaluate_1.0.5              knitr_1.51                 
+[69] GenomicRanges_1.64.0        IRanges_2.46.0             
+[71] rlang_1.3.0                 Rcpp_1.1.2                 
+[73] xtable_1.8-8                glue_1.8.1                 
+[75] DBI_1.3.0                   formatR_1.14               
+[77] BiocManager_1.30.27         renv_1.2.4                 
+[79] BiocGenerics_0.58.1         jsonlite_2.0.0             
+[81] Rhdf5lib_2.0.0              R6_2.6.1                   
+[83] MatrixGenerics_1.24.0      
 ```

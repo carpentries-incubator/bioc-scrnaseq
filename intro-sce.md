@@ -27,7 +27,7 @@ exercises: 10 # Minutes of exercises in the lesson
 
 ### Overview 
 
-Within the [R](https://www.r-project.org/) ecosystem, the [Bioconductor](https://bioconductor.org/) project provides tools for the analysis and comprehension of high-throughput genomics data.
+Within the [R ecosystem](https://www.r-project.org/), the [Bioconductor](https://bioconductor.org/) project provides tools for the analysis and comprehension of high-throughput genomics data.
 The scope of the project covers microarray data, various forms of sequencing (RNA-seq, ChIP-seq, bisulfite, genotyping, etc.), proteomics, flow cytometry and more.
 One of Bioconductor's main selling points is the use of common data structures to promote interoperability between packages, allowing code written by different people (from different organizations, in different countries) to work together seamlessly in complex analyses. 
 
@@ -50,7 +50,7 @@ install.packages("BiocManager")
 ```
 
 After that, we can use *[BiocManager](https://CRAN.R-project.org/package=BiocManager)*'s `install()` function to install any package from Bioconductor.
-For example, the code chunk below uses this approach to install the *[SingleCellExperiment](https://bioconductor.org/packages/3.22/SingleCellExperiment)* package.
+For example, the code chunk below uses this approach to install the *[SingleCellExperiment](https://bioconductor.org/packages/3.23/SingleCellExperiment)* package.
 
 
 ``` r
@@ -115,7 +115,7 @@ Users should be able to analyze their data using functions from different Biocon
 
 This class implements a data structure that stores all aspects of our single-cell data - gene-by-cell expression data, cell-wise metadata, and gene-wise annotation - and lets us manipulate them in an organized manner.
 
-<img src="http://bioconductor.org/books/release/OSCA.intro/images/SingleCellExperiment.png" style="display: block; margin: auto;" />
+<img src="http://bioconductor.org/books/release/OSCA.intro/images/SingleCellExperiment.png" alt="" style="display: block; margin: auto;" />
 
 :::: spoiler
 
@@ -134,15 +134,11 @@ There are two main disadvantages to this type of "from scratch" approach:
 
 Let's look at an example dataset. `WTChimeraData` comes from a study on mouse development [Pijuan-Sala et al.](https://www.nature.com/articles/s41586-019-0933-9). The study profiles the effect of a transcription factor TAL1 and its influence on mouse development. Because mutations in this gene can cause severe developmental issues, Tal1-/- cells (positive for tdTomato, a fluorescent protein) were injected into wild-type blastocysts (tdTomato-), forming chimeric embryos.
 
-We can assign one sample to a `SingleCellExperiment` object named `sce` like so:
+We can assign one sample to a `SingleCellExperiment` object named `sce` like so (we wrap the assignment in parentheses to assign and print in one step):
 
 
 ``` r
-sce <- WTChimeraData(samples = 5)
-```
-
-``` r
-sce
+(sce <- WTChimeraData(samples = 5))
 ```
 
 ``` output
@@ -174,9 +170,7 @@ Here we obtain the sixth sample and assign it to `sce6`:
 
 
 ``` r
-sce6 <- WTChimeraData(samples = 6)
-
-sce6
+(sce6 <- WTChimeraData(samples = 6))
 ```
 
 :::
@@ -288,8 +282,9 @@ Here, we add a column of named `conservation` that could represent an evolutiona
 rowData(sce)$conservation <- rnorm(nrow(sce))
 ```
 
-These are just random numbers for demonstration purposes, but in practice storing gene-wise data in the `rowData` is convenient
-and simplifies data management.
+These are just random numbers for demonstration purposes, but in practice
+storing gene-wise data in the `rowData` is convenient and simplifies data
+management.
 
 ::: 
 
@@ -324,7 +319,7 @@ library(scater)
 plotReducedDim(sce, "pca.corrected.E8.5", colour_by = "stage.mapped")
 ```
 
-<img src="fig/intro-sce-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
+<img src="fig/intro-sce-rendered-unnamed-chunk-14-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::: challenge
 
@@ -386,9 +381,7 @@ sce6 <- WTChimeraData(samples = 6)
 ```
 
 ``` r
-combined_sce <- cbind(sce, sce6)
-
-combined_sce
+(combined_sce <- cbind(sce, sce6))
 ```
 
 ``` output
@@ -405,6 +398,8 @@ reducedDimNames(2): pca.corrected.E7.5 pca.corrected.E8.5
 mainExpName: NULL
 altExpNames(0):
 ```
+
+Note that column binding two objects might be nonsensical for some slots e.g. PCA embeddings.
 
 :::
 
@@ -440,21 +435,23 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.5.3 (2026-03-11)
+R version 4.6.0 (2026-04-24)
 Platform: x86_64-pc-linux-gnu
-Running under: Ubuntu 22.04.5 LTS
+Running under: Ubuntu 24.04.4 LTS
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0 
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0  LAPACK version 3.10.0
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
 
 locale:
- [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
- [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
- [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
-time zone: UTC
+time zone: Etc/UTC
 tzcode source: system (glibc)
 
 attached base packages:
@@ -462,45 +459,44 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] scater_1.38.0                ggplot2_4.0.1               
- [3] scuttle_1.20.0               MouseGastrulationData_1.24.0
- [5] SpatialExperiment_1.20.0     SingleCellExperiment_1.32.0 
- [7] SummarizedExperiment_1.40.0  Biobase_2.70.0              
- [9] GenomicRanges_1.62.1         Seqinfo_1.0.0               
-[11] IRanges_2.44.0               S4Vectors_0.48.0            
-[13] BiocGenerics_0.56.0          generics_0.1.4              
-[15] MatrixGenerics_1.22.0        matrixStats_1.5.0           
-[17] BiocStyle_2.38.0            
+ [1] scater_1.40.2                ggplot2_4.0.3               
+ [3] scuttle_1.22.0               MouseGastrulationData_1.26.0
+ [5] SpatialExperiment_1.22.0     SingleCellExperiment_1.34.0 
+ [7] SummarizedExperiment_1.42.0  Biobase_2.72.0              
+ [9] GenomicRanges_1.64.0         Seqinfo_1.2.0               
+[11] IRanges_2.46.0               S4Vectors_0.50.1            
+[13] BiocGenerics_0.58.1          generics_0.1.4              
+[15] MatrixGenerics_1.24.0        matrixStats_1.5.0           
+[17] BiocStyle_2.40.0            
 
 loaded via a namespace (and not attached):
- [1] DBI_1.2.3            formatR_1.14         gridExtra_2.3       
- [4] httr2_1.2.2          rlang_1.2.0          magrittr_2.0.4      
- [7] otel_0.2.0           compiler_4.5.3       RSQLite_2.4.5       
-[10] png_0.1-8            vctrs_0.7.3          pkgconfig_2.0.3     
-[13] crayon_1.5.3         fastmap_1.2.0        dbplyr_2.5.1        
-[16] magick_2.9.0         XVector_0.50.0       labeling_0.4.3      
-[19] rmarkdown_2.30       ggbeeswarm_0.7.3     purrr_1.2.0         
-[22] bit_4.6.0            xfun_0.55            cachem_1.1.0        
-[25] beachmat_2.26.0      blob_1.2.4           DelayedArray_0.36.0 
-[28] BiocParallel_1.44.0  irlba_2.3.5.1        parallel_4.5.3      
-[31] R6_2.6.1             RColorBrewer_1.1-3   Rcpp_1.1.1-1.1      
-[34] knitr_1.50           Matrix_1.7-4         tidyselect_1.2.1    
+ [1] DBI_1.3.0            formatR_1.14         gridExtra_2.3.1     
+ [4] httr2_1.3.0          rlang_1.3.0          magrittr_2.0.5      
+ [7] otel_0.2.0           compiler_4.6.0       RSQLite_3.53.3      
+[10] png_0.1-9            vctrs_0.7.3          pkgconfig_2.0.3     
+[13] crayon_1.5.3         fastmap_1.2.0        dbplyr_2.6.0        
+[16] magick_2.9.1         XVector_0.52.0       labeling_0.4.3      
+[19] rmarkdown_2.31       ggbeeswarm_0.7.3     purrr_1.2.2         
+[22] bit_4.6.0            xfun_0.60            cachem_1.1.0        
+[25] beachmat_2.28.0      blob_1.3.0           DelayedArray_0.38.2 
+[28] BiocParallel_1.46.0  irlba_2.3.7          parallel_4.6.0      
+[31] R6_2.6.1             RColorBrewer_1.1-3   Rcpp_1.1.2          
+[34] knitr_1.51           Matrix_1.7-6         tidyselect_1.2.1    
 [37] abind_1.4-8          yaml_2.3.12          viridis_0.6.5       
-[40] codetools_0.2-20     curl_7.0.0           lattice_0.22-7      
-[43] tibble_3.3.0         withr_3.0.2          KEGGREST_1.50.0     
-[46] BumpyMatrix_1.18.0   S7_0.2.1             evaluate_1.0.5      
-[49] BiocFileCache_3.0.0  ExperimentHub_3.0.0  Biostrings_2.78.0   
+[40] codetools_0.2-20     curl_7.1.0           lattice_0.22-9      
+[43] tibble_3.3.1         withr_3.0.3          KEGGREST_1.52.2     
+[46] BumpyMatrix_1.20.0   S7_0.2.2             evaluate_1.0.5      
+[49] BiocFileCache_3.2.0  ExperimentHub_3.2.0  Biostrings_2.80.1   
 [52] pillar_1.11.1        BiocManager_1.30.27  filelock_1.0.3      
-[55] renv_1.2.2           BiocVersion_3.22.0   scales_1.4.0        
-[58] glue_1.8.0           tools_4.5.3          AnnotationHub_4.0.0 
-[61] BiocNeighbors_2.4.0  ScaledMatrix_1.18.0  cowplot_1.2.0       
-[64] grid_4.5.3           AnnotationDbi_1.72.0 beeswarm_0.4.0      
-[67] BiocSingular_1.26.1  vipor_0.4.7          cli_3.6.5           
-[70] rsvd_1.0.5           rappdirs_0.3.3       S4Arrays_1.10.1     
-[73] viridisLite_0.4.2    dplyr_1.1.4          gtable_0.3.6        
-[76] digest_0.6.39        SparseArray_1.10.7   ggrepel_0.9.6       
-[79] rjson_0.2.23         farver_2.1.2         memoise_2.0.1       
-[82] htmltools_0.5.9      lifecycle_1.0.5      httr_1.4.7          
-[85] bit64_4.6.0-1       
+[55] renv_1.2.4           BiocVersion_3.23.1   scales_1.4.0        
+[58] glue_1.8.1           tools_4.6.0          AnnotationHub_4.2.2 
+[61] BiocNeighbors_2.6.0  ScaledMatrix_1.20.0  grid_4.6.0          
+[64] AnnotationDbi_1.74.0 beeswarm_0.4.0       BiocSingular_1.28.0 
+[67] vipor_0.4.7          cli_3.6.6            rsvd_1.0.5          
+[70] rappdirs_0.3.4       S4Arrays_1.12.0      viridisLite_0.4.3   
+[73] dplyr_1.2.1          gtable_0.3.6         digest_0.6.39       
+[76] SparseArray_1.12.2   ggrepel_0.9.8        rjson_0.2.23        
+[79] farver_2.1.2         memoise_2.0.1        htmltools_0.5.9     
+[82] lifecycle_1.0.5      httr_1.4.8           bit64_4.8.2         
 ```
 

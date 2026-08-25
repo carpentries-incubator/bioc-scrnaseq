@@ -183,48 +183,36 @@ representations (e.g., subsetting, combining, methods from
 [DelayedMatrixStats](https://bioconductor.org/packages/DelayedMatrixStats) 
 as well as representation-agnostic C++ code 
 using [beachmat](https://bioconductor.org/packages/beachmat).
-For example, we compute QC metrics below with the same `calculateQCMetrics()` 
+For example, we compute QC metrics below with the same `computeRnaQcMetrics()` 
 function that we used in the other workflows.
 
 
 ``` r
-library(scater)
+library(scrapper)
 
 is.mito <- grepl("^mt-", rowData(sce.brain)$Symbol)
 
-qcstats <- perCellQCMetrics(sce.brain, subsets = list(Mt = is.mito))
+qcstats <- computeRnaQcMetrics(counts(sce.brain),
+                               subsets = list(mito = is.mito))
 
 qcstats
 ```
 
 ``` output
-DataFrame with 20000 rows and 6 columns
-            sum  detected subsets_Mt_sum subsets_Mt_detected subsets_Mt_percent
-      <numeric> <numeric>      <numeric>           <numeric>          <numeric>
-1          3060      1546            123                  10            4.01961
-2          3500      1694            118                  11            3.37143
-3          3092      1613             58                   9            1.87581
-4          4420      2050            131                  10            2.96380
-5          3771      1813            100                   8            2.65182
-...         ...       ...            ...                 ...                ...
-19996      4431      2050            127                   9           2.866170
-19997      6988      2704             60                   9           0.858615
-19998      8749      2988            305                  11           3.486113
-19999      3842      1711            129                   8           3.357626
-20000      1775       945             26                   6           1.464789
-          total
-      <numeric>
-1          3060
-2          3500
-3          3092
-4          4420
-5          3771
-...         ...
-19996      4431
-19997      6988
-19998      8749
-19999      3842
-20000      1775
+DataFrame with 20000 rows and 3 columns
+            sum  detected     subsets
+      <numeric> <integer> <DataFrame>
+1          3060      1546   0.0401961
+2          3500      1694   0.0337143
+3          3092      1613   0.0187581
+4          4420      2050   0.0296380
+5          3771      1813   0.0265182
+...         ...       ...         ...
+19996      4431      2050  0.02866170
+19997      6988      2704  0.00858615
+19998      8749      2988  0.03486113
+19999      3842      1711  0.03357626
+20000      1775       945  0.01464789
 ```
 
 Needless to say, data access from file-backed representations is slower than
@@ -240,8 +228,13 @@ exploration and visualization on their personal machines.
 Parallelization of calculations across genes or cells is an obvious strategy for
 speeding up scRNA-seq analysis workflows.
 
-The *[BiocParallel](https://bioconductor.org/packages/3.22/BiocParallel)* package provides a common interface for parallel
-computing throughout the Bioconductor ecosystem, manifesting as a `BPPARAM`
+Many packages/functions have built-in parallelization via arguments called
+`num.threads`, `cores`, `Ncpus`, etc. or by allowing the user to set
+`options("mc.cores")`. These arguments/settings are often the best and simplest
+choice, so look for these first.
+
+In the Bioconductor ecosystem, *[BiocParallel](https://bioconductor.org/packages/3.23/BiocParallel)* package provides a
+common interface for parallel computing, usually presenting as a `BPPARAM`
 argument in compatible functions. We can also use `BiocParallel` with more
 expressive functions directly through the package's interface.
 
@@ -284,84 +277,16 @@ bplapply(
 [1] 5
 ```
 
-A couple notes on this:
+Many Bioconductor functions have `BPPARAM` arguments. Whenever you see
+that, you can set it to your preferred parameterization (`param` in the example
+above) to enable parallelization.
 
-* The number of workers is explicitly set to 1 in this example due to the limited resources used to render the online material. 
-* Parallel execution with `MulticoreParam()` is not supported on Windows. See `?SnowParam()` as an alternative.
+Note that parallel execution with `MulticoreParam()` is not supported on Windows. See `?SnowParam()` as an alternative.
 
 There exists a diverse set of parallelization backends depending on available
-hardware and operating systems.
-
-For example, we might use forking across two cores to parallelize the variance
-calculations on a Unix system:
-
-
-``` r
-library(MouseGastrulationData)
-
-library(scran)
-
-sce <- WTChimeraData(samples = 5, type = "processed")
-
-sce <- logNormCounts(sce)
-
-dec.mc <- modelGeneVar(sce, BPPARAM = MulticoreParam(2))
-
-dec.mc
-```
-
-``` output
-DataFrame with 29453 rows and 6 columns
-                          mean       total        tech         bio     p.value
-                     <numeric>   <numeric>   <numeric>   <numeric>   <numeric>
-ENSMUSG00000051951 0.002800256 0.003504940 0.002856697 6.48243e-04 1.20905e-01
-ENSMUSG00000089699 0.000000000 0.000000000 0.000000000 0.00000e+00         NaN
-ENSMUSG00000102343 0.000000000 0.000000000 0.000000000 0.00000e+00         NaN
-ENSMUSG00000025900 0.000794995 0.000863633 0.000811019 5.26143e-05 3.68953e-01
-ENSMUSG00000025902 0.170777718 0.388633677 0.170891603 2.17742e-01 2.47893e-11
-...                        ...         ...         ...         ...         ...
-ENSMUSG00000095041  0.35571083  0.34572194  0.33640994  0.00931199    0.443233
-ENSMUSG00000063897  0.49007956  0.41924282  0.44078158 -0.02153876    0.599499
-ENSMUSG00000096730  0.00000000  0.00000000  0.00000000  0.00000000         NaN
-ENSMUSG00000095742  0.00177158  0.00211619  0.00180729  0.00030890    0.188992
-tomato-td           0.57257331  0.47487832  0.49719425 -0.02231593    0.591542
-                           FDR
-                     <numeric>
-ENSMUSG00000051951 6.76255e-01
-ENSMUSG00000089699         NaN
-ENSMUSG00000102343         NaN
-ENSMUSG00000025900 7.56202e-01
-ENSMUSG00000025902 1.35508e-09
-...                        ...
-ENSMUSG00000095041    0.756202
-ENSMUSG00000063897    0.756202
-ENSMUSG00000096730         NaN
-ENSMUSG00000095742    0.756202
-tomato-td             0.756202
-```
-
-Another approach would be to distribute jobs across a network of computers,
-which yields the same result:
-
-
-``` r
-dec.snow <- modelGeneVar(sce, BPPARAM = SnowParam(2))
-```
-
-For high-performance computing (HPC) systems with a cluster of compute nodes, 
-we can distribute jobs via the job scheduler using the `BatchtoolsParam` class.
-The example below assumes a SLURM cluster, though the settings can be easily 
-configured for a particular system 
-(see [here](https://bioconductor.org/packages/3.22/BiocParallel/vignettes/BiocParallel_BatchtoolsParam.pdf) for
-details).
-
-
-``` r
-# 2 hours, 8 GB, 1 CPU per task, for 10 tasks.
-rs <- list(walltime = 7200, memory = 8000, ncpus = 1)
-
-bpp <- BatchtoolsParam(10, cluster = "slurm", resources = rs)
-```
+hardware and operating systems. Beyond parallelizing across cores/threads on the host machine, you can also submit jobs on a HPC job scheduler (e.g. Slurm) using the `BatchtoolsParam` class.
+See [here](https://bioconductor.org/packages/3.23/BiocParallel/vignettes/BiocParallel_BatchtoolsParam.pdf) for
+details.
 
 Parallelization is best suited for independent, CPU-intensive tasks where the
 division of labor results in a concomitant reduction in compute time. It is not
@@ -376,280 +301,172 @@ parallel job managers often works well for simple cases, it is sometimes
 necessary to explicitly specify what data/libraries are sent to / loaded on the
 parallel workers in order to avoid unnecessary overhead.
 
-:::: challenge
-
-How do you turn on progress bars with parallel processing?
-
-::: solution
-
-From `?MulticoreParam` : 
-
-> `progressbar` logical(1) Enable progress bar (based on plyr:::progress_text). Enabling the progress bar changes the default value of tasks to .Machine$integer.max, so that progress is reported for each element of X.
-
-Progress bars are a helpful way to gauge whether that task is going to take 5 minutes or 5 hours.
-
-:::
-
-::::
-
 ## Fast approximations
 
 ### Nearest neighbor searching
 
 Identification of neighbouring cells in PC or expression space is a common procedure
-that is used in many functions, e.g., `buildSNNGraph()`, `doubletCells()`.
-The default is to favour accuracy over speed by using an exact nearest neighbour
+that is used in many functions, e.g., `buildSnnGraph()` in `clusterGraph.se()`.
+One can favour accuracy over speed by using an exact nearest neighbour
 (NN) search, implemented with the $k$-means for $k$-nearest neighbours algorithm.
 However, for large data sets, it may be preferable to use a faster approximate 
 approach.
 
-The *[BiocNeighbors](https://bioconductor.org/packages/3.22/BiocNeighbors)* framework makes it easy to switch between search
+The *[BiocNeighbors](https://bioconductor.org/packages/3.23/BiocNeighbors)* framework makes it easy to switch between search
 options by simply changing the `BNPARAM` argument in compatible functions.
 To demonstrate, we will use the wild-type chimera data for which we had applied
 graph-based clustering using the Louvain algorithm for community detection:
 
 
 ``` r
-library(bluster)
-
-sce <- runPCA(sce)
-
-colLabels(sce) <- clusterCells(sce, use.dimred = "PCA",
-                               BLUSPARAM = NNGraphParam(cluster.fun = "louvain"))
-```
-
-The above clusters on a nearest neighbor graph generated with an exact neighbour
-search. We repeat this below using an approximate search, implemented using the
-[Annoy](https://github.com/spotify/Annoy) algorithm. This involves constructing
-a `AnnoyParam` object to specify the search algorithm and then passing it to the
-parameterization of the `NNGraphParam()` function. The results from the exact
-and approximate searches are consistent with most clusters from the former
-re-appearing in the latter. This suggests that the inaccuracy from the
-approximation can be largely ignored.
-
-
-``` r
-library(scran)
-
+library(MouseGastrulationData)
 library(BiocNeighbors)
 
-clusters <- clusterCells(sce, use.dimred = "PCA",
-                         BLUSPARAM = NNGraphParam(cluster.fun = "louvain",
-                                                  BNPARAM = AnnoyParam()))
+sce <- WTChimeraData(samples = 5, type = "processed") |> 
+  normalizeRnaCounts.se() |> 
+  chooseRnaHvgs.se()
 
-table(exact = colLabels(sce), approx = clusters)
+sce <- sce |> 
+  runPca.se(features = rowData(sce)$hvg) 
 ```
 
-``` output
-     approx
-exact   1   2   3   4   5   6   7   8   9  10  11  12  13  14
-   1   93   0   0   0   2   0   0   0   0   0   0   0   0   0
-   2    0 143   0   1   0   0   0   0   0   0   0   0   0   0
-   3    0   0  77   0   0   0   0   0   0   0   0   0   0   0
-   4    0   0   0 341   0   0   0   0   0   0   0   0   0   0
-   5    0   0   0   0 391   1   0   1   0   1   0   0   0   0
-   6    0   0   0   0   0 204   5   0   0   0   0   0   0   0
-   7    0   0   0   0   0   0 246   0   0   0   0   0   0   0
-   8    0   0   0   0   0   0   0  95   0   0   0   0   0   0
-   9    0   0   0   0   0   0   0   0 108   0   0   0   0   0
-   10   0   0   0   0   0   0   0   0   0 128   0   1   0   0
-   11   0   0   0   0   0   0   0   0   0   0 153   0   0   0
-   12   0   0   0   0   2   0   0   0   0   0   0 196   0   0
-   13   0   0   0   1   0   0   1   0   0   0   0   0 144   0
-   14   0   0   0   0   0   0   0   0   0   0   0   0   0  20
-   15   0   0   0  56   0   0   0   0   0   0   0   0   0   0
-```
-
-The similarity of the two clusterings can be quantified by calculating the pairwise Rand index: 
+For the sake of demonstration, we'll compare the cluster assignments with
+approximate versus exact algorithms.
 
 
 ``` r
-rand <- pairwiseRand(colLabels(sce), clusters, mode = "index")
+pc_mat <- reducedDim(sce, "PCA") |> t()
 
-stopifnot(rand > 0.8)
-```
+gr_apx <- buildSnnGraph(pc_mat) # defaults to AnnoyParam()
+gr_ext <- buildSnnGraph(pc_mat, BNPARAM = KmknnParam())
 
-Note that Annoy writes the NN index to disk prior to
-performing the search. Thus, it may not actually be faster
-than the default exact algorithm for small datasets,
-depending on whether the overhead of disk write is offset by
-the computational complexity of the search. It is also not
-difficult to find situations where the approximation
-deteriorates, especially when the number of features exceeds
-the number of data points, though this may not have an
-appreciable impact on the biological conclusions.
+cl_apx <- clusterGraph(gr_apx)
+cl_ext <- clusterGraph(gr_ext)
 
-
-``` r
-set.seed(1000)
-
-Y <- matrix(rnorm(3000*1000), ncol = 1000)
-
-exact <- findKNN(Y, k = 20)
-
-approx <- findKNN(Y, k = 20, BNPARAM = AnnoyParam())
-
-mean(exact$index != approx$index)
+table(cl_apx$membership, 
+      cl_ext$membership)
 ```
 
 ``` output
-[1] 0.9344167
+    
+       1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
+  1   89   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+  2    0  86   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+  3    0   1 126   0   0   0   0   0   0   0   0   0   1   0   0   0   0
+  4    0   0   0 348   0   0   0   0   0   0   0   0   0   0   0   0   0
+  5    1   0   0   0 222   0   0   0   0   2   0   1   0   0   0   0   0
+  6    0   0   0   0   0 251   0   0   0   0   0   0   0   0   1   0   0
+  7    0   0   0   0   0   1 134   0   0   0   0   0   0   0   0   0   0
+  8    0   0   0   0   0   0   0  85   0   0   0   0   0   0   0   0   0
+  9    0   0   0   0   0   0   0   0 108   0   0   0   0   0   0   0   0
+  10   0   0   0   0   4   0   0   0   0 126   0   0   0   0   0   0   0
+  11   0   0   0   0   0   0   0   0   0   8 135   0   0   0   0   1   0
+  12   0   2   0   0   2   0   0   0   0   0   0 181   0   0   0   0   0
+  13   0   0   0   0   0   0   0   0   0   2   0   0 183   0   0   0   0
+  14   0   0   0   0   0   0   0   0   0   0   0   0   0  61   0   0   0
+  15   0   0   0   0   0   1   0   0   0   2   0   0   0   0 150   0   0
+  16  20   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0
+  17   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  25   0
+  18   0   0   0   3   0   0   0   0   0   0   0   0   1   0   0   0  46
 ```
 
-You can see that in this contrived 1000-dimensional dataset, the approximate method didn't frequently get the same result as the exact method.
-
-<!-- TODO: contrive a better example. They usually have close to the same neighbor sets, just in a different order -->
+You can see that although they're pretty close, there's some disagreement.
 
 ### Singular value decomposition 
 
-The singular value decomposition (SVD) underlies the PCA used throughout our
-analyses, e.g., in `denoisePCA()`, `fastMNN()`, `doubletCells()`. (Briefly, the
-right singular vectors are the eigenvectors of the gene-gene covariance matrix,
-where each eigenvector represents the axis of maximum remaining variation in the
-PCA.) The default `base::svd()` function performs an exact SVD that is not
-performant for large datasets. Instead, we use fast approximate methods from the
-*[irlba](https://CRAN.R-project.org/package=irlba)* and *[rsvd](https://CRAN.R-project.org/package=rsvd)* packages, conveniently wrapped into
-the *[BiocSingular](https://bioconductor.org/packages/3.22/BiocSingular)* package for ease of use and package development.
-Specifically, we can change the SVD algorithm used in any of these functions by
-simply specifying an alternative value for the `BSPARAM` argument.
+[Singular value decomposition](https://www.huber.embl.de/msmb/07-chap.html#singular-value-decomposition) (SVD) is the algorithm underlying PCA. The default `base::svd()`
+function performs an exact SVD that is not performant for large datasets.
+
+Under the hood, `scrapper` uses an algorithm called "Implicitly Restarted
+Lanczos Bidiagonalization Algorithm" (IRLBA). This yields a fast and accurate
+approximation for a set number of PC embeddings.
+
+For the sake of demonstration, we'll compare `base::svd()` against `runPca()` on
+the first 500 HVGs. We convert the log-counts to a standard dense matrix first
 
 
 ``` r
-library(scater)
-library(BiocSingular)
+hvg_subset = rowData(sce)$hvg |> which() |> head(500)
 
-# As the name suggests, it is random, so we need to set the seed.
-set.seed(101000)
+input_mat <- logcounts(sce)[hvg_subset,] |>
+  as.matrix() |> 
+  scale(center = TRUE, scale = FALSE)
 
-r.out <- runPCA(sce, ncomponents = 20, BSPARAM = RandomParam())
-
-str(reducedDim(r.out, "PCA"))
+system.time({s1 <- svd(t(input_mat))})
 ```
 
 ``` output
- num [1:2411, 1:20] 14.79 5.79 13.07 -32.19 -26.45 ...
- - attr(*, "dimnames")=List of 2
-  ..$ : chr [1:2411] "cell_9769" "cell_9770" "cell_9771" "cell_9772" ...
-  ..$ : chr [1:20] "PC1" "PC2" "PC3" "PC4" ...
- - attr(*, "varExplained")= num [1:20] 192.6 87 29.4 23.1 21.6 ...
- - attr(*, "percentVar")= num [1:20] 25.84 11.67 3.94 3.1 2.89 ...
- - attr(*, "rotation")= num [1:500, 1:20] -0.174 -0.173 -0.157 0.105 -0.132 ...
-  ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr [1:500] "ENSMUSG00000055609" "ENSMUSG00000052217" "ENSMUSG00000069919" "ENSMUSG00000048583" ...
-  .. ..$ : chr [1:20] "PC1" "PC2" "PC3" "PC4" ...
+   user  system elapsed 
+  0.373   0.139   0.457 
 ```
 
 ``` r
-set.seed(101001)
-
-i.out <- runPCA(sce, ncomponents = 20, BSPARAM = IrlbaParam())
-
-str(reducedDim(i.out, "PCA"))
+system.time({i1 <- runPca(input_mat)})
 ```
 
 ``` output
- num [1:2411, 1:20] -14.79 -5.79 -13.07 32.19 26.45 ...
- - attr(*, "dimnames")=List of 2
-  ..$ : chr [1:2411] "cell_9769" "cell_9770" "cell_9771" "cell_9772" ...
-  ..$ : chr [1:20] "PC1" "PC2" "PC3" "PC4" ...
- - attr(*, "varExplained")= num [1:20] 192.6 87 29.4 23.1 21.6 ...
- - attr(*, "percentVar")= num [1:20] 25.84 11.67 3.94 3.1 2.89 ...
- - attr(*, "rotation")= num [1:500, 1:20] 0.174 0.173 0.157 -0.105 0.132 ...
-  ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr [1:500] "ENSMUSG00000055609" "ENSMUSG00000052217" "ENSMUSG00000069919" "ENSMUSG00000048583" ...
-  .. ..$ : chr [1:20] "PC1" "PC2" "PC3" "PC4" ...
+   user  system elapsed 
+  0.045   0.000   0.044 
 ```
 
-Both IRLBA and randomized SVD (RSVD) are much faster than the exact SVD and
-usually yield only a negligible loss of accuracy. This motivates their default
-use in many *[scran](https://bioconductor.org/packages/3.22/scran)* and *[scater](https://bioconductor.org/packages/3.22/scater)* functions, at the
-cost of requiring users to set the seed to guarantee reproducibility. IRLBA can
-occasionally fail to converge and require more iterations (passed via `maxit=`
-in `IrlbaParam()`), while RSVD involves an explicit trade-off between accuracy
-and speed based on its oversampling parameter (`p=`) and number of power
-iterations (`q=`). We tend to prefer IRLBA as its default behavior is more
-accurate, though RSVD is much faster for file-backed matrices.
+Beyond IRLBA, another algorithm called randomized SVD (RSVD) goes further in the
+"more speed, more approximation error" direction which can be beneficial for
+larger datasets. See *[BiocSingular](https://bioconductor.org/packages/3.23/BiocSingular)* for more detail.
 
 :::: challenge
 
-The uncertainty from approximation error is sometimes aggravating. "Why can't my
-computer just give me the right answer?" One way to alleviate this feeling is to
-quantify the approximation error on a small test set like the sce we have here.
-Using the `ExactParam()` class, visualize the error in PC1 coordinates compared
-to the RSVD results.
+The uncertainty from approximation error is sometimes aggravating. "How do I
+know the approximation error isn't throwing me off?" One way to alleviate this
+feeling is to quantify the approximation error on a small test set. Compare PC1
+of the IRLBA and exact embeddings.
+
+::: hint
+While you can get the PC embeddings from the SVD results with some simple linear
+algebra, you may find it easier to get them using the function `prcomp()` which
+provides them pre-computed in a component called `x`.
+:::
 
 ::: solution
-This code block calculates the exact PCA coordinates. Another thing to note: PC vectors are only identified up to a sign flip. We can see that the RSVD PC1 vector points in the 
-
-``` r
-set.seed(123)
-
-e.out <- runPCA(sce, ncomponents = 20, BSPARAM = ExactParam())
-
-str(reducedDim(e.out, "PCA"))
-```
-
-``` output
- num [1:2411, 1:20] -14.79 -5.79 -13.07 32.19 26.45 ...
- - attr(*, "dimnames")=List of 2
-  ..$ : chr [1:2411] "cell_9769" "cell_9770" "cell_9771" "cell_9772" ...
-  ..$ : chr [1:20] "PC1" "PC2" "PC3" "PC4" ...
- - attr(*, "varExplained")= num [1:20] 192.6 87 29.4 23.1 21.6 ...
- - attr(*, "percentVar")= num [1:20] 25.84 11.67 3.94 3.1 2.89 ...
- - attr(*, "rotation")= num [1:500, 1:20] 0.174 0.173 0.157 -0.105 0.132 ...
-  ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr [1:500] "ENSMUSG00000055609" "ENSMUSG00000052217" "ENSMUSG00000069919" "ENSMUSG00000048583" ...
-  .. ..$ : chr [1:20] "PC1" "PC2" "PC3" "PC4" ...
-```
-
-``` r
-reducedDim(e.out, "PCA")[1:5,1:3]
-```
-
-``` output
-                 PC1       PC2        PC3
-cell_9769 -14.793684 18.470324 -0.4893474
-cell_9770  -5.789032 13.347277  5.0560761
-cell_9771 -13.066503 16.803152 -0.5602737
-cell_9772  32.185950  6.697517 -0.6945423
-cell_9773  26.452390  3.083474 -0.2271916
-```
-
-``` r
-reducedDim(r.out, "PCA")[1:5,1:3]
-```
-
-``` output
-                 PC1       PC2        PC3
-cell_9769  14.793780 18.470111 -0.4888676
-cell_9770   5.789148 13.348438  5.0702153
-cell_9771  13.066327 16.803423 -0.5562241
-cell_9772 -32.186341  6.698347 -0.6892421
-cell_9773 -26.452373  3.083974 -0.2299814
-```
-
-For the sake of visualizing the error we can just flip the PC1 coordinates:
 
 
 ``` r
-reducedDim(r.out, "PCA") = -1 * reducedDim(r.out, "PCA")
+library(ggplot2)
+
+exact <- prcomp(t(input_mat))
+
+test_diff <- i1$components[1,1] - exact$x[1,1]
+
+if (test_diff > .1) {
+  i1$components  <- -1 * i1$components
+}
+
+comp_df <- data.frame(
+  exact = exact$x[,"PC1"],
+  irlba = i1$components[1,]
+)
+
+comp_df$diff = comp_df$exact - comp_df$irlba
+
+ggplot(comp_df, aes(exact, irlba)) + 
+  geom_abline(lty = 2, color = 'grey') + 
+  geom_point()
 ```
 
-From there we can visualize the error with a histogram:
-
+<img src="fig/large_data-rendered-unnamed-chunk-6-1.png" alt="" style="display: block; margin: auto;" />
 
 ``` r
-error <- reducedDim(r.out, "PCA")[,"PC1"] - 
-         reducedDim(e.out, "PCA")[,"PC1"]
-
-data.frame(approx_error = error) |> 
-  ggplot(aes(approx_error)) + 
+ggplot(comp_df, aes(diff)) + 
   geom_histogram()
 ```
 
-<img src="fig/large_data-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+<img src="fig/large_data-rendered-unnamed-chunk-6-2.png" alt="" style="display: block; margin: auto;" />
 
-It's almost never more than .001 in this case. 
+Note that we check a test point of both results to see if they're close, and if
+not multiply one set of embeddings by -1. This is because the signs of PC
+embeddings are not uniquely identifiable in general, so different algorithms can
+sometimes come with flipped signs.
+
+You can see they're very close. 
 
 :::
 
@@ -666,11 +483,6 @@ and to integrate diverse types of single-cell data. Seurat is developed and
 maintained by the [Satija lab](https://satijalab.org/seurat/authors.html)
 and is released under the [MIT license](https://opensource.org/license/mit/).
 
-
-``` r
-library(Seurat)
-```
-
 Although the basic processing of single-cell data with Bioconductor packages
 (described in the [OSCA book](https://bioconductor.org/books/release/OSCA/)) and
 with Seurat is very similar and will produce overall roughly identical results,
@@ -682,70 +494,8 @@ vignette](https://satijalab.org/seurat/articles/conversion_vignette.html) for
 conversion to/from other popular single cell formats such as the AnnData format
 used by [scanpy](https://scanpy.readthedocs.io/en/stable/).
 
-Here, we demonstrate converting the Seurat object produced in Seurat's
-[PBMC tutorial](https://satijalab.org/seurat/articles/pbmc3k_tutorial.html)
-to a `SingleCellExperiment` for further analysis with functionality from
-OSCA/Bioconductor.
-We therefore need to first install the 
-[SeuratData](https://github.com/satijalab/seurat-data) package, which is available
-from GitHub only. 
-
-
-``` r
-BiocManager::install("satijalab/seurat-data")
-```
-
-We then proceed by loading all required packages and installing the PBMC dataset:
-
-
-``` r
-library(SeuratData)
-
-InstallData("pbmc3k")
-```
-
-We then load the dataset as an `SeuratObject` and convert it to a 
-`SingleCellExperiment`.
-
-
-``` r
-# Use PBMC3K from SeuratData
-pbmc <- LoadData(ds = "pbmc3k", type = "pbmc3k.final")
-
-pbmc <- UpdateSeuratObject(pbmc)
-
-pbmc
-
-pbmc.sce <- as.SingleCellExperiment(pbmc)
-
-pbmc.sce
-```
-
-Seurat also allows conversion from `SingleCellExperiment` objects to Seurat objects; 
-we demonstrate this here on the wild-type chimera mouse gastrulation dataset. 
-
-
-``` r
-sce <- WTChimeraData(samples = 5, type = "processed")
-
-assay(sce) <- as.matrix(assay(sce))
-
-sce <- logNormCounts(sce)
-
-sce
-```
-
-After some processing of the dataset, the actual conversion is carried out with
-the `as.Seurat` function.
-
-
-``` r
-sobj <- as.Seurat(sce)
-
-Idents(sobj) <- "celltype.mapped"
-
-sobj
-```
+Seurat provides helper functions `as.SingleCellExperiment()` and `as.Seurat()`
+to convert back and forth between SCEs and Seurat objects.
 
 ### Scanpy
 
@@ -764,7 +514,7 @@ At the core of scanpy's single-cell functionality is the `anndata` data structur
 scanpy's integrated single-cell data container, which is conceptually very similar
 to Bioconductor's `SingleCellExperiment` class.
 
-Bioconductor's *[zellkonverter](https://bioconductor.org/packages/3.22/zellkonverter)* package provides a lightweight
+Bioconductor's *[zellkonverter](https://bioconductor.org/packages/3.23/zellkonverter)* package provides a lightweight
 interface between the Bioconductor `SingleCellExperiment` data structure and the
 Python `AnnData`-based single-cell analysis environment. The idea is to enable
 users and developers to easily move data between these frameworks to construct a
@@ -776,7 +526,7 @@ library(zellkonverter)
 ```
 
 The `readH5AD()` function can be used to read a `SingleCellExperiment` from an
-H5AD file. Here, we use an example H5AD file contained in the  *[zellkonverter](https://bioconductor.org/packages/3.22/zellkonverter)*
+H5AD file. Here, we use an example H5AD file contained in the  *[zellkonverter](https://bioconductor.org/packages/3.23/zellkonverter)*
 package.
 
 
@@ -784,27 +534,7 @@ package.
 example_h5ad <- system.file("extdata", "krumsiek11.h5ad",
                             package = "zellkonverter")
 
-readH5AD(example_h5ad)
-```
-
-``` output
-Installing pyenv ...
-Done! pyenv has been installed to '/home/runner/.local/share/r-reticulate/pyenv/bin/pyenv'.
-Using Python: /home/runner/.pyenv/versions/3.14.0/bin/python3.14
-Creating virtual environment '/home/runner/.cache/R/basilisk/1.22.0/zellkonverter/1.20.0/zellkonverterAnnDataEnv-0.12.3' ... 
-```
-
-``` output
-Done!
-Installing packages: pip, wheel, setuptools
-```
-
-``` output
-Installing packages: 'anndata==0.12.3', 'h5py==3.15.1', 'natsort==8.4.0', 'numpy==2.3.4', 'pandas==2.3.3', 'scipy==1.16.2'
-```
-
-``` output
-Virtual environment '/home/runner/.cache/R/basilisk/1.22.0/zellkonverter/1.20.0/zellkonverterAnnDataEnv-0.12.3' successfully created.
+readH5AD(example_h5ad, reader = "R")
 ```
 
 ``` output
@@ -832,10 +562,31 @@ out.file <- tempfile(fileext = ".h5ad")
 writeH5AD(sce, file = out.file)
 ```
 
+``` output
+Installing pyenv ...
+Done! pyenv has been installed to '/github/home/.local/share/r-reticulate/pyenv/bin/pyenv'.
+Using Python: /github/home/.pyenv/versions/3.14.0/bin/python3.14
+Creating virtual environment '/github/home/.cache/R/basilisk/1.24.0/zellkonverter/1.22.0/zellkonverterAnnDataEnv-0.12.3' ... 
+```
+
+``` output
+Done!
+Installing packages: pip, wheel, setuptools
+```
+
+``` output
+Installing packages: 'anndata==0.12.3', 'h5py==3.15.1', 'natsort==8.4.0', 'numpy==2.3.4', 'pandas==2.3.3', 'scipy==1.16.2'
+```
+
+``` output
+Virtual environment '/github/home/.cache/R/basilisk/1.24.0/zellkonverter/1.22.0/zellkonverterAnnDataEnv-0.12.3' successfully created.
+```
+
 The resulting H5AD file can then be read into Python using scanpy's
 [read_h5ad](https://scanpy.readthedocs.io/en/stable/generated/scanpy.read_h5ad.html)
 function and then directly used in compatible Python-based analysis frameworks.
 
+<!-- TODO: switch to anndataR? -->
 
 ## Exercises
 
@@ -843,15 +594,15 @@ function and then directly used in compatible Python-based analysis frameworks.
 
 #### Exercise 1: Out of memory representation
 
-Write the counts matrix of the wild-type chimera mouse gastrulation dataset to
-an HDF5 file. Create another counts matrix that reads the data from the HDF5
-file. Compare memory usage of holding the entire matrix in memory as opposed to
-holding the data out of memory.
+Write the counts matrix of one sample from the wild-type chimera mouse
+gastrulation dataset to an HDF5 file. Create another counts matrix that reads
+the data from the HDF5 file. Compare memory usage of holding the entire matrix
+in memory as opposed to holding the data out of memory.
 
 :::::::::::::: hint
 
 See the `HDF5Array` function for reading from HDF5 and the `writeHDF5Array`
-function for writing to HDF5 from the *[HDF5Array](https://bioconductor.org/packages/3.22/HDF5Array)* package.
+function for writing to HDF5 from the *[HDF5Array](https://bioconductor.org/packages/3.23/HDF5Array)* package.
 
 :::::::::::::::::::::::
 
@@ -861,29 +612,27 @@ function for writing to HDF5 from the *[HDF5Array](https://bioconductor.org/pack
 ``` r
 wt_out <- tempfile(fileext = ".h5")
 
-wt_counts <- counts(WTChimeraData())
-```
+wt_counts <- counts(WTChimeraData(samples = 5))
 
-``` r
 writeHDF5Array(wt_counts,
                name = "wt_counts",
                file = wt_out)
 ```
 
 ``` output
-<29453 x 30703> sparse HDF5Matrix object of type "double":
-                       cell_1     cell_2     cell_3 ... cell_30702 cell_30703
+<29453 x 2411> sparse HDF5Matrix object of type "double":
+                    cell_9769  cell_9770  cell_9771 ... cell_12178 cell_12179
 ENSMUSG00000051951          0          0          0   .          0          0
 ENSMUSG00000089699          0          0          0   .          0          0
 ENSMUSG00000102343          0          0          0   .          0          0
 ENSMUSG00000025900          0          0          0   .          0          0
 ENSMUSG00000025902          0          0          0   .          0          0
                ...          .          .          .   .          .          .
-ENSMUSG00000095041          0          1          2   .          0          0
-ENSMUSG00000063897          0          0          0   .          0          0
+ENSMUSG00000095041          0          0          1   .          0          0
+ENSMUSG00000063897          0          0          1   .          0          2
 ENSMUSG00000096730          0          0          0   .          0          0
 ENSMUSG00000095742          0          0          0   .          0          0
-         tomato-td          1          0          1   .          0          0
+         tomato-td          1          1          1   .          0          1
 ```
 
 ``` r
@@ -893,7 +642,7 @@ object.size(wt_counts)
 ```
 
 ``` output
-1520366960 bytes
+157215216 bytes
 ```
 
 ``` r
@@ -912,37 +661,20 @@ object.size(oom_wt)
 
 #### Exercise 2: Parallelization
 
-Perform a PCA analysis of the  wild-type chimera mouse gastrulation
-dataset using a multicore backend for parallel computation. Compare the runtime
-of performing the PCA either in serial execution mode, in multicore execution
-mode with 2 workers, and in multicore execution mode with 3 workers.
-
-:::::::::::::: hint
-
-Use the function `system.time` to obtain the runtime of each job.
-
-:::::::::::::::::::::::
+Compare the runtime of `runPca()` when called with different numbers of threads
+and compare the run time. Do you reach a limit where additional threads starts
+to hurt performance?
 
 :::::::::::::: solution
 
 
 ``` r
-sce.brain <- logNormCounts(sce.brain)
+system.time({runPca(logcounts(sce))})
 
-system.time({i.out <- runPCA(sce.brain, 
-                             ncomponents = 20, 
-                             BSPARAM = ExactParam(),
-                             BPPARAM = SerialParam())})
+system.time({runPca(logcounts(sce), num.threads = 2)})
 
-system.time({i.out <- runPCA(sce.brain, 
-                             ncomponents = 20, 
-                             BSPARAM = ExactParam(),
-                             BPPARAM = MulticoreParam(workers = 2))})
-
-system.time({i.out <- runPCA(sce.brain, 
-                             ncomponents = 20, 
-                             BSPARAM = ExactParam(),
-                             BPPARAM = MulticoreParam(workers = 3))})
+# Try others as your system allows
+# system.time({runPca(logcounts(sce), num.threads = N)}) 
 ```
 
 :::::::::::::::::::::::
@@ -954,7 +686,8 @@ system.time({i.out <- runPCA(sce.brain,
 ## Further Reading
 
 * OSCA book, [Chapter 14](https://bioconductor.org/books/release/OSCA.advanced/dealing-with-big-data.html): Dealing with big data 
-* The `BiocParallel` [intro vignette](https://bioconductor.org/packages/3.22/BiocParallel/vignettes/Introduction_To_BiocParallel.html). 
+* The `BiocParallel` [intro vignette](https://bioconductor.org/packages/3.23/BiocParallel/vignettes/Introduction_To_BiocParallel.html). 
+* Modern Statistics for Modern Biology, [Ch. 7 Multivariate Analysis](https://www.huber.embl.de/msmb/07-chap.html)
 ::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
@@ -974,21 +707,23 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.5.3 (2026-03-11)
+R version 4.6.0 (2026-04-24)
 Platform: x86_64-pc-linux-gnu
-Running under: Ubuntu 22.04.5 LTS
+Running under: Ubuntu 24.04.4 LTS
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0 
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0  LAPACK version 3.10.0
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
 
 locale:
- [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
- [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
- [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
-time zone: UTC
+time zone: Etc/UTC
 tzcode source: system (glibc)
 
 attached base packages:
@@ -996,74 +731,44 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] zellkonverter_1.20.0         Seurat_5.4.0                
- [3] SeuratObject_5.3.0           sp_2.2-0                    
- [5] BiocSingular_1.26.1          BiocNeighbors_2.4.0         
- [7] bluster_1.20.0               scran_1.38.0                
- [9] MouseGastrulationData_1.24.0 SpatialExperiment_1.20.0    
-[11] BiocParallel_1.44.0          scater_1.38.0               
-[13] ggplot2_4.0.1                scuttle_1.20.0              
-[15] TENxBrainData_1.30.0         HDF5Array_1.38.0            
-[17] h5mread_1.2.1                rhdf5_2.54.1                
-[19] DelayedArray_0.36.0          SparseArray_1.10.7          
-[21] S4Arrays_1.10.1              abind_1.4-8                 
-[23] Matrix_1.7-4                 SingleCellExperiment_1.32.0 
-[25] SummarizedExperiment_1.40.0  Biobase_2.70.0              
-[27] GenomicRanges_1.62.1         Seqinfo_1.0.0               
-[29] IRanges_2.44.0               S4Vectors_0.48.0            
-[31] BiocGenerics_0.56.0          generics_0.1.4              
-[33] MatrixGenerics_1.22.0        matrixStats_1.5.0           
-[35] BiocStyle_2.38.0            
+ [1] zellkonverter_1.22.0         ggplot2_4.0.3               
+ [3] BiocNeighbors_2.6.0          MouseGastrulationData_1.26.0
+ [5] SpatialExperiment_1.22.0     BiocParallel_1.46.0         
+ [7] scrapper_1.6.3               TENxBrainData_1.32.0        
+ [9] HDF5Array_1.40.0             h5mread_1.4.0               
+[11] rhdf5_2.56.0                 DelayedArray_0.38.2         
+[13] SparseArray_1.12.2           S4Arrays_1.12.0             
+[15] abind_1.4-8                  Matrix_1.7-6                
+[17] SingleCellExperiment_1.34.0  SummarizedExperiment_1.42.0 
+[19] Biobase_2.72.0               GenomicRanges_1.64.0        
+[21] Seqinfo_1.2.0                IRanges_2.46.0              
+[23] S4Vectors_0.50.1             BiocGenerics_0.58.1         
+[25] generics_0.1.4               MatrixGenerics_1.24.0       
+[27] matrixStats_1.5.0            BiocStyle_2.40.0            
 
 loaded via a namespace (and not attached):
-  [1] RcppAnnoy_0.0.22       splines_4.5.3          later_1.4.4           
-  [4] filelock_1.0.3         tibble_3.3.0           polyclip_1.10-7       
-  [7] fastDummies_1.7.5      lifecycle_1.0.5        httr2_1.2.2           
- [10] edgeR_4.8.1            globals_0.18.0         lattice_0.22-7        
- [13] MASS_7.3-65            magrittr_2.0.4         plotly_4.11.0         
- [16] limma_3.66.0           rmarkdown_2.30         yaml_2.3.12           
- [19] metapod_1.18.0         httpuv_1.6.16          otel_0.2.0            
- [22] sctransform_0.4.2      spam_2.11-1            spatstat.sparse_3.1-0 
- [25] reticulate_1.44.1      cowplot_1.2.0          pbapply_1.7-4         
- [28] DBI_1.2.3              RColorBrewer_1.1-3     Rtsne_0.17            
- [31] purrr_1.2.0            BumpyMatrix_1.18.0     rappdirs_0.3.3        
- [34] ggrepel_0.9.6          irlba_2.3.5.1          spatstat.utils_3.2-3  
- [37] listenv_0.10.0         goftest_1.2-3          RSpectra_0.16-2       
- [40] spatstat.random_3.4-5  dqrng_0.4.1            fitdistrplus_1.2-4    
- [43] parallelly_1.46.0      codetools_0.2-20       tidyselect_1.2.1      
- [46] farver_2.1.2           ScaledMatrix_1.18.0    viridis_0.6.5         
- [49] spatstat.explore_3.6-0 BiocFileCache_3.0.0    jsonlite_2.0.0        
- [52] progressr_0.18.0       ggridges_0.5.7         survival_3.8-3        
- [55] tools_4.5.3            ica_1.0-3              Rcpp_1.1.1-1.1        
- [58] glue_1.8.0             gridExtra_2.3          xfun_0.55             
- [61] dplyr_1.1.4            withr_3.0.2            formatR_1.14          
- [64] BiocManager_1.30.27    fastmap_1.2.0          basilisk_1.22.0       
- [67] rhdf5filters_1.22.0    digest_0.6.39          rsvd_1.0.5            
- [70] R6_2.6.1               mime_0.13              scattermore_1.2       
- [73] tensor_1.5.1           spatstat.data_3.1-9    RSQLite_2.4.5         
- [76] tidyr_1.3.1            data.table_1.17.8      renv_1.2.2            
- [79] htmlwidgets_1.6.4      httr_1.4.7             uwot_0.2.4            
- [82] pkgconfig_2.0.3        gtable_0.3.6           blob_1.2.4            
- [85] lmtest_0.9-40          S7_0.2.1               XVector_0.50.0        
- [88] htmltools_0.5.9        dotCall64_1.2          scales_1.4.0          
- [91] png_0.1-8              spatstat.univar_3.1-7  knitr_1.50            
- [94] reshape2_1.4.5         rjson_0.2.23           nlme_3.1-168          
- [97] curl_7.0.0             cachem_1.1.0           zoo_1.8-15            
-[100] stringr_1.6.0          BiocVersion_3.22.0     KernSmooth_2.23-26    
-[103] parallel_4.5.3         miniUI_0.1.2           vipor_0.4.7           
-[106] AnnotationDbi_1.72.0   pillar_1.11.1          grid_4.5.3            
-[109] vctrs_0.7.3            RANN_2.6.2             promises_1.5.0        
-[112] dbplyr_2.5.1           beachmat_2.26.0        xtable_1.8-4          
-[115] cluster_2.1.8.1        beeswarm_0.4.0         evaluate_1.0.5        
-[118] magick_2.9.0           cli_3.6.5              locfit_1.5-9.12       
-[121] compiler_4.5.3         rlang_1.2.0            crayon_1.5.3          
-[124] future.apply_1.20.1    labeling_0.4.3         plyr_1.8.9            
-[127] ggbeeswarm_0.7.3       stringi_1.8.7          deldir_2.0-4          
-[130] viridisLite_0.4.2      Biostrings_2.78.0      lazyeval_0.2.2        
-[133] spatstat.geom_3.7-3    dir.expiry_1.18.0      ExperimentHub_3.0.0   
-[136] RcppHNSW_0.6.0         patchwork_1.3.2        bit64_4.6.0-1         
-[139] future_1.68.0          Rhdf5lib_1.32.0        KEGGREST_1.50.0       
-[142] statmod_1.5.1          shiny_1.12.1           AnnotationHub_4.0.0   
-[145] ROCR_1.0-11            igraph_2.2.1           memoise_2.0.1         
-[148] bit_4.6.0             
+ [1] DBI_1.3.0            httr2_1.3.0          formatR_1.14        
+ [4] rlang_1.3.0          magrittr_2.0.5       otel_0.2.0          
+ [7] compiler_4.6.0       RSQLite_3.53.3       dir.expiry_1.20.0   
+[10] png_0.1-9            vctrs_0.7.3          pkgconfig_2.0.3     
+[13] crayon_1.5.3         fastmap_1.2.0        dbplyr_2.6.0        
+[16] magick_2.9.1         XVector_0.52.0       labeling_0.4.3      
+[19] rmarkdown_2.31       purrr_1.2.2          bit_4.6.0           
+[22] xfun_0.60            cachem_1.1.0         beachmat_2.28.0     
+[25] jsonlite_2.0.0       blob_1.3.0           rhdf5filters_1.24.1 
+[28] Rhdf5lib_2.0.0       parallel_4.6.0       R6_2.6.1            
+[31] RColorBrewer_1.1-3   reticulate_1.46.0    Rcpp_1.1.2          
+[34] knitr_1.51           tidyselect_1.2.1     yaml_2.3.12         
+[37] codetools_0.2-20     curl_7.1.0           lattice_0.22-9      
+[40] tibble_3.3.1         withr_3.0.3          KEGGREST_1.52.2     
+[43] BumpyMatrix_1.20.0   S7_0.2.2             evaluate_1.0.5      
+[46] BiocFileCache_3.2.0  ExperimentHub_3.2.0  Biostrings_2.80.1   
+[49] pillar_1.11.1        BiocManager_1.30.27  filelock_1.0.3      
+[52] renv_1.2.4           BiocVersion_3.23.1   scales_1.4.0        
+[55] glue_1.8.1           tools_4.6.0          AnnotationHub_4.2.2 
+[58] grid_4.6.0           AnnotationDbi_1.74.0 basilisk_1.24.0     
+[61] cli_3.6.6            rappdirs_0.3.4       dplyr_1.2.1         
+[64] gtable_0.3.6         digest_0.6.39        rjson_0.2.23        
+[67] farver_2.1.2         memoise_2.0.1        htmltools_0.5.9     
+[70] lifecycle_1.0.5      httr_1.4.8           bit64_4.8.2         
 ```

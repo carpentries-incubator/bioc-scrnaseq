@@ -33,7 +33,7 @@ library(MouseGastrulationData)
 library(SingleR)
 library(bluster)
 library(scater)
-library(scran)
+library(scrapper)
 library(pheatmap)
 library(GSEABase)
 ```
@@ -81,9 +81,12 @@ The SCE object needs to contain log-normalized expression counts as well as PCA 
 
 
 ``` r
-sce <- logNormCounts(sce)
+sce <- sce |> 
+  normalizeRnaCounts.se() |> 
+  chooseRnaHvgs.se()
 
-sce <- runPCA(sce)
+sce <- sce |> 
+  runPca.se(features = rowData(sce)$hvg)
 ```
 
 ## Clustering
@@ -108,60 +111,60 @@ connected to cells in the same community than they are to cells of different
 communities. Each community represents a cluster that we can use for downstream
 interpretation.
 
-Here, we use the `clusterCells()` function from the
-[scran](https://bioconductor.org/packages/scran) package to perform
+Here, we use the `clusterGraph.se()` function from the
+[scrapper](https://bioconductor.org/packages/release/bioc/html/scrapper.html) package to perform
 graph-based clustering using the [Louvain
 algorithm](https://doi.org/10.1088/1742-5468/2008/10/P10008) for
 community detection. All calculations are performed using the top PCs to
-take advantage of data compression and denoising. This function returns
-a vector containing cluster assignments for each cell in our
-`SingleCellExperiment` object. We use the `colLabels()` function to assign the
-cluster labels as a factor in the column data.
+take advantage of data compression and denoising. This function adds a "clusters" column to the `colData`.
+
 
 
 ``` r
-colLabels(sce) <- clusterCells(sce, use.dimred = "PCA",
-                               BLUSPARAM = NNGraphParam(cluster.fun = "louvain"))
+sce <- clusterGraph.se(sce)
 
-table(colLabels(sce))
+table(sce$clusters)
 ```
 
 ``` output
 
-  1   2   3   4   5   6   7   8   9  10  11 
-193 161  59 134  63  61 108  49  91  42  39 
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14 
+108 162  33 128  63  61  27 134  64  64  39  46  29  42 
 ```
-You can see we ended up with 11 clusters of varying sizes.
+
+<!-- scrapper::clusterGraph.se is actually about 3x slower than scran::clusterCells which calls bluster::clusterRows -->
+
+You can see we ended up with 14 clusters of varying sizes.
 
 We can now overlay the cluster labels as color on a UMAP plot:
 
 
 ``` r
-sce <- runUMAP(sce, dimred = "PCA")
+sce <- runUmap.se(sce)
 
-plotReducedDim(sce, "UMAP", color_by = "label")
+plotReducedDim(sce, "UMAP", color_by = "clusters")
 ```
 
-<img src="fig/cell_type_annotation-rendered-cluster-viz-1.png" style="display: block; margin: auto;" />
+<img src="fig/cell_type_annotation-rendered-cluster-viz-1.png" alt="" style="display: block; margin: auto;" />
 
 :::: challenge
 
-Our clusters look semi-reasonable, but what if we wanted to make them less granular? Look at the help documentation for `?clusterCells` and `?NNGraphParam` to find out what we'd need to change to get fewer, larger clusters.
+Our clusters look semi-reasonable, but what if we wanted to make them less granular? Look at the help documentation for `?clusterGraph.se` and `?buildSnnGraph` to find out what we'd need to change to get fewer, larger clusters.
 
 ::: solution
 
-We see in the help documentation for `?clusterCells` that all of the clustering algorithm details are handled through the `BLUSPARAM` argument, which needs to provide a `BlusterParam` object (of which `NNGraphParam` is a sub-class). Each type of clustering algorithm will have some sort of hyper-parameter that controls the granularity of the output clusters. Looking at `?NNGraphParam` specifically, we see an argument called `k` which is described as "An integer scalar specifying the number of nearest neighbors to consider during graph construction." If the clustering process has to connect larger sets of neighbors, the graph will tend to be cut into larger groups, resulting in less granular clusters. Try the two code blocks above once more with `k = 30`. Given their visual differences, do you think one set of clusters is "right" and the other is "wrong"?
+We see in the help documentation for `?clusterGraph.se` an argument called `num.neighbors`. Each type of clustering algorithm will have some sort of hyper-parameter that controls the granularity of the output clusters. If the clustering process has to connect larger sets of neighbors, the graph will tend to be cut into larger groups, resulting in less granular clusters. Create a new set of clusters with `k = 30`. Given their visual differences, do you think one set of clusters is "right" and the other is "wrong"?
+
 
 
 ``` r
-sce$clust2 <- clusterCells(sce, use.dimred = "PCA",
-                           BLUSPARAM = NNGraphParam(cluster.fun = "louvain",
-                                                    k = 30))
+sce <- clusterGraph.se(sce, num.neighbors = 30,
+                       output.name = "clust2")
 
 plotReducedDim(sce, "UMAP", color_by = "clust2")
 ```
 
-<img src="fig/cell_type_annotation-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
+<img src="fig/cell_type_annotation-rendered-unnamed-chunk-2-1.png" alt="" style="display: block; margin: auto;" />
 
 :::
 
@@ -189,14 +192,14 @@ compared to another cluster.
 ``` r
 rownames(sce) <- rowData(sce)$SYMBOL
 
-markers <- scoreMarkers(sce)
+markers <- scoreMarkers.se(sce, groups = sce$clusters)
 
 markers
 ```
 
 ``` output
-List of length 11
-names(11): 1 2 3 4 5 6 7 8 9 10 11
+List of length 14
+names(14): 1 2 3 4 5 6 7 8 9 10 11 12 13 14
 ```
 
 The resulting object contains a sorted marker gene list for each
@@ -207,84 +210,44 @@ Here, we inspect the ranked marker gene list for the first cluster.
 
 
 ``` r
-markers[[1]]
+head(markers[[1]], 3)
 ```
 
 ``` output
-DataFrame with 29453 rows and 19 columns
-               self.average other.average self.detected other.detected
-                  <numeric>     <numeric>     <numeric>      <numeric>
-Xkr4             0.00777523    0.00204744     0.0103627      0.0015873
-Gm1992           0.00000000    0.00000000     0.0000000      0.0000000
-Gm37381          0.00000000    0.00000000     0.0000000      0.0000000
-Rp1              0.00000000    0.00000000     0.0000000      0.0000000
-Sox17            0.01448428    0.28440343     0.0103627      0.1378294
-...                     ...           ...           ...            ...
-AC149090.1       0.39760189   0.339949277    0.32642487      0.2773499
-DHRSX            0.37536303   0.514962467    0.32642487      0.4087374
-Vmn2r122         0.00000000   0.000000000    0.00000000      0.0000000
-CAAA01147332.1   0.00852569   0.000802687    0.00518135      0.0010989
-tomato-td        0.61466767   0.641897197    0.48186528      0.4972542
-               mean.logFC.cohen min.logFC.cohen median.logFC.cohen
-                      <numeric>       <numeric>          <numeric>
-Xkr4                   0.119882        -0.10006          0.1443198
-Gm1992                 0.000000         0.00000          0.0000000
-Gm37381                0.000000         0.00000          0.0000000
-Rp1                    0.000000         0.00000          0.0000000
-Sox17                 -0.346525        -2.07437         -0.0713339
-...                         ...             ...                ...
-AC149090.1            0.1070458     -0.08935467          0.0555201
-DHRSX                -0.2135530     -0.49469635         -0.1947910
-Vmn2r122              0.0000000      0.00000000          0.0000000
-CAAA01147332.1        0.0921178      0.00500178          0.1017973
-tomato-td            -0.0304896     -0.27695578         -0.0829054
-               max.logFC.cohen rank.logFC.cohen  mean.AUC   min.AUC median.AUC
-                     <numeric>        <integer> <numeric> <numeric>  <numeric>
-Xkr4                  0.144320             3253  0.504379 0.4971626   0.505181
-Gm1992                0.000000             7838  0.500000 0.5000000   0.500000
-Gm37381               0.000000             7838  0.500000 0.5000000   0.500000
-Rp1                   0.000000             7838  0.500000 0.5000000   0.500000
-Sox17                 0.143843             5357  0.435959 0.0958549   0.493880
-...                        ...              ...       ...       ...        ...
-AC149090.1           0.4394296             1678  0.524363  0.482359   0.509786
-DHRSX                0.0270598             7335  0.451362  0.383050   0.450894
-Vmn2r122             0.0000000             7838  0.500000  0.500000   0.500000
-CAAA01147332.1       0.1017973             4316  0.502044  0.497125   0.502591
-tomato-td            0.2898496             4071  0.487954  0.422322   0.476355
-                 max.AUC  rank.AUC mean.logFC.detected min.logFC.detected
-               <numeric> <integer>           <numeric>          <numeric>
-Xkr4            0.505181      5688         7.43734e-01       -2.75044e-01
-Gm1992          0.500000      7636        -1.60171e-17       -3.20343e-16
-Gm37381         0.500000      7636        -1.60171e-17       -3.20343e-16
-Rp1             0.500000      7636        -1.60171e-17       -3.20343e-16
-Sox17           0.505181      6757        -1.32542e+00       -4.92640e+00
-...                  ...       ...                 ...                ...
-AC149090.1      0.588965      1993         2.58156e-01       -2.88274e-02
-DHRSX           0.511020      4598        -2.98961e-01       -5.66395e-01
-Vmn2r122        0.500000      7636        -1.60171e-17       -3.20343e-16
-CAAA01147332.1  0.502591      6151         3.89887e-01       -4.42710e-01
-tomato-td       0.568178      2881        -2.57339e-02       -3.30235e-01
-               median.logFC.detected max.logFC.detected rank.logFC.detected
-                           <numeric>          <numeric>           <integer>
-Xkr4                        0.697532        1.41597e+00                1119
-Gm1992                      0.000000        3.20343e-16                6173
-Gm37381                     0.000000        3.20343e-16                6173
-Rp1                         0.000000        3.20343e-16                6173
-Sox17                      -0.703710        9.58290e-01                2200
-...                              ...                ...                 ...
-AC149090.1                 0.0583464        9.40386e-01                2627
-DHRSX                     -0.2934548        2.40918e-02                5723
-Vmn2r122                   0.0000000        3.20343e-16                6173
-CAAA01147332.1             0.3905253        8.75149e-01                1964
-tomato-td                 -0.0101262        2.99327e-01                4995
+DataFrame with 3 rows and 22 columns
+           mean  detected cohens.d.min cohens.d.mean cohens.d.median
+      <numeric> <numeric>    <numeric>     <numeric>       <numeric>
+Ptn     5.18941  1.000000    0.4135944       3.39489         3.68598
+Sox2    2.93998  0.972222    0.6191891       3.33378         3.92825
+Sfrp1   3.02850  0.953704   -0.0370316       2.02099         2.10181
+      cohens.d.max cohens.d.min.rank   auc.min  auc.mean auc.median   auc.max
+         <numeric>         <integer> <numeric> <numeric>  <numeric> <numeric>
+Ptn        5.92151                 1  0.607339  0.926049   0.989583  1.000000
+Sox2       4.53758                 1  0.678819  0.918697   0.980176  0.986111
+Sfrp1      3.83032                 2  0.490379  0.850266   0.926881  0.974994
+      auc.min.rank delta.mean.min delta.mean.mean delta.mean.median
+         <integer>      <numeric>       <numeric>         <numeric>
+Ptn              1       0.438100         3.42700           3.76778
+Sox2             1       0.664106         2.38613           2.79828
+Sfrp1            2      -0.042077         1.87168           2.06497
+      delta.mean.max delta.mean.min.rank delta.detected.min delta.detected.mean
+           <numeric>           <integer>          <numeric>           <numeric>
+Ptn          4.98641                   1        0.000000000            0.372927
+Sox2         2.93998                   1        0.083333333            0.708979
+Sfrp1        2.96871                   2        0.000578704            0.407483
+      delta.detected.median delta.detected.max delta.detected.min.rank
+                  <numeric>          <numeric>               <integer>
+Ptn                0.256410           0.790123                       2
+Sox2               0.868774           0.972222                       1
+Sfrp1              0.318783           0.893098                       2
 ```
 
 Each column contains summary statistics for each gene in the given cluster.
 These are usually the mean/median/min/max of statistics like Cohen's *d* and AUC
 when comparing this cluster (cluster 1 in this case) to all other clusters.
-`mean.AUC` is usually the most important to check. AUC is the probability that a
+`auc.mean` is usually the most important to check. AUC is the probability that a
 randomly selected cell in cluster *A* has a greater expression of gene
-*X* than a randomly selected cell in cluster *B*. You can set `full.stats=TRUE` if you'd like the marker data frames to retain list columns containing each statistic for each pairwise comparison.
+*X* than a randomly selected cell in cluster *B*. 
 
 We can then inspect the top marker genes for the first cluster using the
 `plotExpression` function from the
@@ -294,20 +257,19 @@ We can then inspect the top marker genes for the first cluster using the
 ``` r
 c1_markers <- markers[[1]]
 
-ord <- order(c1_markers$mean.AUC, 
-             decreasing = TRUE)
+ord <- order(-c1_markers$auc.mean)
 
 top.markers <- head(rownames(c1_markers[ord,]))
 
 plotExpression(sce, 
                features = top.markers, 
-               x        = "label", 
-               color_by = "label")
+               x        = "clusters",
+               color_by = "clusters")
 ```
 
-<img src="fig/cell_type_annotation-rendered-plot-markers-1.png" style="display: block; margin: auto;" />
+<img src="fig/cell_type_annotation-rendered-plot-markers-1.png" alt="" style="display: block; margin: auto;" />
 
-Clearly, not every marker gene distinguishes cluster 1 from every other cluster. However, with a combination of multiple marker genes it's possible to clearly identify gene patterns that are unique to cluster 1. It's sort of like the 20 questions game - with answers to the right questions about a cell (e.g. "Do you highly express Ptn?"), you can clearly identify what cluster it falls in.
+Clearly, not every marker gene distinguishes cluster 1 from every other cluster. However, with a combination of multiple marker genes it's possible to clearly identify gene patterns that are unique to cluster 1. It's sort of like the 20 questions game - with answers to the right questions about a cell (e.g. "Do you highly express Ptn? Sox2?"), you can clearly identify what cluster it falls in.
 
 :::: challenge
 
@@ -315,14 +277,14 @@ Looking at the last plot, what clusters are most difficult to distinguish from c
 
 ::: solution
 
-You can see that at least among the top markers, cluster 6 (pale green) tends to have the least separation from cluster 1. 
+You can see that at least among the top markers, cluster 9 (purple) tends to have the least separation from cluster 1. 
 
 
 ``` r
-plotReducedDim(sce, "UMAP", color_by = "label")
+plotReducedDim(sce, "UMAP", color_by = "clusters")
 ```
 
-<img src="fig/cell_type_annotation-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
+<img src="fig/cell_type_annotation-rendered-unnamed-chunk-3-1.png" alt="" style="display: block; margin: auto;" />
 
 Looking at the UMAP again, we can see that the marker gene overlap of clusters 1 and 6 makes sense. They're right next to each other on the UMAP. They're probably closely related cell types, and a less granular clustering would probably lump them together.
 
@@ -371,7 +333,7 @@ expertise of the original authors who assigned the labels in the first
 place.
 
 In this section, we will demonstrate the use of the
-*[SingleR](https://bioconductor.org/packages/3.22/SingleR)* method for cell type annotation [Aran et al.,
+*[SingleR](https://bioconductor.org/packages/3.23/SingleR)* method for cell type annotation [Aran et al.,
 2019](https://www.nature.com/articles/s41590-018-0276-y). This method
 assigns labels to cells based on the reference samples with the highest
 Spearman rank correlations, using only the marker genes between pairs of
@@ -416,13 +378,13 @@ mainExpName: NULL
 altExpNames(0):
 ```
 
-In order to reduce the computational load, we subsample the dataset to 1,000 cells.
+In order to reduce the computational load, we subsample the dataset to 2,000 cells.
 
 
 ``` r
 set.seed(123)
 
-ind <- sample(ncol(ref), 1000)
+ind <- sample(ncol(ref), 2000)
 
 ref <- ref[,ind]
 ```
@@ -433,44 +395,43 @@ You can see we have an assortment of different cell types in the reference (with
 ``` r
 tab <- sort(table(ref$celltype), decreasing = TRUE)
 
-tab
+data.frame(tab)
 ```
 
 ``` output
-
-  Forebrain/Midbrain/Hindbrain                     Erythroid3 
-                           131                             75 
-             Paraxial mesoderm                            NMP 
-                            69                             51 
-                  ExE mesoderm               Surface ectoderm 
-                            49                             47 
-                     Allantois                     Mesenchyme 
-                            46                             45 
-                   Spinal cord            Pharyngeal mesoderm 
-                            45                             41 
-                  ExE endoderm                   Neural crest 
-                            38                             35 
-                           Gut Haematoendothelial progenitors 
-                            30                             27 
-         Intermediate mesoderm                 Cardiomyocytes 
-                            27                             26 
-              Somitic mesoderm                    Endothelium 
-                            25                             23 
-                    Erythroid2                  Def. endoderm 
-                            11                              3 
-                    Erythroid1            Blood progenitors 1 
-                             2                              1 
-           Blood progenitors 2                Caudal Mesoderm 
-                             1                              1 
-                           PGC 
-                             1 
+                             Var1 Freq
+1    Forebrain/Midbrain/Hindbrain  282
+2                      Erythroid3  140
+3               Paraxial mesoderm  133
+4                    ExE mesoderm   97
+5                             NMP   96
+6                Surface ectoderm   92
+7             Pharyngeal mesoderm   89
+8                    ExE endoderm   83
+9                      Mesenchyme   83
+10                      Allantois   82
+11                    Spinal cord   82
+12                 Cardiomyocytes   74
+13                            Gut   62
+14               Somitic mesoderm   59
+15                   Neural crest   57
+16 Haematoendothelial progenitors   56
+17          Intermediate mesoderm   48
+18                    Endothelium   44
+19                     Erythroid2   20
+20            Blood progenitors 2    6
+21                     Erythroid1    5
+22            Blood progenitors 1    4
+23                  Def. endoderm    4
+24                Caudal Mesoderm    3
+25                            PGC    3
 ```
 
 We need the normalized log counts, so we add those on: 
 
 
 ``` r
-ref <- logNormCounts(ref)
+ref <- normalizeRnaCounts.se(ref)
 ```
 
 Some cleaning - remove cells of the reference dataset for which the cell
@@ -483,8 +444,7 @@ nna <- !is.na(ref$celltype)
 ref <- ref[,nna]
 ```
 
-Also remove cell types of very low abundance (here less than 10 cells)
-to remove noise prior to subsequent annotation tasks.
+Also remove very rare cell types (fewer than 10 examples) to avoid allocating cells to a poorly characterized type.
 
 
 ``` r
@@ -532,17 +492,17 @@ res
 DataFrame with 1000 rows and 4 columns
                                    scores                 labels delta.next
                                  <matrix>            <character>  <numeric>
-cell_11995 0.348586:0.335451:0.314515:... Forebrain/Midbrain/H..  0.1285110
-cell_10294 0.273570:0.260013:0.298932:...             Erythroid3  0.1381951
-cell_9963  0.328538:0.291288:0.475611:...            Endothelium  0.2193295
-cell_11610 0.281161:0.269245:0.299961:...             Erythroid3  0.0359215
-cell_10910 0.422454:0.346897:0.355947:...           ExE mesoderm  0.0984285
+cell_11995 0.344089:0.352252:0.322687:... Forebrain/Midbrain/H..  0.0714460
+cell_10294 0.284061:0.269633:0.305867:...             Erythroid3  0.0927442
+cell_9963  0.344064:0.308871:0.496652:...            Endothelium  0.2402474
+cell_11610 0.287595:0.274519:0.302783:...             Erythroid3  0.0446964
+cell_10910 0.418575:0.355947:0.360681:...           ExE mesoderm  0.0551009
 ...                                   ...                    ...        ...
-cell_11597 0.323805:0.292967:0.300485:...                    NMP  0.1663369
-cell_9807  0.464466:0.374189:0.381698:...             Mesenchyme  0.0833019
-cell_10095 0.341721:0.288215:0.485324:...            Endothelium  0.0889931
-cell_11706 0.267487:0.240215:0.286012:...             Erythroid2  0.0350557
-cell_11860 0.345786:0.343437:0.313994:... Forebrain/Midbrain/H..  0.0117001
+cell_11597 0.326458:0.301278:0.302239:...                    NMP  0.1670511
+cell_9807  0.472615:0.388327:0.400081:...             Mesenchyme  0.0715311
+cell_10095 0.356238:0.294831:0.497544:...            Endothelium  0.0823898
+cell_11706 0.271516:0.243037:0.282809:...             Erythroid2  0.0730011
+cell_11860 0.356413:0.348997:0.339735:...       Surface ectoderm  0.0059137
                     pruned.labels
                       <character>
 cell_11995 Forebrain/Midbrain/H..
@@ -554,8 +514,8 @@ cell_10910           ExE mesoderm
 cell_11597                    NMP
 cell_9807              Mesenchyme
 cell_10095            Endothelium
-cell_11706             Erythroid2
-cell_11860 Forebrain/Midbrain/H..
+cell_11706                     NA
+cell_11860       Surface ectoderm
 ```
 
 We inspect the results using a heatmap of the per-cell and label scores.
@@ -568,7 +528,7 @@ unambiguous.
 plotScoreHeatmap(res)
 ```
 
-<img src="fig/cell_type_annotation-rendered-score-heat-1.png" style="display: block; margin: auto;" />
+<img src="fig/cell_type_annotation-rendered-score-heat-1.png" alt="" style="display: block; margin: auto;" />
 
 We obtained fairly unambiguous predictions for mesenchyme and endothelial
 cells, whereas we see expectedly more ambiguity between the two
@@ -584,12 +544,14 @@ cell types.
 
 
 ``` r
-tab <- table(anno = res$pruned.labels, cluster = colLabels(sce))
+tab <- table(anno = res$pruned.labels, 
+             cluster = sce$clusters)
 
-pheatmap(log2(tab + 10), color = colorRampPalette(c("white", "blue"))(101))
+pheatmap(log1p(tab), 
+         color = hcl.colors(100))
 ```
 
-<img src="fig/cell_type_annotation-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
+<img src="fig/cell_type_annotation-rendered-unnamed-chunk-5-1.png" alt="" style="display: block; margin: auto;" />
 
 As it so happens, we are in the fortunate position where our test
 dataset also contains independently defined labels. We see strong
@@ -601,10 +563,11 @@ experts.
 ``` r
 tab <- table(res$pruned.labels, sce$celltype.mapped)
 
-pheatmap(log2(tab + 10), color = colorRampPalette(c("white", "blue"))(101))
+pheatmap(log1p(tab), 
+         color = hcl.colors(100))
 ```
 
-<img src="fig/cell_type_annotation-rendered-anno-vs-preanno-1.png" style="display: block; margin: auto;" />
+<img src="fig/cell_type_annotation-rendered-anno-vs-preanno-1.png" alt="" style="display: block; margin: auto;" />
 
 :::: challenge
 
@@ -620,65 +583,49 @@ sce$SingleR_label = res$pruned.labels
 :::
 ::::
 
-### Assigning cell labels from gene sets
+### Assigning cell labels from marker gene sets
 
 A related strategy is to explicitly identify sets of marker genes that
 are highly expressed in each individual cell. This does not require
 matching of individual cells to the expression values of the reference
 dataset, which is faster and more convenient when only the identities of
-the markers are available. We demonstrate this approach using cell type
-markers derived from the mouse embryo atlas dataset.
+the markers are available. 
+
+It's common to use expert-curated lists of marker genes derived from the
+literature and/or experimental experience. However for the sake of
+demonstration, in this case we'll use cell type markers derived empirically from
+the mouse embryo atlas dataset.
 
 
 ``` r
-wilcox.z <- pairwiseWilcox(ref, ref$celltype, lfc = 1, direction = "up")
+mrkrs <- scoreMarkers.se(ref, groups = ref$celltype)
+```
 
-markers.z <- getTopMarkers(wilcox.z$statistics, wilcox.z$pairs, 
-                           pairwise = FALSE, n = 50)
+This gives a list of marker statistics for each cell type. Let's look at the Erythroid3 markers:
 
-lengths(markers.z)
+
+``` r
+mrkrs[["Erythroid3"]][,c("mean", "auc.mean")]
 ```
 
 ``` output
-                     Allantois                 Cardiomyocytes 
-                           106                            106 
-                   Endothelium                     Erythroid2 
-                           103                             54 
-                    Erythroid3                   ExE endoderm 
-                            84                            102 
-                  ExE mesoderm   Forebrain/Midbrain/Hindbrain 
-                            97                             97 
-                           Gut Haematoendothelial progenitors 
-                            90                             71 
-         Intermediate mesoderm                     Mesenchyme 
-                            70                            118 
-                  Neural crest                            NMP 
-                            66                             91 
-             Paraxial mesoderm            Pharyngeal mesoderm 
-                            88                             85 
-              Somitic mesoderm                    Spinal cord 
-                            86                             91 
-              Surface ectoderm 
-                            92 
+DataFrame with 29411 rows and 2 columns
+              mean  auc.mean
+         <numeric> <numeric>
+Hbb-bh1   10.37685  0.995020
+Hba-a1     8.83379  0.998492
+Hba-x      9.72428  0.997738
+Hba-a2     7.67391  0.997996
+Blvrb      4.55019  0.985159
+...            ...       ...
+Tceal9    1.355498 0.0312212
+Tuba1a    0.521599 0.0587563
+Tmsb10    2.274679 0.0526069
+Marcksl1  1.196010 0.0377824
+Serpinh1  0.240562 0.0327936
 ```
 
-<!--- 
-
-This version with scoreMarkers() produces worse looking diagnostics, so let's leave it with the pairwise Wilcox version.
-
-``` r
-ref_markers <- scoreMarkers(ref, groups = ref$celltype, lfc = 1)
-
-get_top_markers <- function(marker_df, n = 100) {
-  ord <- order(marker_df$mean.AUC, decreasing = TRUE)
-  
-  rownames(marker_df[ord,])[1:n]
-}
-
-markers.z <- lapply(ref_markers, get_top_markers)
-```
-
--->
+The full table gives a large list of statistics for each gene describing how well distinguishes Erythroid3 cells from other cell types. The two selected here, mean expression and mean AUC, are important statistics to look at. They help you check that the gene is highly expressed in the cell type and can consistently discriminate the selected type from the others, respectively.
 
 Our test dataset will be as before the wild-type chimera dataset.
 
@@ -690,10 +637,10 @@ sce
 ``` output
 class: SingleCellExperiment 
 dim: 29411 1000 
-metadata(0):
+metadata(1): PCA
 assays(2): counts logcounts
 rownames(29411): Xkr4 Gm1992 ... Vmn2r122 CAAA01147332.1
-rowData names(2): ENSEMBL SYMBOL
+rowData names(7): ENSEMBL SYMBOL ... residuals hvg
 colnames(1000): cell_11995 cell_10294 ... cell_11706 cell_11860
 colData names(14): cell barcode ... clust2 SingleR_label
 reducedDimNames(4): pca.corrected.E7.5 pca.corrected.E8.5 PCA UMAP
@@ -701,7 +648,7 @@ mainExpName: NULL
 altExpNames(0):
 ```
 
-We use the *[AUCell](https://bioconductor.org/packages/3.22/AUCell)* package to identify marker sets that
+We use the *[AUCell](https://bioconductor.org/packages/3.23/AUCell)* package to identify marker sets that
 are highly expressed in each cell. This method ranks genes by their
 expression values within each cell and constructs a response curve of
 the number of genes from each marker set that are present with
@@ -714,8 +661,16 @@ cell.
 
 
 ``` r
-all.sets <- lapply(names(markers.z), 
-                   function(x) GeneSet(markers.z[[x]], setName = x))
+get_top_n <- function(mrk_df, ntop = 100) {
+  o = order(mrk_df$auc.median, decreasing = TRUE)
+  
+  rownames(mrk_df[head(o, ntop),])
+}
+
+all.sets <- lapply(names(mrkrs), 
+                   function(x) {
+                     GeneSet(get_top_n(mrkrs[[x]]), setName = x) 
+                   })
 
 all.sets <- GeneSetCollection(all.sets)
 
@@ -725,7 +680,7 @@ all.sets
 ``` output
 GeneSetCollection
   names: Allantois, Cardiomyocytes, ..., Surface ectoderm (19 total)
-  unique identifiers: Phlda2, Spin2c, ..., Akr7a5 (991 total)
+  unique identifiers: Phlda2, Spin2c, ..., Sostdc1 (976 total)
   types in collection:
     geneIdType: NullIdentifier (1 total)
     collectionType: NullCollection (1 total)
@@ -740,50 +695,35 @@ cell.aucs <- AUCell_calcAUC(all.sets, rankings)
 
 results <- t(assay(cell.aucs))
 
-head(results)
+head(results, 3)
 ```
 
 ``` output
             gene sets
 cells        Allantois Cardiomyocytes Endothelium Erythroid2 Erythroid3
-  cell_11995    0.0691         0.0536      0.0459     0.1056     0.0948
-  cell_10294    0.0384         0.0370      0.0451     0.4910     0.5153
-  cell_9963     0.2177         0.1011      0.4380     0.1070     0.1087
-  cell_11610    0.0108         0.0428      0.0347     0.4687     0.4555
-  cell_10910    0.1868         0.0766      0.0869     0.0766     0.0682
-  cell_11021    0.0695         0.0596      0.0465     0.0991     0.0993
+  cell_11995    0.0984         0.1062       0.129      0.211      0.145
+  cell_10294    0.0970         0.0892       0.113      0.584      0.563
+  cell_9963     0.2533         0.1502       0.506      0.191      0.158
             gene sets
-cells        ExE endoderm ExE mesoderm Forebrain/Midbrain/Hindbrain    Gut
-  cell_11995       0.0342       0.1324                       0.3173 0.1011
-  cell_10294       0.0680       0.0172                       0.0439 0.0458
-  cell_9963        0.0686       0.1147                       0.1116 0.1237
-  cell_11610       0.0573       0.0202                       0.0460 0.0268
-  cell_10910       0.0764       0.3255                       0.1747 0.1816
-  cell_11021       0.0680       0.2029                       0.2500 0.1277
+cells        ExE endoderm ExE mesoderm Forebrain/Midbrain/Hindbrain   Gut
+  cell_11995       0.0815        0.184                        0.491 0.175
+  cell_10294       0.1218        0.117                        0.343 0.166
+  cell_9963        0.1083        0.180                        0.366 0.208
             gene sets
 cells        Haematoendothelial progenitors Intermediate mesoderm Mesenchyme
-  cell_11995                         0.0396                0.1627     0.0869
-  cell_10294                         0.0371                0.0387     0.0369
-  cell_9963                          0.3906                0.1157     0.2338
-  cell_11610                         0.0258                0.0444     0.0324
-  cell_10910                         0.1477                0.2265     0.2042
-  cell_11021                         0.0473                0.2016     0.0814
+  cell_11995                          0.148                 0.249      0.157
+  cell_10294                          0.138                 0.212      0.118
+  cell_9963                           0.463                 0.229      0.363
             gene sets
-cells        Neural crest    NMP Paraxial mesoderm Pharyngeal mesoderm
-  cell_11995        0.208 0.1805            0.1889              0.1844
-  cell_10294        0.109 0.0445            0.0226              0.0263
-  cell_9963         0.145 0.1045            0.1706              0.1561
-  cell_11610        0.107 0.0640            0.0195              0.0294
-  cell_10910        0.135 0.2025            0.1437              0.1686
-  cell_11021        0.168 0.3432            0.1255              0.1515
+cells        Neural crest   NMP Paraxial mesoderm Pharyngeal mesoderm
+  cell_11995        0.441 0.365             0.315               0.345
+  cell_10294        0.374 0.272             0.212               0.232
+  cell_9963         0.369 0.295             0.373               0.335
             gene sets
 cells        Somitic mesoderm Spinal cord Surface ectoderm
-  cell_11995           0.1279      0.2592           0.1611
-  cell_10294           0.0203      0.0633           0.0468
-  cell_9963            0.1197      0.1014           0.0850
-  cell_11610           0.0424      0.0692           0.0332
-  cell_10910           0.1787      0.1521           0.1043
-  cell_11021           0.2259      0.1974           0.1509
+  cell_11995            0.311       0.475            0.159
+  cell_10294            0.209       0.320            0.110
+  cell_9963             0.301       0.337            0.133
 ```
 
 We assign cell type identity to each cell in the test dataset by taking
@@ -809,14 +749,14 @@ tab[1:4,1:4]
 ``` output
                 
 new.labels       Allantois Blood progenitors 1 Blood progenitors 2
-  Allantois             44                   0                   0
+  Allantois             34                   0                   0
   Cardiomyocytes         0                   0                   0
-  Endothelium            0                   3                   0
-  Erythroid2             0                   1                   7
+  Endothelium            0                   0                   0
+  Erythroid2             0                   0                   3
                 
 new.labels       Cardiomyocytes
   Allantois                   0
-  Cardiomyocytes             32
+  Cardiomyocytes             27
   Endothelium                 0
   Erythroid2                  0
 ```
@@ -839,7 +779,7 @@ par(mfrow = c(3,3))
 AUCell_exploreThresholds(cell.aucs[1:9], plotHist = TRUE, assign = TRUE) 
 ```
 
-<img src="fig/cell_type_annotation-rendered-auc-dist-1.png" style="display: block; margin: auto;" />
+<img src="fig/cell_type_annotation-rendered-auc-dist-1.png" alt="" style="display: block; margin: auto;" />
 
 Shown is the distribution of AUCs in the wild-type chimera dataset for
 each label in the embryo atlas dataset. The blue curve represents the
@@ -861,7 +801,7 @@ par(mfrow = c(3,3))
 AUCell_exploreThresholds(cell.aucs[10:18], plotHist = TRUE, assign = TRUE) 
 ```
 
-<img src="fig/cell_type_annotation-rendered-auc-dist2-1.png" style="display: block; margin: auto;" />
+<img src="fig/cell_type_annotation-rendered-auc-dist2-1.png" alt="" style="display: block; margin: auto;" />
 
 :::
 
@@ -898,11 +838,21 @@ arg_list <- list(objective_function = "modularity",
 sce$leiden_clust <- clusterCells(sce, use.dimred = "PCA",
                                BLUSPARAM = NNGraphParam(cluster.fun = "leiden", 
                                                         cluster.args = arg_list))
+```
 
+``` error
+Error in `clusterCells()`:
+! could not find function "clusterCells"
+```
+
+``` r
 plotReducedDim(sce, "UMAP", color_by = "leiden_clust")
 ```
 
-<img src="fig/cell_type_annotation-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+``` error
+Error in `retrieveCellInfo()`:
+! cannot find 'leiden_clust'
+```
 
 :::
 :::
@@ -917,13 +867,20 @@ Identify the marker genes in the reference single cell experiment, using the `ce
 
 ``` r
 markers <- scoreMarkers(ref, groups = ref$celltype)
+```
 
+``` error
+Error in `.checkSEX()`:
+! SummarizedExperiment inputs are not supported, use 'scoreMarkers.se()' or extract the relevant 'assay()' instead
+```
+
+``` r
 markers
 ```
 
 ``` output
-List of length 19
-names(19): Allantois Cardiomyocytes ... Spinal cord Surface ectoderm
+List of length 14
+names(14): 1 2 3 4 5 6 7 8 9 10 11 12 13 14
 ```
 
 ``` r
@@ -931,7 +888,7 @@ names(19): Allantois Cardiomyocytes ... Spinal cord Surface ectoderm
 plotReducedDim(ref, dimred = "umap", color_by = "celltype") 
 ```
 
-<img src="fig/cell_type_annotation-rendered-unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
+<img src="fig/cell_type_annotation-rendered-unnamed-chunk-9-1.png" alt="" style="display: block; margin: auto;" />
 
 ``` r
 # Repetitive work -> write a function
@@ -943,14 +900,29 @@ order_marker_df <- function(m_df, n = 100) {
 }
 
 x <- order_marker_df(markers[["Erythroid2"]])
+```
 
+``` error
+Error in `order()`:
+! argument 1 is not a vector
+```
+
+``` r
 y <- order_marker_df(markers[["Erythroid3"]])
+```
 
+``` error
+Error in `order()`:
+! argument 1 is not a vector
+```
+
+``` r
 length(intersect(x,y)) / 100
 ```
 
-``` output
-[1] 0.66
+``` error
+Error in `h()`:
+! error in evaluating the argument 'x' in selecting a method for function 'intersect': object 'x' not found
 ```
 
 Turns out there's pretty substantial overlap between `Erythroid2` and `Erythroid3`. It would also be interesting to plot the expression of the set difference to confirm that the remainder are the the genes used to distinguish these two types from each other.
@@ -1034,21 +1006,21 @@ Remember, this is an exploratory diagnostic, not the final word! At this point i
 -   For manual annotation, cells are first clustered with unsupervised methods
     such as graph-based clustering followed by community detection algorithms such
     as Louvain or Leiden.
--   The `clusterCells` function from the *[scran](https://bioconductor.org/packages/3.22/scran)* package provides different
-    algorithms that are commonly used for the clustering of scRNA-seq data.
+-   The `clusterGraph.se()` function from the *[scrapper](https://bioconductor.org/packages/3.23/scrapper)* package 
+    enables graph clustering for scRNA-seq data.
 -   Once clusters have been obtained, cell type labels are then manually
     assigned to cell clusters by matching cluster-specific upregulated marker
     genes with prior knowledge of cell-type markers.
--   The `scoreMarkers` function from the *[scran](https://bioconductor.org/packages/3.22/scran)* package 
+-   The `scoreMarkers.se()` function from the *[scrapper](https://bioconductor.org/packages/3.23/scrapper)* package 
     package can be used to find candidate marker genes for clusters of cells by
     ranking differential expression between pairs of clusters.
 -   Computational annotation using published reference datasets or curated gene sets
     provides a fast, automated, and reproducible alternative to the manual
     annotation of cell clusters based on marker gene expression.
--   The *[SingleR](https://bioconductor.org/packages/3.22/SingleR)*
+-   The *[SingleR](https://bioconductor.org/packages/3.23/SingleR)*
     package is a popular choice for reference-based annotation and assigns labels
     to cells based on the reference samples with the highest Spearman rank correlations.
--   The *[AUCell](https://bioconductor.org/packages/3.22/AUCell)* package provides an enrichment
+-   The *[AUCell](https://bioconductor.org/packages/3.23/AUCell)* package provides an enrichment
     test to identify curated marker sets that are highly expressed in each cell. 
 :::
 
@@ -1060,21 +1032,23 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.5.3 (2026-03-11)
+R version 4.6.0 (2026-04-24)
 Platform: x86_64-pc-linux-gnu
-Running under: Ubuntu 22.04.5 LTS
+Running under: Ubuntu 24.04.4 LTS
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0 
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0  LAPACK version 3.10.0
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
 
 locale:
- [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
- [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
- [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
-time zone: UTC
+time zone: Etc/UTC
 tzcode source: system (glibc)
 
 attached base packages:
@@ -1082,77 +1056,72 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] GSEABase_1.72.0              graph_1.88.1                
- [3] annotate_1.88.0              XML_3.99-0.20               
- [5] AnnotationDbi_1.72.0         pheatmap_1.0.13             
- [7] scran_1.38.0                 scater_1.38.0               
- [9] ggplot2_4.0.1                scuttle_1.20.0              
-[11] bluster_1.20.0               SingleR_2.12.0              
-[13] MouseGastrulationData_1.24.0 SpatialExperiment_1.20.0    
-[15] SingleCellExperiment_1.32.0  SummarizedExperiment_1.40.0 
-[17] Biobase_2.70.0               GenomicRanges_1.62.1        
-[19] Seqinfo_1.0.0                IRanges_2.44.0              
-[21] S4Vectors_0.48.0             BiocGenerics_0.56.0         
-[23] generics_0.1.4               MatrixGenerics_1.22.0       
-[25] matrixStats_1.5.0            AUCell_1.32.0               
-[27] BiocStyle_2.38.0            
+ [1] GSEABase_1.74.0              graph_1.90.0                
+ [3] annotate_1.90.0              XML_3.99-0.23               
+ [5] AnnotationDbi_1.74.0         pheatmap_1.0.13             
+ [7] scrapper_1.6.3               scater_1.40.2               
+ [9] ggplot2_4.0.3                scuttle_1.22.0              
+[11] bluster_1.22.0               SingleR_2.14.1              
+[13] MouseGastrulationData_1.26.0 SpatialExperiment_1.22.0    
+[15] SingleCellExperiment_1.34.0  SummarizedExperiment_1.42.0 
+[17] Biobase_2.72.0               GenomicRanges_1.64.0        
+[19] Seqinfo_1.2.0                IRanges_2.46.0              
+[21] S4Vectors_0.50.1             BiocGenerics_0.58.1         
+[23] generics_0.1.4               MatrixGenerics_1.24.0       
+[25] matrixStats_1.5.0            AUCell_1.34.0               
+[27] BiocStyle_2.40.0            
 
 loaded via a namespace (and not attached):
   [1] RColorBrewer_1.1-3        jsonlite_2.0.0           
-  [3] magrittr_2.0.4            ggbeeswarm_0.7.3         
-  [5] magick_2.9.0              farver_2.1.2             
-  [7] rmarkdown_2.30            vctrs_0.7.3              
-  [9] memoise_2.0.1             DelayedMatrixStats_1.32.0
- [11] htmltools_0.5.9           S4Arrays_1.10.1          
- [13] AnnotationHub_4.0.0       curl_7.0.0               
- [15] BiocNeighbors_2.4.0       SparseArray_1.10.7       
- [17] htmlwidgets_1.6.4         httr2_1.2.2              
- [19] plotly_4.11.0             cachem_1.1.0             
- [21] igraph_2.2.1              lifecycle_1.0.5          
+  [3] magrittr_2.0.5            ggbeeswarm_0.7.3         
+  [5] magick_2.9.1              farver_2.1.2             
+  [7] rmarkdown_2.31            vctrs_0.7.3              
+  [9] memoise_2.0.1             DelayedMatrixStats_1.34.0
+ [11] htmltools_0.5.9           S4Arrays_1.12.0          
+ [13] AnnotationHub_4.2.2       curl_7.1.0               
+ [15] BiocNeighbors_2.6.0       SparseArray_1.12.2       
+ [17] htmlwidgets_1.6.4         httr2_1.3.0              
+ [19] plotly_4.12.1             cachem_1.1.0             
+ [21] igraph_2.3.3              lifecycle_1.0.5          
  [23] pkgconfig_2.0.3           rsvd_1.0.5               
- [25] Matrix_1.7-4              R6_2.6.1                 
+ [25] Matrix_1.7-6              R6_2.6.1                 
  [27] fastmap_1.2.0             digest_0.6.39            
- [29] dqrng_0.4.1               RSpectra_0.16-2          
- [31] irlba_2.3.5.1             ExperimentHub_3.0.0      
- [33] RSQLite_2.4.5             beachmat_2.26.0          
- [35] filelock_1.0.3            labeling_0.4.3           
- [37] httr_1.4.7                abind_1.4-8              
- [39] compiler_4.5.3            bit64_4.6.0-1            
- [41] withr_3.0.2               S7_0.2.1                 
- [43] BiocParallel_1.44.0       viridis_0.6.5            
- [45] DBI_1.2.3                 R.utils_2.13.0           
- [47] MASS_7.3-65               rappdirs_0.3.3           
- [49] DelayedArray_0.36.0       rjson_0.2.23             
- [51] tools_4.5.3               vipor_0.4.7              
- [53] otel_0.2.0                beeswarm_0.4.0           
- [55] R.oo_1.27.1               glue_1.8.0               
- [57] nlme_3.1-168              grid_4.5.3               
- [59] cluster_2.1.8.1           gtable_0.3.6             
- [61] R.methodsS3_1.8.2         tidyr_1.3.1              
- [63] data.table_1.17.8         BiocSingular_1.26.1      
- [65] ScaledMatrix_1.18.0       metapod_1.18.0           
- [67] XVector_0.50.0            ggrepel_0.9.6            
- [69] BiocVersion_3.22.0        pillar_1.11.1            
- [71] limma_3.66.0              BumpyMatrix_1.18.0       
- [73] splines_4.5.3             dplyr_1.1.4              
- [75] BiocFileCache_3.0.0       lattice_0.22-7           
- [77] survival_3.8-3            renv_1.2.2               
- [79] FNN_1.1.4.1               bit_4.6.0                
- [81] tidyselect_1.2.1          locfit_1.5-9.12          
- [83] Biostrings_2.78.0         knitr_1.50               
- [85] gridExtra_2.3             edgeR_4.8.1              
- [87] xfun_0.55                 mixtools_2.0.0.1         
- [89] statmod_1.5.1             lazyeval_0.2.2           
- [91] yaml_2.3.12               evaluate_1.0.5           
- [93] codetools_0.2-20          kernlab_0.9-33           
- [95] tibble_3.3.0              BiocManager_1.30.27      
- [97] cli_3.6.5                 uwot_0.2.4               
- [99] xtable_1.8-4              segmented_2.1-4          
-[101] Rcpp_1.1.1-1.1            dbplyr_2.5.1             
-[103] png_0.1-8                 parallel_4.5.3           
-[105] blob_1.2.4                sparseMatrixStats_1.22.0 
-[107] viridisLite_0.4.2         scales_1.4.0             
-[109] purrr_1.2.0               crayon_1.5.3             
-[111] rlang_1.2.0               formatR_1.14             
-[113] cowplot_1.2.0             KEGGREST_1.50.0          
+ [29] irlba_2.3.7               ExperimentHub_3.2.0      
+ [31] RSQLite_3.53.3            beachmat_2.28.0          
+ [33] filelock_1.0.3            labeling_0.4.3           
+ [35] httr_1.4.8                abind_1.4-8              
+ [37] compiler_4.6.0            bit64_4.8.2              
+ [39] withr_3.0.3               S7_0.2.2                 
+ [41] BiocParallel_1.46.0       viridis_0.6.5            
+ [43] DBI_1.3.0                 R.utils_2.13.0           
+ [45] MASS_7.3-66               rappdirs_0.3.4           
+ [47] DelayedArray_0.38.2       rjson_0.2.23             
+ [49] tools_4.6.0               vipor_0.4.7              
+ [51] otel_0.2.0                beeswarm_0.4.0           
+ [53] R.oo_1.27.1               glue_1.8.1               
+ [55] nlme_3.1-170              grid_4.6.0               
+ [57] cluster_2.1.8.3           gtable_0.3.6             
+ [59] R.methodsS3_1.8.2         tidyr_1.3.2              
+ [61] data.table_1.18.4         BiocSingular_1.28.0      
+ [63] ScaledMatrix_1.20.0       XVector_0.52.0           
+ [65] ggrepel_0.9.8             BiocVersion_3.23.1       
+ [67] pillar_1.11.1             BumpyMatrix_1.20.0       
+ [69] splines_4.6.0             dplyr_1.2.1              
+ [71] BiocFileCache_3.2.0       lattice_0.22-9           
+ [73] renv_1.2.4                survival_3.8-9           
+ [75] bit_4.6.0                 tidyselect_1.2.1         
+ [77] Biostrings_2.80.1         knitr_1.51               
+ [79] gridExtra_2.3.1           xfun_0.60                
+ [81] mixtools_2.0.0.1          yaml_2.3.12              
+ [83] evaluate_1.0.5            codetools_0.2-20         
+ [85] kernlab_0.9-33            tibble_3.3.1             
+ [87] BiocManager_1.30.27       cli_3.6.6                
+ [89] xtable_1.8-8              segmented_2.2-1          
+ [91] Rcpp_1.1.2                dbplyr_2.6.0             
+ [93] png_0.1-9                 parallel_4.6.0           
+ [95] blob_1.3.0                sparseMatrixStats_1.24.0 
+ [97] viridisLite_0.4.3         scales_1.4.0             
+ [99] purrr_1.2.2               crayon_1.5.3             
+[101] rlang_1.3.0               formatR_1.14             
+[103] KEGGREST_1.52.2          
 ```

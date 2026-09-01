@@ -435,7 +435,7 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.6.0 (2026-04-24)
+R version 4.6.1 (2026-06-24)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 24.04.4 LTS
 
@@ -472,14 +472,14 @@ other attached packages:
 loaded via a namespace (and not attached):
  [1] DBI_1.3.0            formatR_1.14         gridExtra_2.3.1     
  [4] httr2_1.3.0          rlang_1.3.0          magrittr_2.0.5      
- [7] otel_0.2.0           compiler_4.6.0       RSQLite_3.53.3      
+ [7] otel_0.2.0           compiler_4.6.1       RSQLite_3.53.3      
 [10] png_0.1-9            vctrs_0.7.3          pkgconfig_2.0.3     
 [13] crayon_1.5.3         fastmap_1.2.0        dbplyr_2.6.0        
 [16] magick_2.9.1         XVector_0.52.0       labeling_0.4.3      
 [19] rmarkdown_2.31       ggbeeswarm_0.7.3     purrr_1.2.2         
 [22] bit_4.6.0            xfun_0.60            cachem_1.1.0        
 [25] beachmat_2.28.0      blob_1.3.0           DelayedArray_0.38.2 
-[28] BiocParallel_1.46.0  irlba_2.3.7          parallel_4.6.0      
+[28] BiocParallel_1.46.0  irlba_2.3.7          parallel_4.6.1      
 [31] R6_2.6.1             RColorBrewer_1.1-3   Rcpp_1.1.2          
 [34] knitr_1.51           Matrix_1.7-6         tidyselect_1.2.1    
 [37] abind_1.4-8          yaml_2.3.12          viridis_0.6.5       
@@ -489,8 +489,8 @@ loaded via a namespace (and not attached):
 [49] BiocFileCache_3.2.0  ExperimentHub_3.2.0  Biostrings_2.80.1   
 [52] pillar_1.11.1        BiocManager_1.30.27  filelock_1.0.3      
 [55] renv_1.2.4           BiocVersion_3.23.1   scales_1.4.0        
-[58] glue_1.8.1           tools_4.6.0          AnnotationHub_4.2.2 
-[61] BiocNeighbors_2.6.0  ScaledMatrix_1.20.0  grid_4.6.0          
+[58] glue_1.8.1           tools_4.6.1          AnnotationHub_4.2.2 
+[61] BiocNeighbors_2.6.0  ScaledMatrix_1.20.0  grid_4.6.1          
 [64] AnnotationDbi_1.74.0 beeswarm_0.4.0       BiocSingular_1.28.0 
 [67] vipor_0.4.7          cli_3.6.6            rsvd_1.0.5          
 [70] rappdirs_0.3.4       S4Arrays_1.12.0      viridisLite_0.4.3   

@@ -1070,7 +1070,7 @@ other attached packages:
 [13] SpatialExperiment_1.22.0     SingleCellExperiment_1.34.0 
 [15] SummarizedExperiment_1.42.0  Biobase_2.72.0              
 [17] GenomicRanges_1.64.0         Seqinfo_1.2.0               
-[19] IRanges_2.46.0               S4Vectors_0.50.1            
+[19] IRanges_2.46.0               S4Vectors_0.50.2            
 [21] BiocGenerics_0.58.1          generics_0.1.4              
 [23] MatrixGenerics_1.24.0        matrixStats_1.5.0           
 [25] BiocStyle_2.40.0            
@@ -1082,9 +1082,9 @@ loaded via a namespace (and not attached):
   [7] rmarkdown_2.31            BiocIO_1.22.0            
   [9] vctrs_0.7.3               memoise_2.0.1            
  [11] Rsamtools_2.28.0          DelayedMatrixStats_1.34.0
- [13] RCurl_1.98-1.19           htmltools_0.5.9          
+ [13] RCurl_1.98-1.20           htmltools_0.5.9          
  [15] S4Arrays_1.12.0           AnnotationHub_4.2.2      
- [17] curl_7.1.0                BiocNeighbors_2.6.0      
+ [17] curl_8.0.0                BiocNeighbors_2.6.0      
  [19] xgboost_3.2.1.1           Rhdf5lib_2.0.0           
  [21] SparseArray_1.12.2        rhdf5_2.56.0             
  [23] httr2_1.3.0               cachem_1.1.0             
@@ -1093,35 +1093,35 @@ loaded via a namespace (and not attached):
  [29] rsvd_1.0.5                Matrix_1.7-6             
  [31] R6_2.6.1                  fastmap_1.2.0            
  [33] digest_0.6.39             dqrng_0.4.1              
- [35] irlba_2.3.7               ExperimentHub_3.2.0      
+ [35] irlba_2.3.7               ExperimentHub_3.2.2      
  [37] RSQLite_3.53.3            beachmat_2.28.0          
  [39] labeling_0.4.3            filelock_1.0.3           
  [41] httr_1.4.8                abind_1.4-8              
- [43] compiler_4.6.1            bit64_4.8.2              
+ [43] compiler_4.6.1            bit64_4.8.4              
  [45] withr_3.0.3               S7_0.2.2                 
  [47] BiocParallel_1.46.0       viridis_0.6.5            
  [49] DBI_1.3.0                 HDF5Array_1.40.0         
- [51] R.utils_2.13.0            MASS_7.3-66              
+ [51] R.utils_2.13.0            MASS_7.3-65              
  [53] rappdirs_0.3.4            DelayedArray_0.38.2      
  [55] bluster_1.22.0            rjson_0.2.23             
  [57] tools_4.6.1               vipor_0.4.7              
  [59] otel_0.2.0                beeswarm_0.4.0           
  [61] R.oo_1.27.1               glue_1.8.1               
- [63] h5mread_1.4.0             restfulr_0.0.17          
+ [63] h5mread_1.4.1             restfulr_0.0.17          
  [65] rhdf5filters_1.24.1       grid_4.6.1               
  [67] cluster_2.1.8.3           gtable_0.3.6             
- [69] R.methodsS3_1.8.2         data.table_1.18.4        
+ [69] R.methodsS3_1.8.2         data.table_1.18.6.1      
  [71] metapod_1.20.0            BiocSingular_1.28.0      
  [73] ScaledMatrix_1.20.0       XVector_0.52.0           
  [75] ggrepel_0.9.8             BiocVersion_3.23.1       
- [77] pillar_1.11.1             limma_3.68.4             
+ [77] pillar_1.11.1             limma_3.68.5             
  [79] BumpyMatrix_1.20.0        dplyr_1.2.1              
- [81] BiocFileCache_3.2.0       lattice_0.22-9           
+ [81] BiocFileCache_3.2.0       lattice_0.23-1           
  [83] renv_1.2.4                rtracklayer_1.72.0       
  [85] bit_4.6.0                 tidyselect_1.2.1         
  [87] locfit_1.5-9.12           Biostrings_2.80.1        
  [89] knitr_1.51                gridExtra_2.3.1          
- [91] ProtGenerics_1.44.0       edgeR_4.10.1             
+ [91] ProtGenerics_1.44.0       edgeR_4.10.3             
  [93] xfun_0.60                 statmod_1.5.2            
  [95] UCSC.utils_1.8.0          lazyeval_0.2.3           
  [97] yaml_2.3.12               evaluate_1.0.5           
@@ -1129,7 +1129,7 @@ loaded via a namespace (and not attached):
 [101] tibble_3.3.1              BiocManager_1.30.27      
 [103] cli_3.6.6                 Rcpp_1.1.2               
 [105] GenomeInfoDb_1.48.0       dbplyr_2.6.0             
-[107] png_0.1-9                 XML_3.99-0.23            
+[107] png_0.1-9                 XML_3.99-0.24            
 [109] parallel_4.6.1            blob_1.3.0               
 [111] scran_1.40.0              sparseMatrixStats_1.24.0 
 [113] bitops_1.1-0              viridisLite_0.4.3        

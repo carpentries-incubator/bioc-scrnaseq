@@ -397,7 +397,7 @@ system.time({s1 <- svd(t(input_mat))})
 
 ``` output
    user  system elapsed 
-  0.398   0.142   0.469 
+  0.294   0.082   0.145 
 ```
 
 ``` r
@@ -406,7 +406,7 @@ system.time({i1 <- runPca(input_mat)})
 
 ``` output
    user  system elapsed 
-  0.044   0.000   0.044 
+  0.035   0.000   0.036 
 ```
 
 Beyond IRLBA, another algorithm called randomized SVD (RSVD) goes further in the
@@ -735,14 +735,14 @@ other attached packages:
  [3] BiocNeighbors_2.6.0          MouseGastrulationData_1.26.0
  [5] SpatialExperiment_1.22.0     BiocParallel_1.46.0         
  [7] scrapper_1.6.3               TENxBrainData_1.32.0        
- [9] HDF5Array_1.40.0             h5mread_1.4.0               
+ [9] HDF5Array_1.40.0             h5mread_1.4.1               
 [11] rhdf5_2.56.0                 DelayedArray_0.38.2         
 [13] SparseArray_1.12.2           S4Arrays_1.12.0             
 [15] abind_1.4-8                  Matrix_1.7-6                
 [17] SingleCellExperiment_1.34.0  SummarizedExperiment_1.42.0 
 [19] Biobase_2.72.0               GenomicRanges_1.64.0        
 [21] Seqinfo_1.2.0                IRanges_2.46.0              
-[23] S4Vectors_0.50.1             BiocGenerics_0.58.1         
+[23] S4Vectors_0.50.2             BiocGenerics_0.58.1         
 [25] generics_0.1.4               MatrixGenerics_1.24.0       
 [27] matrixStats_1.5.0            BiocStyle_2.40.0            
 
@@ -759,10 +759,10 @@ loaded via a namespace (and not attached):
 [28] Rhdf5lib_2.0.0       parallel_4.6.1       R6_2.6.1            
 [31] RColorBrewer_1.1-3   reticulate_1.46.0    Rcpp_1.1.2          
 [34] knitr_1.51           tidyselect_1.2.1     yaml_2.3.12         
-[37] codetools_0.2-20     curl_7.1.0           lattice_0.22-9      
+[37] codetools_0.2-20     curl_8.0.0           lattice_0.23-1      
 [40] tibble_3.3.1         withr_3.0.3          KEGGREST_1.52.2     
 [43] BumpyMatrix_1.20.0   S7_0.2.2             evaluate_1.0.5      
-[46] BiocFileCache_3.2.0  ExperimentHub_3.2.0  Biostrings_2.80.1   
+[46] BiocFileCache_3.2.0  ExperimentHub_3.2.2  Biostrings_2.80.1   
 [49] pillar_1.11.1        BiocManager_1.30.27  filelock_1.0.3      
 [52] renv_1.2.4           BiocVersion_3.23.1   scales_1.4.0        
 [55] glue_1.8.1           tools_4.6.1          AnnotationHub_4.2.2 
@@ -770,5 +770,5 @@ loaded via a namespace (and not attached):
 [61] cli_3.6.6            rappdirs_0.3.4       dplyr_1.2.1         
 [64] gtable_0.3.6         digest_0.6.39        rjson_0.2.23        
 [67] farver_2.1.2         memoise_2.0.1        htmltools_0.5.9     
-[70] lifecycle_1.0.5      httr_1.4.8           bit64_4.8.2         
+[70] lifecycle_1.0.5      httr_1.4.8           bit64_4.8.4         
 ```

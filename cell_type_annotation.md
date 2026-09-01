@@ -1057,7 +1057,7 @@ attached base packages:
 
 other attached packages:
  [1] GSEABase_1.74.0              graph_1.90.0                
- [3] annotate_1.90.0              XML_3.99-0.23               
+ [3] annotate_1.90.0              XML_3.99-0.24               
  [5] AnnotationDbi_1.74.0         pheatmap_1.0.13             
  [7] scrapper_1.6.3               scater_1.40.2               
  [9] ggplot2_4.0.3                scuttle_1.22.0              
@@ -1066,7 +1066,7 @@ other attached packages:
 [15] SingleCellExperiment_1.34.0  SummarizedExperiment_1.42.0 
 [17] Biobase_2.72.0               GenomicRanges_1.64.0        
 [19] Seqinfo_1.2.0                IRanges_2.46.0              
-[21] S4Vectors_0.50.1             BiocGenerics_0.58.1         
+[21] S4Vectors_0.50.2             BiocGenerics_0.58.1         
 [23] generics_0.1.4               MatrixGenerics_1.24.0       
 [25] matrixStats_1.5.0            AUCell_1.34.0               
 [27] BiocStyle_2.40.0            
@@ -1078,7 +1078,7 @@ loaded via a namespace (and not attached):
   [7] rmarkdown_2.31            vctrs_0.7.3              
   [9] memoise_2.0.1             DelayedMatrixStats_1.34.0
  [11] htmltools_0.5.9           S4Arrays_1.12.0          
- [13] AnnotationHub_4.2.2       curl_7.1.0               
+ [13] AnnotationHub_4.2.2       curl_8.0.0               
  [15] BiocNeighbors_2.6.0       SparseArray_1.12.2       
  [17] htmlwidgets_1.6.4         httr2_1.3.0              
  [19] plotly_4.12.1             cachem_1.1.0             
@@ -1086,29 +1086,29 @@ loaded via a namespace (and not attached):
  [23] pkgconfig_2.0.3           rsvd_1.0.5               
  [25] Matrix_1.7-6              R6_2.6.1                 
  [27] fastmap_1.2.0             digest_0.6.39            
- [29] irlba_2.3.7               ExperimentHub_3.2.0      
+ [29] irlba_2.3.7               ExperimentHub_3.2.2      
  [31] RSQLite_3.53.3            beachmat_2.28.0          
  [33] filelock_1.0.3            labeling_0.4.3           
  [35] httr_1.4.8                abind_1.4-8              
- [37] compiler_4.6.1            bit64_4.8.2              
+ [37] compiler_4.6.1            bit64_4.8.4              
  [39] withr_3.0.3               S7_0.2.2                 
  [41] BiocParallel_1.46.0       viridis_0.6.5            
  [43] DBI_1.3.0                 R.utils_2.13.0           
- [45] MASS_7.3-66               rappdirs_0.3.4           
+ [45] MASS_7.3-65               rappdirs_0.3.4           
  [47] DelayedArray_0.38.2       rjson_0.2.23             
  [49] tools_4.6.1               vipor_0.4.7              
  [51] otel_0.2.0                beeswarm_0.4.0           
  [53] R.oo_1.27.1               glue_1.8.1               
- [55] nlme_3.1-170              grid_4.6.1               
+ [55] nlme_3.1-169              grid_4.6.1               
  [57] cluster_2.1.8.3           gtable_0.3.6             
  [59] R.methodsS3_1.8.2         tidyr_1.3.2              
- [61] data.table_1.18.4         BiocSingular_1.28.0      
+ [61] data.table_1.18.6.1       BiocSingular_1.28.0      
  [63] ScaledMatrix_1.20.0       XVector_0.52.0           
  [65] ggrepel_0.9.8             BiocVersion_3.23.1       
  [67] pillar_1.11.1             BumpyMatrix_1.20.0       
  [69] splines_4.6.1             dplyr_1.2.1              
- [71] BiocFileCache_3.2.0       lattice_0.22-9           
- [73] renv_1.2.4                survival_3.8-9           
+ [71] BiocFileCache_3.2.0       lattice_0.23-1           
+ [73] renv_1.2.4                survival_3.8-6           
  [75] bit_4.6.0                 tidyselect_1.2.1         
  [77] Biostrings_2.80.1         knitr_1.51               
  [79] gridExtra_2.3.1           xfun_0.60                

@@ -464,7 +464,7 @@ other attached packages:
  [5] SpatialExperiment_1.22.0     SingleCellExperiment_1.34.0 
  [7] SummarizedExperiment_1.42.0  Biobase_2.72.0              
  [9] GenomicRanges_1.64.0         Seqinfo_1.2.0               
-[11] IRanges_2.46.0               S4Vectors_0.50.1            
+[11] IRanges_2.46.0               S4Vectors_0.50.2            
 [13] BiocGenerics_0.58.1          generics_0.1.4              
 [15] MatrixGenerics_1.24.0        matrixStats_1.5.0           
 [17] BiocStyle_2.40.0            
@@ -483,10 +483,10 @@ loaded via a namespace (and not attached):
 [31] R6_2.6.1             RColorBrewer_1.1-3   Rcpp_1.1.2          
 [34] knitr_1.51           Matrix_1.7-6         tidyselect_1.2.1    
 [37] abind_1.4-8          yaml_2.3.12          viridis_0.6.5       
-[40] codetools_0.2-20     curl_7.1.0           lattice_0.22-9      
+[40] codetools_0.2-20     curl_8.0.0           lattice_0.23-1      
 [43] tibble_3.3.1         withr_3.0.3          KEGGREST_1.52.2     
 [46] BumpyMatrix_1.20.0   S7_0.2.2             evaluate_1.0.5      
-[49] BiocFileCache_3.2.0  ExperimentHub_3.2.0  Biostrings_2.80.1   
+[49] BiocFileCache_3.2.0  ExperimentHub_3.2.2  Biostrings_2.80.1   
 [52] pillar_1.11.1        BiocManager_1.30.27  filelock_1.0.3      
 [55] renv_1.2.4           BiocVersion_3.23.1   scales_1.4.0        
 [58] glue_1.8.1           tools_4.6.1          AnnotationHub_4.2.2 
@@ -497,6 +497,6 @@ loaded via a namespace (and not attached):
 [73] dplyr_1.2.1          gtable_0.3.6         digest_0.6.39       
 [76] SparseArray_1.12.2   ggrepel_0.9.8        rjson_0.2.23        
 [79] farver_2.1.2         memoise_2.0.1        htmltools_0.5.9     
-[82] lifecycle_1.0.5      httr_1.4.8           bit64_4.8.2         
+[82] lifecycle_1.0.5      httr_1.4.8           bit64_4.8.4         
 ```
 

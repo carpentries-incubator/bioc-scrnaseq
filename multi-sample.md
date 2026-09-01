@@ -989,12 +989,12 @@ attached base packages:
 other attached packages:
  [1] pheatmap_1.0.13              scrapper_1.6.3              
  [3] scater_1.40.2                ggplot2_4.0.3               
- [5] scuttle_1.22.0               edgeR_4.10.1                
- [7] limma_3.68.4                 MouseGastrulationData_1.26.0
+ [5] scuttle_1.22.0               edgeR_4.10.3                
+ [7] limma_3.68.5                 MouseGastrulationData_1.26.0
  [9] SpatialExperiment_1.22.0     SingleCellExperiment_1.34.0 
 [11] SummarizedExperiment_1.42.0  Biobase_2.72.0              
 [13] GenomicRanges_1.64.0         Seqinfo_1.2.0               
-[15] IRanges_2.46.0               S4Vectors_0.50.1            
+[15] IRanges_2.46.0               S4Vectors_0.50.2            
 [17] BiocGenerics_0.58.1          generics_0.1.4              
 [19] MatrixGenerics_1.24.0        matrixStats_1.5.0           
 [21] BiocStyle_2.40.0            
@@ -1013,10 +1013,10 @@ loaded via a namespace (and not attached):
 [31] R6_2.6.1             RColorBrewer_1.1-3   Rcpp_1.1.2          
 [34] knitr_1.51           splines_4.6.1        Matrix_1.7-6        
 [37] tidyselect_1.2.1     abind_1.4-8          yaml_2.3.12         
-[40] viridis_0.6.5        codetools_0.2-20     curl_7.1.0          
-[43] lattice_0.22-9       tibble_3.3.1         withr_3.0.3         
+[40] viridis_0.6.5        codetools_0.2-20     curl_8.0.0          
+[43] lattice_0.23-1       tibble_3.3.1         withr_3.0.3         
 [46] KEGGREST_1.52.2      BumpyMatrix_1.20.0   S7_0.2.2            
-[49] evaluate_1.0.5       BiocFileCache_3.2.0  ExperimentHub_3.2.0 
+[49] evaluate_1.0.5       BiocFileCache_3.2.0  ExperimentHub_3.2.2 
 [52] Biostrings_2.80.1    pillar_1.11.1        BiocManager_1.30.27 
 [55] filelock_1.0.3       renv_1.2.4           BiocVersion_3.23.1  
 [58] scales_1.4.0         glue_1.8.1           tools_4.6.1         
@@ -1028,6 +1028,6 @@ loaded via a namespace (and not attached):
 [76] gtable_0.3.6         digest_0.6.39        SparseArray_1.12.2  
 [79] ggrepel_0.9.8        rjson_0.2.23         farver_2.1.2        
 [82] memoise_2.0.1        htmltools_0.5.9      lifecycle_1.0.5     
-[85] httr_1.4.8           statmod_1.5.2        bit64_4.8.2         
+[85] httr_1.4.8           statmod_1.5.2        bit64_4.8.4         
 ```
 

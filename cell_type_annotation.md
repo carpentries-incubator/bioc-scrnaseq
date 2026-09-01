@@ -1032,7 +1032,7 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.6.0 (2026-04-24)
+R version 4.6.1 (2026-06-24)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 24.04.4 LTS
 
@@ -1090,23 +1090,23 @@ loaded via a namespace (and not attached):
  [31] RSQLite_3.53.3            beachmat_2.28.0          
  [33] filelock_1.0.3            labeling_0.4.3           
  [35] httr_1.4.8                abind_1.4-8              
- [37] compiler_4.6.0            bit64_4.8.2              
+ [37] compiler_4.6.1            bit64_4.8.2              
  [39] withr_3.0.3               S7_0.2.2                 
  [41] BiocParallel_1.46.0       viridis_0.6.5            
  [43] DBI_1.3.0                 R.utils_2.13.0           
  [45] MASS_7.3-66               rappdirs_0.3.4           
  [47] DelayedArray_0.38.2       rjson_0.2.23             
- [49] tools_4.6.0               vipor_0.4.7              
+ [49] tools_4.6.1               vipor_0.4.7              
  [51] otel_0.2.0                beeswarm_0.4.0           
  [53] R.oo_1.27.1               glue_1.8.1               
- [55] nlme_3.1-170              grid_4.6.0               
+ [55] nlme_3.1-170              grid_4.6.1               
  [57] cluster_2.1.8.3           gtable_0.3.6             
  [59] R.methodsS3_1.8.2         tidyr_1.3.2              
  [61] data.table_1.18.4         BiocSingular_1.28.0      
  [63] ScaledMatrix_1.20.0       XVector_0.52.0           
  [65] ggrepel_0.9.8             BiocVersion_3.23.1       
  [67] pillar_1.11.1             BumpyMatrix_1.20.0       
- [69] splines_4.6.0             dplyr_1.2.1              
+ [69] splines_4.6.1             dplyr_1.2.1              
  [71] BiocFileCache_3.2.0       lattice_0.22-9           
  [73] renv_1.2.4                survival_3.8-9           
  [75] bit_4.6.0                 tidyselect_1.2.1         
@@ -1118,7 +1118,7 @@ loaded via a namespace (and not attached):
  [87] BiocManager_1.30.27       cli_3.6.6                
  [89] xtable_1.8-8              segmented_2.2-1          
  [91] Rcpp_1.1.2                dbplyr_2.6.0             
- [93] png_0.1-9                 parallel_4.6.0           
+ [93] png_0.1-9                 parallel_4.6.1           
  [95] blob_1.3.0                sparseMatrixStats_1.24.0 
  [97] viridisLite_0.4.3         scales_1.4.0             
  [99] purrr_1.2.2               crayon_1.5.3             

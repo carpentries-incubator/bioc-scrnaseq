@@ -397,7 +397,7 @@ system.time({s1 <- svd(t(input_mat))})
 
 ``` output
    user  system elapsed 
-  0.373   0.139   0.457 
+  0.398   0.142   0.469 
 ```
 
 ``` r
@@ -406,7 +406,7 @@ system.time({i1 <- runPca(input_mat)})
 
 ``` output
    user  system elapsed 
-  0.045   0.000   0.044 
+  0.044   0.000   0.044 
 ```
 
 Beyond IRLBA, another algorithm called randomized SVD (RSVD) goes further in the
@@ -707,7 +707,7 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.6.0 (2026-04-24)
+R version 4.6.1 (2026-06-24)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 24.04.4 LTS
 
@@ -749,14 +749,14 @@ other attached packages:
 loaded via a namespace (and not attached):
  [1] DBI_1.3.0            httr2_1.3.0          formatR_1.14        
  [4] rlang_1.3.0          magrittr_2.0.5       otel_0.2.0          
- [7] compiler_4.6.0       RSQLite_3.53.3       dir.expiry_1.20.0   
+ [7] compiler_4.6.1       RSQLite_3.53.3       dir.expiry_1.20.0   
 [10] png_0.1-9            vctrs_0.7.3          pkgconfig_2.0.3     
 [13] crayon_1.5.3         fastmap_1.2.0        dbplyr_2.6.0        
 [16] magick_2.9.1         XVector_0.52.0       labeling_0.4.3      
 [19] rmarkdown_2.31       purrr_1.2.2          bit_4.6.0           
 [22] xfun_0.60            cachem_1.1.0         beachmat_2.28.0     
 [25] jsonlite_2.0.0       blob_1.3.0           rhdf5filters_1.24.1 
-[28] Rhdf5lib_2.0.0       parallel_4.6.0       R6_2.6.1            
+[28] Rhdf5lib_2.0.0       parallel_4.6.1       R6_2.6.1            
 [31] RColorBrewer_1.1-3   reticulate_1.46.0    Rcpp_1.1.2          
 [34] knitr_1.51           tidyselect_1.2.1     yaml_2.3.12         
 [37] codetools_0.2-20     curl_7.1.0           lattice_0.22-9      
@@ -765,8 +765,8 @@ loaded via a namespace (and not attached):
 [46] BiocFileCache_3.2.0  ExperimentHub_3.2.0  Biostrings_2.80.1   
 [49] pillar_1.11.1        BiocManager_1.30.27  filelock_1.0.3      
 [52] renv_1.2.4           BiocVersion_3.23.1   scales_1.4.0        
-[55] glue_1.8.1           tools_4.6.0          AnnotationHub_4.2.2 
-[58] grid_4.6.0           AnnotationDbi_1.74.0 basilisk_1.24.0     
+[55] glue_1.8.1           tools_4.6.1          AnnotationHub_4.2.2 
+[58] grid_4.6.1           AnnotationDbi_1.74.0 basilisk_1.24.0     
 [61] cli_3.6.6            rappdirs_0.3.4       dplyr_1.2.1         
 [64] gtable_0.3.6         digest_0.6.39        rjson_0.2.23        
 [67] farver_2.1.2         memoise_2.0.1        htmltools_0.5.9     

@@ -352,7 +352,7 @@
         
 <section id="aio-intro-sce"><p>Content from <a href="intro-sce.html">Introduction to Bioconductor and the SingleCellExperiment class</a></p>
 <hr>
-<p>Last updated on 2026-08-25 |
+<p>Last updated on 2026-09-01 |
 
         <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/edit/main/episodes/intro-sce.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -528,7 +528,7 @@ manner.</p>
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> Benefits of using the integrated SingleCellExperiment data container </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
 <div class="accordion-body">
 <p>The complexity of the <code>SingleCellExperiment</code> container
 might be a little bit intimidating in the beginning. One might be
@@ -612,7 +612,7 @@ methods.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Here we obtain the sixth sample and assign it to
 <code>sce6</code>:</p>
@@ -759,7 +759,7 @@ cell_9771    1.15439     28795</code></pre>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>Here, we add a column of named <code>conservation</code> that could
 represent an evolutionary conservation score.</p>
@@ -841,7 +841,7 @@ or with some fake data in it) and add one or more columns as
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <p>The <code>SingleCellExperiment</code> constructor function can be
 used to create a new <code>SingleCellExperiment</code> object.</p>
@@ -854,7 +854,7 @@ used to create a new <code>SingleCellExperiment</code> object.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -908,7 +908,7 @@ created before.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1001,7 +1001,7 @@ Nature 566, 7745:490-495.</li>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>R version 4.6.0 (2026-04-24)
+<pre class="output" tabindex="0"><code>R version 4.6.1 (2026-06-24)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 24.04.4 LTS
 
@@ -1038,14 +1038,14 @@ other attached packages:
 loaded via a namespace (and not attached):
  [1] DBI_1.3.0            formatR_1.14         gridExtra_2.3.1
  [4] httr2_1.3.0          rlang_1.3.0          magrittr_2.0.5
- [7] otel_0.2.0           compiler_4.6.0       RSQLite_3.53.3
+ [7] otel_0.2.0           compiler_4.6.1       RSQLite_3.53.3
 [10] png_0.1-9            vctrs_0.7.3          pkgconfig_2.0.3
 [13] crayon_1.5.3         fastmap_1.2.0        dbplyr_2.6.0
 [16] magick_2.9.1         XVector_0.52.0       labeling_0.4.3
 [19] rmarkdown_2.31       ggbeeswarm_0.7.3     purrr_1.2.2
 [22] bit_4.6.0            xfun_0.60            cachem_1.1.0
 [25] beachmat_2.28.0      blob_1.3.0           DelayedArray_0.38.2
-[28] BiocParallel_1.46.0  irlba_2.3.7          parallel_4.6.0
+[28] BiocParallel_1.46.0  irlba_2.3.7          parallel_4.6.1
 [31] R6_2.6.1             RColorBrewer_1.1-3   Rcpp_1.1.2
 [34] knitr_1.51           Matrix_1.7-6         tidyselect_1.2.1
 [37] abind_1.4-8          yaml_2.3.12          viridis_0.6.5
@@ -1055,8 +1055,8 @@ loaded via a namespace (and not attached):
 [49] BiocFileCache_3.2.0  ExperimentHub_3.2.0  Biostrings_2.80.1
 [52] pillar_1.11.1        BiocManager_1.30.27  filelock_1.0.3
 [55] renv_1.2.4           BiocVersion_3.23.1   scales_1.4.0
-[58] glue_1.8.1           tools_4.6.0          AnnotationHub_4.2.2
-[61] BiocNeighbors_2.6.0  ScaledMatrix_1.20.0  grid_4.6.0
+[58] glue_1.8.1           tools_4.6.1          AnnotationHub_4.2.2
+[61] BiocNeighbors_2.6.0  ScaledMatrix_1.20.0  grid_4.6.1
 [64] AnnotationDbi_1.74.0 beeswarm_0.4.0       BiocSingular_1.28.0
 [67] vipor_0.4.7          cli_3.6.6            rsvd_1.0.5
 [70] rappdirs_0.3.4       S4Arrays_1.12.0      viridisLite_0.4.3
@@ -1071,7 +1071,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-eda_qc"><p>Content from <a href="eda_qc.html">Exploratory data analysis and quality control</a></p>
 <hr>
-<p>Last updated on 2026-08-25 |
+<p>Last updated on 2026-09-01 |
 
         <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/edit/main/episodes/eda_qc.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2448,11 +2448,11 @@ amount of sample-preparation work.</p>
 </div>
 </div>
 </div>
-<div id="extension-challenge-2-background-research" class="callout discussion">
+<div id="extension-challenge-2-background-research" class="callout challenge">
 <div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
+<i class="callout-icon" data-feather="zap"></i>
 </div>
-<span class="callout-header">Discussion</span>
+<span class="callout-header">Challenge</span>
 <div id="extension-challenge-2-background-research" class="callout-inner">
 <h3 class="callout-title">Extension challenge 2: Background
 research</h3>
@@ -2568,7 +2568,7 @@ downstream analysis.</li>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>R version 4.6.0 (2026-04-24)
+<pre class="output" tabindex="0"><code>R version 4.6.1 (2026-06-24)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 24.04.4 LTS
 
@@ -2628,18 +2628,18 @@ loaded via a namespace (and not attached):
  [37] RSQLite_3.53.3            beachmat_2.28.0
  [39] labeling_0.4.3            filelock_1.0.3
  [41] httr_1.4.8                abind_1.4-8
- [43] compiler_4.6.0            bit64_4.8.2
+ [43] compiler_4.6.1            bit64_4.8.2
  [45] withr_3.0.3               S7_0.2.2
  [47] BiocParallel_1.46.0       viridis_0.6.5
  [49] DBI_1.3.0                 HDF5Array_1.40.0
  [51] R.utils_2.13.0            MASS_7.3-66
  [53] rappdirs_0.3.4            DelayedArray_0.38.2
  [55] bluster_1.22.0            rjson_0.2.23
- [57] tools_4.6.0               vipor_0.4.7
+ [57] tools_4.6.1               vipor_0.4.7
  [59] otel_0.2.0                beeswarm_0.4.0
  [61] R.oo_1.27.1               glue_1.8.1
  [63] h5mread_1.4.0             restfulr_0.0.17
- [65] rhdf5filters_1.24.1       grid_4.6.0
+ [65] rhdf5filters_1.24.1       grid_4.6.1
  [67] cluster_2.1.8.3           gtable_0.3.6
  [69] R.methodsS3_1.8.2         data.table_1.18.4
  [71] metapod_1.20.0            BiocSingular_1.28.0
@@ -2661,7 +2661,7 @@ loaded via a namespace (and not attached):
 [103] cli_3.6.6                 Rcpp_1.1.2
 [105] GenomeInfoDb_1.48.0       dbplyr_2.6.0
 [107] png_0.1-9                 XML_3.99-0.23
-[109] parallel_4.6.0            blob_1.3.0
+[109] parallel_4.6.1            blob_1.3.0
 [111] scran_1.40.0              sparseMatrixStats_1.24.0
 [113] bitops_1.1-0              viridisLite_0.4.3
 [115] scales_1.4.0              purrr_1.2.2
@@ -2680,7 +2680,7 @@ any links that you are not going to use.
 </ol>
 </div></section><section id="aio-cell_type_annotation"><p>Content from <a href="cell_type_annotation.html">Cell type annotation</a></p>
 <hr>
-<p>Last updated on 2026-08-25 |
+<p>Last updated on 2026-09-01 |
 
         <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/edit/main/episodes/cell_type_annotation.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3970,7 +3970,7 @@ are highly expressed in each cell.</li>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>R version 4.6.0 (2026-04-24)
+<pre class="output" tabindex="0"><code>R version 4.6.1 (2026-06-24)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 24.04.4 LTS
 
@@ -4028,23 +4028,23 @@ loaded via a namespace (and not attached):
  [31] RSQLite_3.53.3            beachmat_2.28.0
  [33] filelock_1.0.3            labeling_0.4.3
  [35] httr_1.4.8                abind_1.4-8
- [37] compiler_4.6.0            bit64_4.8.2
+ [37] compiler_4.6.1            bit64_4.8.2
  [39] withr_3.0.3               S7_0.2.2
  [41] BiocParallel_1.46.0       viridis_0.6.5
  [43] DBI_1.3.0                 R.utils_2.13.0
  [45] MASS_7.3-66               rappdirs_0.3.4
  [47] DelayedArray_0.38.2       rjson_0.2.23
- [49] tools_4.6.0               vipor_0.4.7
+ [49] tools_4.6.1               vipor_0.4.7
  [51] otel_0.2.0                beeswarm_0.4.0
  [53] R.oo_1.27.1               glue_1.8.1
- [55] nlme_3.1-170              grid_4.6.0
+ [55] nlme_3.1-170              grid_4.6.1
  [57] cluster_2.1.8.3           gtable_0.3.6
  [59] R.methodsS3_1.8.2         tidyr_1.3.2
  [61] data.table_1.18.4         BiocSingular_1.28.0
  [63] ScaledMatrix_1.20.0       XVector_0.52.0
  [65] ggrepel_0.9.8             BiocVersion_3.23.1
  [67] pillar_1.11.1             BumpyMatrix_1.20.0
- [69] splines_4.6.0             dplyr_1.2.1
+ [69] splines_4.6.1             dplyr_1.2.1
  [71] BiocFileCache_3.2.0       lattice_0.22-9
  [73] renv_1.2.4                survival_3.8-9
  [75] bit_4.6.0                 tidyselect_1.2.1
@@ -4056,7 +4056,7 @@ loaded via a namespace (and not attached):
  [87] BiocManager_1.30.27       cli_3.6.6
  [89] xtable_1.8-8              segmented_2.2-1
  [91] Rcpp_1.1.2                dbplyr_2.6.0
- [93] png_0.1-9                 parallel_4.6.0
+ [93] png_0.1-9                 parallel_4.6.1
  [95] blob_1.3.0                sparseMatrixStats_1.24.0
  [97] viridisLite_0.4.3         scales_1.4.0
  [99] purrr_1.2.2               crayon_1.5.3
@@ -4069,7 +4069,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-multi-sample"><p>Content from <a href="multi-sample.html">Multi-sample analyses</a></p>
 <hr>
-<p>Last updated on 2026-08-25 |
+<p>Last updated on 2026-09-01 |
 
         <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/edit/main/episodes/multi-sample.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -5267,7 +5267,7 @@ gene, but of cells per label.</li>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>R version 4.6.0 (2026-04-24)
+<pre class="output" tabindex="0"><code>R version 4.6.1 (2026-06-24)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 24.04.4 LTS
 
@@ -5306,16 +5306,16 @@ other attached packages:
 loaded via a namespace (and not attached):
  [1] DBI_1.3.0            formatR_1.14         gridExtra_2.3.1
  [4] httr2_1.3.0          rlang_1.3.0          magrittr_2.0.5
- [7] otel_0.2.0           compiler_4.6.0       RSQLite_3.53.3
+ [7] otel_0.2.0           compiler_4.6.1       RSQLite_3.53.3
 [10] png_0.1-9            vctrs_0.7.3          pkgconfig_2.0.3
 [13] crayon_1.5.3         fastmap_1.2.0        dbplyr_2.6.0
 [16] magick_2.9.1         XVector_0.52.0       labeling_0.4.3
 [19] rmarkdown_2.31       ggbeeswarm_0.7.3     purrr_1.2.2
 [22] bit_4.6.0            xfun_0.60            cachem_1.1.0
 [25] beachmat_2.28.0      blob_1.3.0           DelayedArray_0.38.2
-[28] BiocParallel_1.46.0  irlba_2.3.7          parallel_4.6.0
+[28] BiocParallel_1.46.0  irlba_2.3.7          parallel_4.6.1
 [31] R6_2.6.1             RColorBrewer_1.1-3   Rcpp_1.1.2
-[34] knitr_1.51           splines_4.6.0        Matrix_1.7-6
+[34] knitr_1.51           splines_4.6.1        Matrix_1.7-6
 [37] tidyselect_1.2.1     abind_1.4-8          yaml_2.3.12
 [40] viridis_0.6.5        codetools_0.2-20     curl_7.1.0
 [43] lattice_0.22-9       tibble_3.3.1         withr_3.0.3
@@ -5323,9 +5323,9 @@ loaded via a namespace (and not attached):
 [49] evaluate_1.0.5       BiocFileCache_3.2.0  ExperimentHub_3.2.0
 [52] Biostrings_2.80.1    pillar_1.11.1        BiocManager_1.30.27
 [55] filelock_1.0.3       renv_1.2.4           BiocVersion_3.23.1
-[58] scales_1.4.0         glue_1.8.1           tools_4.6.0
+[58] scales_1.4.0         glue_1.8.1           tools_4.6.1
 [61] AnnotationHub_4.2.2  BiocNeighbors_2.6.0  ScaledMatrix_1.20.0
-[64] locfit_1.5-9.12      grid_4.6.0           AnnotationDbi_1.74.0
+[64] locfit_1.5-9.12      grid_4.6.1           AnnotationDbi_1.74.0
 [67] beeswarm_0.4.0       BiocSingular_1.28.0  vipor_0.4.7
 [70] cli_3.6.6            rsvd_1.0.5           rappdirs_0.3.4
 [73] viridisLite_0.4.3    S4Arrays_1.12.0      dplyr_1.2.1
@@ -5340,7 +5340,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-large_data"><p>Content from <a href="large_data.html">Working with large data</a></p>
 <hr>
-<p>Last updated on 2026-08-25 |
+<p>Last updated on 2026-09-01 |
 
         <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/edit/main/episodes/large_data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -5782,7 +5782,7 @@ log-counts to a standard dense matrix first</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   user  system elapsed
-  0.373   0.139   0.457 </code></pre>
+  0.398   0.142   0.469 </code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -5794,7 +5794,7 @@ log-counts to a standard dense matrix first</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>   user  system elapsed
-  0.045   0.000   0.044 </code></pre>
+  0.044   0.000   0.044 </code></pre>
 </div>
 <p>Beyond IRLBA, another algorithm called randomized SVD (RSVD) goes
 further in the “more speed, more approximation error” direction which
@@ -6193,7 +6193,7 @@ poplular single-cell analysis ecosystems.</li>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>R version 4.6.0 (2026-04-24)
+<pre class="output" tabindex="0"><code>R version 4.6.1 (2026-06-24)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 24.04.4 LTS
 
@@ -6235,14 +6235,14 @@ other attached packages:
 loaded via a namespace (and not attached):
  [1] DBI_1.3.0            httr2_1.3.0          formatR_1.14
  [4] rlang_1.3.0          magrittr_2.0.5       otel_0.2.0
- [7] compiler_4.6.0       RSQLite_3.53.3       dir.expiry_1.20.0
+ [7] compiler_4.6.1       RSQLite_3.53.3       dir.expiry_1.20.0
 [10] png_0.1-9            vctrs_0.7.3          pkgconfig_2.0.3
 [13] crayon_1.5.3         fastmap_1.2.0        dbplyr_2.6.0
 [16] magick_2.9.1         XVector_0.52.0       labeling_0.4.3
 [19] rmarkdown_2.31       purrr_1.2.2          bit_4.6.0
 [22] xfun_0.60            cachem_1.1.0         beachmat_2.28.0
 [25] jsonlite_2.0.0       blob_1.3.0           rhdf5filters_1.24.1
-[28] Rhdf5lib_2.0.0       parallel_4.6.0       R6_2.6.1
+[28] Rhdf5lib_2.0.0       parallel_4.6.1       R6_2.6.1
 [31] RColorBrewer_1.1-3   reticulate_1.46.0    Rcpp_1.1.2
 [34] knitr_1.51           tidyselect_1.2.1     yaml_2.3.12
 [37] codetools_0.2-20     curl_7.1.0           lattice_0.22-9
@@ -6251,8 +6251,8 @@ loaded via a namespace (and not attached):
 [46] BiocFileCache_3.2.0  ExperimentHub_3.2.0  Biostrings_2.80.1
 [49] pillar_1.11.1        BiocManager_1.30.27  filelock_1.0.3
 [52] renv_1.2.4           BiocVersion_3.23.1   scales_1.4.0
-[55] glue_1.8.1           tools_4.6.0          AnnotationHub_4.2.2
-[58] grid_4.6.0           AnnotationDbi_1.74.0 basilisk_1.24.0
+[55] glue_1.8.1           tools_4.6.1          AnnotationHub_4.2.2
+[58] grid_4.6.1           AnnotationDbi_1.74.0 basilisk_1.24.0
 [61] cli_3.6.6            rappdirs_0.3.4       dplyr_1.2.1
 [64] gtable_0.3.6         digest_0.6.39        rjson_0.2.23
 [67] farver_2.1.2         memoise_2.0.1        htmltools_0.5.9
@@ -6264,7 +6264,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-hca"><p>Content from <a href="hca.html">Accessing data from the Human Cell Atlas (HCA)</a></p>
 <hr>
-<p>Last updated on 2026-08-25 |
+<p>Last updated on 2026-09-01 |
 
         <a href="https://github.com/carpentries-incubator/bioc-scrnaseq/edit/main/episodes/hca.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -6587,7 +6587,7 @@ interest.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Let’s look at <code>age_days</code> and
 <code>cell_type_unified_ensemble</code>. We’ll collect the results
@@ -6772,7 +6772,7 @@ cells per coarse tissue group in descending order.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>We specify <code>dplyr::count</code> here to avoid a function name
 conflict with <code>matrixStats::count</code>, which might be loaded if
@@ -6836,7 +6836,7 @@ cells.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -6898,7 +6898,7 @@ columns to choose a highly-specific set of cells.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -7065,7 +7065,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.1)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.21.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.2)</a></p>
 		</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -7088,8 +7088,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/bioc-scrnaseq/aio.html",
   "identifier": "https://carpentries-incubator.github.io/bioc-scrnaseq/aio.html",
   "dateCreated": "2024-01-10",
-  "dateModified": "2026-08-25",
-  "datePublished": "2026-08-25"
+  "dateModified": "2026-09-01",
+  "datePublished": "2026-09-01"
 }
 
   </script><script>

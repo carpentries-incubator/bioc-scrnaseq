@@ -1037,21 +1037,19 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.6.1 (2026-06-24)
+R version 4.6.2 (2026-10-29)
 Platform: x86_64-pc-linux-gnu
-Running under: Ubuntu 24.04.4 LTS
+Running under: Ubuntu 26.04.1 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
-LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.32.so;  LAPACK version 3.12.0
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
 time zone: Etc/UTC
 tzcode source: system (glibc)
@@ -1097,18 +1095,18 @@ loaded via a namespace (and not attached):
  [37] RSQLite_3.53.3            beachmat_2.28.0          
  [39] labeling_0.4.3            filelock_1.0.3           
  [41] httr_1.4.8                abind_1.4-8              
- [43] compiler_4.6.1            bit64_4.8.2              
+ [43] compiler_4.6.2            bit64_4.8.2              
  [45] withr_3.0.3               S7_0.2.2                 
  [47] BiocParallel_1.46.0       viridis_0.6.5            
  [49] DBI_1.3.0                 HDF5Array_1.40.0         
  [51] R.utils_2.13.0            MASS_7.3-66              
  [53] rappdirs_0.3.4            DelayedArray_0.38.2      
  [55] bluster_1.22.0            rjson_0.2.23             
- [57] tools_4.6.1               vipor_0.4.7              
+ [57] tools_4.6.2               vipor_0.4.7              
  [59] otel_0.2.0                beeswarm_0.4.0           
  [61] R.oo_1.27.1               glue_1.8.1               
  [63] h5mread_1.4.0             restfulr_0.0.17          
- [65] rhdf5filters_1.24.1       grid_4.6.1               
+ [65] rhdf5filters_1.24.1       grid_4.6.2               
  [67] cluster_2.1.8.3           gtable_0.3.6             
  [69] R.methodsS3_1.8.2         data.table_1.18.4        
  [71] metapod_1.20.0            BiocSingular_1.28.0      
@@ -1117,7 +1115,7 @@ loaded via a namespace (and not attached):
  [77] pillar_1.11.1             limma_3.68.4             
  [79] BumpyMatrix_1.20.0        dplyr_1.2.1              
  [81] BiocFileCache_3.2.0       lattice_0.22-9           
- [83] renv_1.2.4                rtracklayer_1.72.0       
+ [83] renv_1.3.1                rtracklayer_1.72.0       
  [85] bit_4.6.0                 tidyselect_1.2.1         
  [87] locfit_1.5-9.12           Biostrings_2.80.1        
  [89] knitr_1.51                gridExtra_2.3.1          
@@ -1130,7 +1128,7 @@ loaded via a namespace (and not attached):
 [103] cli_3.6.6                 Rcpp_1.1.2               
 [105] GenomeInfoDb_1.48.0       dbplyr_2.6.0             
 [107] png_0.1-9                 XML_3.99-0.23            
-[109] parallel_4.6.1            blob_1.3.0               
+[109] parallel_4.6.2            blob_1.3.0               
 [111] scran_1.40.0              sparseMatrixStats_1.24.0 
 [113] bitops_1.1-0              viridisLite_0.4.3        
 [115] scales_1.4.0              purrr_1.2.2              
